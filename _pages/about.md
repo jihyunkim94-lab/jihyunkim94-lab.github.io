@@ -18,7 +18,7 @@ latest_posts:
 ---
 
 <style>
-.kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -125px 0 1.5rem 2rem; }
+.kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -110px 0 1.5rem 2rem; }
 .kimlab-slide { display: none; }
 .kimlab-slide.active { display: block; }
 .kimlab-slide img { width: 100%; aspect-ratio: 1 / 1.386; object-fit: cover; object-position: top center; border-radius: 6px; display: block; }
