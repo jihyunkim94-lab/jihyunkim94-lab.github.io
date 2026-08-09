@@ -18,6 +18,14 @@ latest_posts:
 ---
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+body, p, li, a, span, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
+body { font-weight: 400; letter-spacing: -0.005em; }
+
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 .kimlab-slide { display: none; }
 .kimlab-slide.active { display: block; }
