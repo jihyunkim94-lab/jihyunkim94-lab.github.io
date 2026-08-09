@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Assistant Professor, Department of Intelligent Semiconductor Engineering, Ajou University
+subtitle: Department of Intelligent Semiconductor Engineering, Ajou University
 
 news: true
 selected_papers: true
