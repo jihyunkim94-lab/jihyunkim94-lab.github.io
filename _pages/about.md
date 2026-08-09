@@ -21,7 +21,7 @@ latest_posts:
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: 0 0 1.5rem 2rem; }
 .kimlab-slide { display: none; }
 .kimlab-slide.active { display: block; }
-.kimlab-slide img { width: 100%; height: 230px; object-fit: contain; background: #f6f6f6; border-radius: 6px; }
+.kimlab-slide img { width: 100%; aspect-ratio: 1 / 1.386; object-fit: cover; object-position: top center; border-radius: 6px; display: block; }
 .kimlab-cap { font-size: 0.72rem; line-height: 1.35; margin-top: 0.5rem; }
 .kimlab-cap .tag { display: block; letter-spacing: 0.12em; font-size: 0.58rem; opacity: 0.55; margin-bottom: 2px; }
 .kimlab-cap .ttl { font-weight: 700; }
@@ -31,7 +31,7 @@ latest_posts:
 .kimlab-dots { display: flex; gap: 0.3rem; }
 .kimlab-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(128,128,128,0.4); cursor: pointer; }
 .kimlab-dot.on { background: var(--global-theme-color); }
-@media (max-width: 768px) { .kimlab-slider { float: none; width: 100%; margin: 0 0 1.5rem 0; } }
+@media (max-width: 768px) { .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; } }
 </style>
 
 <div class="kimlab-slider">
@@ -47,18 +47,18 @@ latest_posts:
   <div class="kimlab-slide">
     <img src="{{ '/assets/img/featured/paper2.png' | relative_url }}" alt="">
     <div class="kimlab-cap">
-      <span class="tag">FEATURED WORK</span>
+      <span class="tag">COVER ARTICLE</span>
       <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
-      <span class="src"><em>Nature Electronics</em> 8, 235–243 (2025)</span>
+      <span class="src"><em>Nature Electronics</em> — March 2025 cover</span>
     </div>
   </div>
 
   <div class="kimlab-slide">
     <img src="{{ '/assets/img/featured/paper3.png' | relative_url }}" alt="">
     <div class="kimlab-cap">
-      <span class="tag">COVER ARTICLE</span>
+      <span class="tag">FEATURED WORK</span>
       <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
-      <span class="src"><em>Nature Electronics</em> — March 2025 cover</span>
+      <span class="src"><em>Nature Electronics</em> 8, 235–243 (2025)</span>
     </div>
   </div>
 
@@ -74,9 +74,9 @@ latest_posts:
   <div class="kimlab-slide">
     <img src="{{ '/assets/img/featured/paper5.png' | relative_url }}" alt="">
     <div class="kimlab-cap">
-      <span class="tag">FEATURED WORK</span>
+      <span class="tag">COVER ARTICLE</span>
       <span class="ttl">All-solution-processed van der Waals heterostructures for wafer-scale electronics</span><br>
-      <span class="src"><em>Advanced Materials</em> 34, 2106110 (2022)</span>
+      <span class="src"><em>Advanced Materials</em> — 2022 cover</span>
     </div>
   </div>
 
