@@ -17,8 +17,8 @@ latest_posts:
   enabled: false
 ---
 
-Kim Lab explores how **high-quality nanoscale semiconductor materials can be made reproducibly at scale** — and what new devices become possible once they can.
+Kim Lab designs materials at the **atomic scale** and engineers them into **scalable, reproducible platforms** for next-generation electronics.
 
-We work at the interface of materials science and device physics: solution-processed two-dimensional van der Waals nanomaterials, atomic-scale ferroelectric and high-k dielectrics, and the transistors, sensors, capacitors, and neuromorphic devices built from them.
+Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what device architectures become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.
 
 We are always looking for curious students who want to build things that do not exist yet.
