@@ -62,9 +62,9 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 /* ===== PI 카드 ===== */
 .pi-photo {
   float: right;
-  width: 190px;
-  max-width: 40%;
-  margin: 0 0 1.2rem 2rem;
+  width: 160px;
+  max-width: 35%;
+  margin: -70px 0 1.2rem 2rem;
   border-radius: 6px;
   display: block;
 }
@@ -78,7 +78,7 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
 @media (max-width: 700px) {
-  .pi-photo { float: none; width: 170px; max-width: 100%; margin: 0 0 1rem 0; }
+  .pi-photo { float: none; width: 150px; max-width: 100%; margin: 0 0 1rem 0; }
   .pi-table td.when { width: 120px; font-size: 0.8rem; }
 }
 </style>
