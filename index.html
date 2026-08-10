@@ -13,18 +13,53 @@ body, p, li, a, span, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
+/* ===== 라이트 모드 색상 ===== */
 html[data-theme="light"] {
   --global-theme-color: #651FFF;
   --global-hover-color: #651FFF;
-  --global-divider-color: rgba(101, 31, 255, 0.15);
+  --global-text-color: #191919;
+  --global-divider-color: rgba(25, 25, 25, 0.12);
   --global-bg-color: #FCFCFC;
   background-color: #FCFCFC;
 }
-html[data-theme="light"] body { background-color: #FCFCFC; }
-html[data-theme="light"] a,
-html[data-theme="light"] a:hover,
-html[data-theme="light"] .navbar .nav-item.active .nav-link { color: #651FFF !important; }
+html[data-theme="light"] body { background-color: #FCFCFC; color: #191919; }
 
+/* 네비게이션: 평소 검정 → hover 시 보라 */
+html[data-theme="light"] .navbar .nav-link,
+html[data-theme="light"] .navbar .nav-item.active .nav-link,
+html[data-theme="light"] .navbar .dropdown-toggle,
+html[data-theme="light"] .navbar-brand { color: #191919 !important; }
+
+html[data-theme="light"] .navbar .nav-link:hover,
+html[data-theme="light"] .navbar .nav-item.active .nav-link:hover,
+html[data-theme="light"] .navbar .dropdown-toggle:hover,
+html[data-theme="light"] .navbar-brand:hover { color: #651FFF !important; }
+
+/* 섹션 제목: 검정 */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5,
+html[data-theme="light"] h6,
+html[data-theme="light"] .post-title,
+html[data-theme="light"] .news .date { color: #191919 !important; }
+
+/* 논문 배지: 보라 박스 + 밝은 글자 */
+html[data-theme="light"] .abbr abbr,
+html[data-theme="light"] .abbr .badge,
+html[data-theme="light"] abbr.badge,
+html[data-theme="light"] .badge { color: #FCFCFC !important; }
+
+html[data-theme="light"] .abbr abbr a,
+html[data-theme="light"] .badge a { color: #FCFCFC !important; }
+
+/* 본문 링크: 보라 */
+html[data-theme="light"] p a,
+html[data-theme="light"] li a,
+html[data-theme="light"] .news a { color: #651FFF !important; }
+
+/* ===== 슬라이더 ===== */
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 .kimlab-slide { display: none; }
 .kimlab-slide.active { display: block; }
