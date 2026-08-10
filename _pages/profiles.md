@@ -10,10 +10,6 @@ profiles:
     image: prof_pic.jpg
     content: about_jihyun.md
     image_circular: false
-    more_info: >
-      <p style="font-size:0.85rem; color:#5A5A5A; margin:0;">Assistant Professor</p>
-      <p style="font-size:0.85rem; color:#5A5A5A; margin:0;">Dept. of Intelligent Semiconductor Engineering</p>
-      <p style="font-size:0.85rem; color:#5A5A5A; margin:0;">Ajou University</p>
 ---
 
 ## Open Positions
