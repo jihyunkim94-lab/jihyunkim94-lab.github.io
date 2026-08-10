@@ -46,6 +46,10 @@ html[data-theme="light"] .post-title { color: #191919 !important; }
 
 html[data-theme="light"] p a, html[data-theme="light"] li a { color: #651FFF !important; }
 
+/* 저널 배지 */
+html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
+html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
+
 /* 논문 목록 */
 html[data-theme="light"] .publications .author,
 html[data-theme="light"] .publications .periodical {
@@ -56,24 +60,29 @@ html[data-theme="light"] .publications .author .more-authors { color: #5A5A5A !i
 html[data-theme="light"] .publications .author em,
 html[data-theme="light"] .publications .author strong { color: #651FFF !important; font-weight: 600; }
 
-/* ===== 논문 번호 (최신 = 42부터 내림차순) ===== */
+/* ===== 논문 번호 ===== */
 .publications { counter-reset: pubnum 43; }
+.publications ol.bibliography { padding-left: 0; }
 .publications ol.bibliography > li {
   counter-increment: pubnum -1;
   position: relative;
-  padding-left: 3rem;
+  padding-left: 2.6rem;
   list-style: none;
 }
 .publications ol.bibliography > li::before {
   content: counter(pubnum);
   position: absolute;
-  left: 0.4rem;
-  top: 0.3rem;
-  font-size: 0.75rem;
-  color: #9A9A9A;
-  font-weight: 500;
+  left: 0;
+  top: 0.15rem;
+  width: 1.8rem;
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #B0B0B0;
+  letter-spacing: -0.01em;
 }
-.publications ol.bibliography { padding-left: 0; }
+html[data-theme="dark"] .publications ol.bibliography > li::before { color: #6E6E6E; }
 </style>
 
 <div class="publications">
