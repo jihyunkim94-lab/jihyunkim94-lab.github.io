@@ -13,19 +13,30 @@ body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
-/* ===== 네비게이션 왼쪽 정렬 (본문 왼쪽 끝에 맞춤) ===== */
+/* ===== 네비게이션 왼쪽 정렬 ===== */
 .navbar-nav,
 .navbar-nav.ms-auto,
 .navbar-nav.ml-auto,
 .navbar ul.ms-auto {
   margin-left: 0 !important;
   margin-right: auto !important;
+  padding-left: 0 !important;
 }
 nav.navbar > .container,
 nav.navbar > .container-fluid,
 nav.navbar > div,
 .navbar-collapse {
   justify-content: flex-start !important;
+}
+.navbar .nav-item:first-child .nav-link { padding-left: 0 !important; }
+
+/* ===== 섹션 제목 크기 통일 ===== */
+.news h2, .publications h2,
+h2.news-title, .news .title {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.8rem;
 }
 
 /* ===== 라이트 모드 색상 ===== */
@@ -39,7 +50,6 @@ html[data-theme="light"] {
 }
 html[data-theme="light"] body { background-color: #FCFCFC; color: #191919; }
 
-/* 네비게이션: 평소 검정 → hover 시 보라 */
 html[data-theme="light"] .navbar .nav-link,
 html[data-theme="light"] .navbar .nav-item.active .nav-link,
 html[data-theme="light"] .navbar .dropdown-toggle,
@@ -50,7 +60,6 @@ html[data-theme="light"] .navbar .nav-item.active .nav-link:hover,
 html[data-theme="light"] .navbar .dropdown-toggle:hover,
 html[data-theme="light"] .navbar-brand:hover { color: #651FFF !important; }
 
-/* 섹션 제목: 검정 */
 html[data-theme="light"] h1,
 html[data-theme="light"] h2,
 html[data-theme="light"] h3,
@@ -60,7 +69,6 @@ html[data-theme="light"] h6,
 html[data-theme="light"] .post-title,
 html[data-theme="light"] .news .date { color: #191919 !important; }
 
-/* 논문 배지: 보라 박스 + 밝은 글자 */
 html[data-theme="light"] .abbr abbr,
 html[data-theme="light"] .abbr .badge,
 html[data-theme="light"] abbr.badge,
@@ -69,22 +77,9 @@ html[data-theme="light"] .badge { color: #FCFCFC !important; }
 html[data-theme="light"] .abbr abbr a,
 html[data-theme="light"] .badge a { color: #FCFCFC !important; }
 
-/* 본문 링크: 보라 */
 html[data-theme="light"] p a,
 html[data-theme="light"] li a,
 html[data-theme="light"] .news a { color: #651FFF !important; }
-
-/* 하단 소셜 아이콘: 원래 스타일 유지 */
-.contact-icons, .contact-icons a, .contact-icons i, .contact-icons span,
-.social, .social a, .social i, .social span {
-  font-family: inherit;
-}
-html[data-theme="light"] .contact-icons a,
-html[data-theme="light"] .contact-icons i,
-html[data-theme="light"] .social a,
-html[data-theme="light"] .social i { color: #191919 !important; }
-html[data-theme="light"] .contact-icons a:hover,
-html[data-theme="light"] .social a:hover { color: #651FFF !important; }
 
 /* 논문 목록: 저자 / 저널 / 연도 */
 html[data-theme="light"] .publications .author,
@@ -99,7 +94,6 @@ html[data-theme="light"] .publications .author .more-authors {
   color: #5A5A5A !important;
 }
 
-/* 본인 이름은 보라색 + 살짝 굵게 */
 html[data-theme="light"] .publications .author em,
 html[data-theme="light"] .publications .author strong {
   color: #651FFF !important;
