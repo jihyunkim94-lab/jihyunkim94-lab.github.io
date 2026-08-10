@@ -72,6 +72,26 @@ html[data-theme="light"] p a,
 html[data-theme="light"] li a,
 html[data-theme="light"] .news a { color: #651FFF !important; }
 
+/* 논문 목록: 저자 / 저널 / 연도 */
+html[data-theme="light"] .publications .author,
+html[data-theme="light"] .publications .periodical {
+  font-size: 0.82rem !important;
+  color: #5A5A5A !important;
+  line-height: 1.45;
+}
+
+html[data-theme="light"] .publications .author a,
+html[data-theme="light"] .publications .author .more-authors {
+  color: #5A5A5A !important;
+}
+
+/* 본인 이름은 보라색 + 살짝 굵게 */
+html[data-theme="light"] .publications .author em,
+html[data-theme="light"] .publications .author strong {
+  color: #651FFF !important;
+  font-weight: 600;
+}
+
 /* ===== 슬라이더 ===== */
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 .kimlab-slide { display: none; }
