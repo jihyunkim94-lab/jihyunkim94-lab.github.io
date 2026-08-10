@@ -16,6 +16,18 @@ body, p, li, a, span, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
+/* ===== 네비게이션 왼쪽 정렬 ===== */
+.navbar .navbar-nav,
+.navbar ul {
+  margin-left: 2rem !important;
+  margin-right: auto !important;
+}
+.navbar .container,
+.navbar .container-fluid,
+.navbar > div {
+  justify-content: flex-start !important;
+}
+
 /* ===== 라이트 모드 ===== */
 html[data-theme="light"] {
   --global-theme-color: #651FFF;
@@ -62,12 +74,12 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 /* ===== PI 카드 ===== */
 .pi-photo {
   float: right;
-  width: 160px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
-  object-position: center 18%;
-  margin: 0 0 1.2rem 2rem;
-  border-radius: 6px;
+  object-position: center 20%;
+  border-radius: 50%;
+  margin: 0 0.5rem 1.2rem 2rem;
   display: block;
 }
 .pi-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.4rem 0; }
@@ -80,8 +92,9 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
 @media (max-width: 700px) {
-  .pi-photo { float: none; width: 150px; height: 190px; margin: 0 0 1rem 0; }
+  .pi-photo { float: none; width: 130px; height: 130px; margin: 0 0 1rem 0; }
   .pi-table td.when { width: 120px; font-size: 0.8rem; }
+  .navbar .navbar-nav, .navbar ul { margin-left: 0 !important; }
 }
 </style>
 
