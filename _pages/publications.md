@@ -82,3 +82,8 @@ html[data-theme="light"] .publications .author strong { color: #651FFF !importan
   color: #A8A8A8;
 }
 html[data-theme="dark"] .publications ol.bibliography > li::before { color: #6E6E6E; }
+</style>
+
+<div class="publications">
+{% bibliography %}
+</div>
