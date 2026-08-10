@@ -1,3 +1,4 @@
+markdown
 ---
 layout: about
 title: Home
@@ -27,6 +28,18 @@ body, p, li, a, span, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
+
+/* ===== 네비게이션 왼쪽 정렬 ===== */
+.navbar .navbar-nav,
+.navbar ul {
+  margin-left: 2rem !important;
+  margin-right: auto !important;
+}
+.navbar .container,
+.navbar .container-fluid,
+.navbar > div {
+  justify-content: flex-start !important;
+}
 
 /* ===== 라이트 모드 색상 ===== */
 html[data-theme="light"] {
@@ -108,7 +121,10 @@ html[data-theme="light"] .publications .author strong {
 .kimlab-dots { display: flex; gap: 0.3rem; }
 .kimlab-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(128,128,128,0.4); cursor: pointer; }
 .kimlab-dot.on { background: var(--global-theme-color); }
-@media (max-width: 768px) { .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; } }
+@media (max-width: 768px) {
+  .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
+  .navbar .navbar-nav, .navbar ul { margin-left: 0 !important; }
+}
 </style>
 
 <div class="kimlab-slider">
