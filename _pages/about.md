@@ -22,18 +22,18 @@ latest_posts:
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
-body, p, li, a, span, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
+body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
-/* ===== 네비게이션 왼쪽 정렬 ===== */
+/* ===== 네비게이션 왼쪽 정렬 (본문 왼쪽 끝에 맞춤) ===== */
 .navbar-nav,
 .navbar-nav.ms-auto,
 .navbar-nav.ml-auto,
 .navbar ul.ms-auto {
-  margin-left: 2rem !important;
+  margin-left: 0 !important;
   margin-right: auto !important;
 }
 nav.navbar > .container,
@@ -89,6 +89,18 @@ html[data-theme="light"] p a,
 html[data-theme="light"] li a,
 html[data-theme="light"] .news a { color: #651FFF !important; }
 
+/* 하단 소셜 아이콘: 원래 스타일 유지 */
+.contact-icons, .contact-icons a, .contact-icons i, .contact-icons span,
+.social, .social a, .social i, .social span {
+  font-family: inherit;
+}
+html[data-theme="light"] .contact-icons a,
+html[data-theme="light"] .contact-icons i,
+html[data-theme="light"] .social a,
+html[data-theme="light"] .social i { color: #191919 !important; }
+html[data-theme="light"] .contact-icons a:hover,
+html[data-theme="light"] .social a:hover { color: #651FFF !important; }
+
 /* 논문 목록: 저자 / 저널 / 연도 */
 html[data-theme="light"] .publications .author,
 html[data-theme="light"] .publications .periodical {
@@ -125,7 +137,6 @@ html[data-theme="light"] .publications .author strong {
 .kimlab-dot.on { background: var(--global-theme-color); }
 @media (max-width: 768px) {
   .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
-  .navbar-nav, .navbar-nav.ms-auto, .navbar ul.ms-auto { margin-left: 0 !important; }
 }
 </style>
 
