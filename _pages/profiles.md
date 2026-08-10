@@ -63,8 +63,10 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 .pi-photo {
   float: right;
   width: 160px;
-  max-width: 35%;
-  margin: -70px 0 1.2rem 2rem;
+  height: 200px;
+  object-fit: cover;
+  object-position: center 18%;
+  margin: 0 0 1.2rem 2rem;
   border-radius: 6px;
   display: block;
 }
@@ -78,7 +80,7 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
 @media (max-width: 700px) {
-  .pi-photo { float: none; width: 150px; max-width: 100%; margin: 0 0 1rem 0; }
+  .pi-photo { float: none; width: 150px; height: 190px; margin: 0 0 1rem 0; }
   .pi-table td.when { width: 120px; font-size: 0.8rem; }
 }
 </style>
@@ -131,5 +133,3 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 <div class="pi-section">Open Positions</div>
 
 Kim Lab is recruiting **graduate students** (M.S. / Ph.D.) and **undergraduate interns** starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, electrical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know.
-
-If you are interested, please send your CV and a short note about what you would like to work on.
