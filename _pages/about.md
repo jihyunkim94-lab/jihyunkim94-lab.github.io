@@ -1,3 +1,4 @@
+markdown
 ---
 layout: about
 title: Home
@@ -29,14 +30,17 @@ h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em
 body { font-weight: 400; letter-spacing: -0.005em; }
 
 /* ===== 네비게이션 왼쪽 정렬 ===== */
-.navbar .navbar-nav,
-.navbar ul {
+.navbar-nav,
+.navbar-nav.ms-auto,
+.navbar-nav.ml-auto,
+.navbar ul.ms-auto {
   margin-left: 2rem !important;
   margin-right: auto !important;
 }
-.navbar .container,
-.navbar .container-fluid,
-.navbar > div {
+nav.navbar > .container,
+nav.navbar > .container-fluid,
+nav.navbar > div,
+.navbar-collapse {
   justify-content: flex-start !important;
 }
 
@@ -122,7 +126,7 @@ html[data-theme="light"] .publications .author strong {
 .kimlab-dot.on { background: var(--global-theme-color); }
 @media (max-width: 768px) {
   .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
-  .navbar .navbar-nav, .navbar ul { margin-left: 0 !important; }
+  .navbar-nav, .navbar-nav.ms-auto, .navbar ul.ms-auto { margin-left: 0 !important; }
 }
 </style>
 
