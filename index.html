@@ -13,6 +13,18 @@ body, p, li, a, span, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
+html[data-theme="light"] {
+  --global-theme-color: #651FFF;
+  --global-hover-color: #651FFF;
+  --global-divider-color: rgba(101, 31, 255, 0.15);
+  --global-bg-color: #FCFCFC;
+  background-color: #FCFCFC;
+}
+html[data-theme="light"] body { background-color: #FCFCFC; }
+html[data-theme="light"] a,
+html[data-theme="light"] a:hover,
+html[data-theme="light"] .navbar .nav-item.active .nav-link { color: #651FFF !important; }
+
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 .kimlab-slide { display: none; }
 .kimlab-slide.active { display: block; }
