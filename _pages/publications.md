@@ -66,25 +66,19 @@ html[data-theme="light"] .publications .author strong { color: #651FFF !importan
 .publications ol.bibliography > li {
   counter-increment: pubnum -1;
   position: relative;
-  padding-left: 2.6rem;
+  padding-left: 2.9rem;
   list-style: none;
 }
 .publications ol.bibliography > li::before {
-  content: counter(pubnum);
+  content: "(" counter(pubnum) ")";
   position: absolute;
   left: 0;
-  top: 0.15rem;
-  width: 1.8rem;
+  top: 0.25rem;
+  width: 2.2rem;
   text-align: right;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
-  color: #B0B0B0;
-  letter-spacing: -0.01em;
+  color: #A8A8A8;
 }
 html[data-theme="dark"] .publications ol.bibliography > li::before { color: #6E6E6E; }
-</style>
-
-<div class="publications">
-{% bibliography %}
-</div>
