@@ -13,14 +13,17 @@ body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
-/* 네비게이션 왼쪽 정렬 */
-.navbar-nav, .navbar-nav.ms-auto, .navbar-nav.ml-auto, .navbar ul.ms-auto {
-  margin-left: 0 !important; margin-right: auto !important; padding-left: 0 !important;
+/* 네비게이션 (Team 기준) */
+.navbar .navbar-nav,
+.navbar ul {
+  margin-left: 2rem !important;
+  margin-right: auto !important;
 }
-nav.navbar > .container, nav.navbar > .container-fluid, nav.navbar > div, .navbar-collapse {
+.navbar .container,
+.navbar .container-fluid,
+.navbar > div {
   justify-content: flex-start !important;
 }
-.navbar .nav-item:first-child .nav-link { padding-left: 0 !important; }
 
 /* 라이트 모드 */
 html[data-theme="light"] {
@@ -49,14 +52,16 @@ html[data-theme="light"] .post-title { color: #191919 !important; }
 
 html[data-theme="light"] p a, html[data-theme="light"] li a { color: #651FFF !important; }
 
-html[data-theme="light"] .pi-section, html[data-theme="light"] .pi-body { color: #191919 !important; }
+html[data-theme="light"] .pi-section, html[data-theme="light"] .pi-body,
+html[data-theme="light"] .pi-lead { color: #191919 !important; }
 html[data-theme="light"] .pi-section { border-top-color: rgba(25,25,25,0.12) !important; }
 
 /* 다크 모드 */
-html[data-theme="dark"] .pi-section, html[data-theme="dark"] .pi-body { color: #FCFCFC !important; }
+html[data-theme="dark"] .pi-section, html[data-theme="dark"] .pi-body,
+html[data-theme="dark"] .pi-lead { color: #FCFCFC !important; }
 html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !important; }
 
-/* 공통 섹션 스타일 */
+/* 공통 섹션 */
 .pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid; padding-top: 0.9rem; margin: 1.6rem 0 0.7rem 0; }
 .pi-body { font-size: 0.92rem; line-height: 1.65; margin-bottom: 0.5rem; }
 .pi-lead { font-size: 1rem; line-height: 1.65; margin-bottom: 0.5rem; }
