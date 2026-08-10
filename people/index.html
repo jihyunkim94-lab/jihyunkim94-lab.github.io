@@ -13,6 +13,18 @@ body, p, li, a, span, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
+/* ===== 네비게이션 왼쪽 정렬 ===== */
+.navbar .navbar-nav,
+.navbar ul {
+  margin-left: 2rem !important;
+  margin-right: auto !important;
+}
+.navbar .container,
+.navbar .container-fluid,
+.navbar > div {
+  justify-content: flex-start !important;
+}
+
 /* ===== 라이트 모드 ===== */
 html[data-theme="light"] {
   --global-theme-color: #651FFF;
@@ -59,12 +71,12 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 /* ===== PI 카드 ===== */
 .pi-photo {
   float: right;
-  width: 160px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
-  object-position: center 18%;
-  margin: 0 0 1.2rem 2rem;
-  border-radius: 6px;
+  object-position: center 20%;
+  border-radius: 50%;
+  margin: 0 0.5rem 1.2rem 2rem;
   display: block;
 }
 .pi-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.4rem 0; }
@@ -77,8 +89,9 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
 @media (max-width: 700px) {
-  .pi-photo { float: none; width: 150px; height: 190px; margin: 0 0 1rem 0; }
+  .pi-photo { float: none; width: 130px; height: 130px; margin: 0 0 1rem 0; }
   .pi-table td.when { width: 120px; font-size: 0.8rem; }
+  .navbar .navbar-nav, .navbar ul { margin-left: 0 !important; }
 }
 </style> <p><img class="pi-photo" src="/assets/img/prof_pic.jpg" alt="Jihyun Kim"></p> <div class="pi-name">Jihyun Kim, Ph.D.</div> <div class="pi-role"> Assistant Professor<br> Dept. of Intelligent Semiconductor Engineering, Ajou University </div> <div class="pi-contact"> <span class="label">Email</span> <a href="mailto:jhkim94@mit.edu">jhkim94@mit.edu</a> </div> <div class="pi-section">Professional Position</div> <table class="pi-table"> <tr> <td class="when">2026.09 – Present</td> <td>Assistant Professor, Department of Intelligent Semiconductor Engineering, Ajou University, Republic of Korea</td> </tr> <tr> <td class="when">2025.09 – 2026.08</td> <td>Postdoctoral Fellow, Research Laboratory of Electronics, Massachusetts Institute of Technology, United States</td> </tr> <tr> <td class="when">2025.03 – 2025.08</td> <td>Postdoctoral Fellow, Department of Chemical and Biomolecular Engineering, Yonsei University, Republic of Korea</td> </tr> </table> <div class="pi-section">Education</div> <table class="pi-table"> <tr> <td class="when">2019.03 – 2025.02</td> <td>M.S. &amp; Ph.D., Department of Advanced Materials Science and Engineering, Sungkyunkwan University, Republic of Korea</td> </tr> <tr> <td class="when">2013.03 – 2019.02</td> <td>B.S., School of Chemical Engineering, Sungkyunkwan University, Republic of Korea</td> </tr> </table> <div class="pi-end"></div> <div class="pi-section">Open Positions</div> <p>Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, electrical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know.</p> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jihyun Kim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
   window.alFolio = {
