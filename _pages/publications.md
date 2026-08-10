@@ -15,14 +15,17 @@ body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
-/* 네비게이션 왼쪽 정렬 */
-.navbar-nav, .navbar-nav.ms-auto, .navbar-nav.ml-auto, .navbar ul.ms-auto {
-  margin-left: 0 !important; margin-right: auto !important; padding-left: 0 !important;
+/* 네비게이션 (Team 기준) */
+.navbar .navbar-nav,
+.navbar ul {
+  margin-left: 2rem !important;
+  margin-right: auto !important;
 }
-nav.navbar > .container, nav.navbar > .container-fluid, nav.navbar > div, .navbar-collapse {
+.navbar .container,
+.navbar .container-fluid,
+.navbar > div {
   justify-content: flex-start !important;
 }
-.navbar .nav-item:first-child .nav-link { padding-left: 0 !important; }
 
 /* 라이트 모드 */
 html[data-theme="light"] {
@@ -64,21 +67,8 @@ html[data-theme="light"] .publications .author a,
 html[data-theme="light"] .publications .author .more-authors { color: #5A5A5A !important; }
 html[data-theme="light"] .publications .author em,
 html[data-theme="light"] .publications .author strong { color: #651FFF !important; font-weight: 600; }
-html[data-theme="light"] .publications h2.year,
-html[data-theme="light"] .publications .year { color: rgba(25,25,25,0.15) !important; }
-
-/* 다크 모드 */
-html[data-theme="dark"] .pi-name, html[data-theme="dark"] .pi-section,
-html[data-theme="dark"] .pi-table td { color: #FCFCFC !important; }
-html[data-theme="dark"] .pi-role { color: #B5B5B5 !important; }
-
-/* 공통 섹션 스타일 */
-.pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid rgba(25,25,25,0.12); padding-top: 0.9rem; margin: 1.6rem 0 0.7rem 0; }
-.pi-body { font-size: 0.92rem; line-height: 1.6; }
 </style>
 
 <div class="publications">
-
 {% bibliography %}
-
 </div>
