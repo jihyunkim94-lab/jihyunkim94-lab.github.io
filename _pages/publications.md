@@ -82,6 +82,16 @@ html[data-theme="light"] .publications .author strong { color: #651FFF !importan
   color: #A8A8A8;
 }
 html[data-theme="dark"] .publications ol.bibliography > li::before { color: #6E6E6E; }
+
+/* ===== 연도 헤더 ===== */
+.publications h2.year,
+.publications .year {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  opacity: 0.35;
+  margin: 1.2rem 0 0.6rem 0 !important;
+}
 </style>
 
 <div class="publications">
