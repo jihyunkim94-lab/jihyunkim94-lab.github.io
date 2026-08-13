@@ -20,7 +20,46 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
 
-/* 라이트 모드 */
+/* ===== 테마 공통: 크기 / 레이아웃 ===== */
+.pi-photo {
+  float: right;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center 18%;
+  border-radius: 50%;
+  margin: -40px 0.5rem 1.5rem 2rem;
+  display: block;
+}
+.pi-namerow { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem; }
+.pi-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.2; }
+
+.pi-links { display: flex; align-items: center; gap: 0.55rem; }
+.pi-links a {
+  font-size: 1.15rem;
+  line-height: 1;
+  opacity: 0.85;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+.pi-links a:hover { opacity: 1; transform: translateY(-1px); }
+
+.pi-role { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.9rem; }
+.pi-contact { font-size: 0.88rem; margin-bottom: 1.2rem; }
+.pi-contact .label { font-weight: 700; display: inline-block; width: 60px; }
+.pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid; padding-top: 0.9rem; margin: 1.4rem 0 0.7rem 0; clear: none; }
+.pi-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.pi-table td { padding: 0.28rem 0; vertical-align: top; border: none; }
+.pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
+.pi-end { clear: both; }
+.pi-placeholder { font-size: 0.88rem; opacity: 0.5; font-style: italic; margin-bottom: 2.5rem; }
+
+@media (max-width: 700px) {
+  .pi-photo { float: none; width: 140px; height: 140px; margin: 0 0 1rem 0; }
+  .pi-table td.when { width: 120px; font-size: 0.8rem; }
+}
+
+/* ===== 라이트 모드: 색상 ===== */
 html[data-theme="light"] {
   --global-theme-color: #651FFF;
   --global-hover-color: #651FFF;
@@ -53,58 +92,16 @@ html[data-theme="light"] .pi-table td,
 html[data-theme="light"] .pi-contact .label { color: #191919 !important; }
 html[data-theme="light"] .pi-role { color: #5A5A5A !important; }
 html[data-theme="light"] .pi-section { border-top-color: rgba(25,25,25,0.12) !important; }
+html[data-theme="light"] .pi-links a { color: #651FFF !important; }
 
-/* 다크 모드 */
+/* ===== 다크 모드: 색상 ===== */
 html[data-theme="dark"] .pi-name,
 html[data-theme="dark"] .pi-section,
 html[data-theme="dark"] .pi-table td,
 html[data-theme="dark"] .pi-contact .label { color: #FCFCFC !important; }
 html[data-theme="dark"] .pi-role { color: #B5B5B5 !important; }
-html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !important; }
-
-/* ===== PI 카드 ===== */
-.pi-photo {
-  float: right;
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
-  object-position: center 18%;
-  border-radius: 50%;
-  margin: 0 0.5rem 1.2rem 2rem;
-  display: block;
-}
-.pi-namerow { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem; }
-.pi-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.2; }
-
-/* 이름 옆 아이콘 */
-.pi-links { display: flex; align-items: center; gap: 0.55rem; }
-.pi-links a {
-  color: #651FFF !important;
-  font-size: 1.15rem;
-  line-height: 1;
-  opacity: 0.85;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  text-decoration: none;
-}
-.pi-links a:hover { opacity: 1; transform: translateY(-1px); }
-html[data-theme="dark"] .pi-links a { color: #9B6BFF !important; }
-
-.pi-role { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.9rem; }
-.pi-contact { font-size: 0.88rem; margin-bottom: 1.2rem; }
-.pi-contact .label { font-weight: 700; display: inline-block; width: 60px; }
-.pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid; padding-top: 0.9rem; margin: 1.4rem 0 0.7rem 0; clear: none; }
-.pi-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
-.pi-table td { padding: 0.28rem 0; vertical-align: top; border: none; }
-.pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
-.pi-end { clear: both; }
-
-/* 멤버 자리 (비어 있을 때) */
-.pi-placeholder { font-size: 0.88rem; opacity: 0.5; font-style: italic; margin-bottom: 2.5rem; }
-
-@media (max-width: 700px) {
-  .pi-photo { float: none; width: 140px; height: 140px; margin: 0 0 1rem 0; }
-  .pi-table td.when { width: 120px; font-size: 0.8rem; }
-}
+html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.28) !important; }
+html[data-theme="dark"] .pi-links a { color: #86CFDA !important; }
 </style>
 
 <img class="pi-photo" src="{{ '/assets/img/prof_pic.jpg' | relative_url }}" alt="Jihyun Kim">
