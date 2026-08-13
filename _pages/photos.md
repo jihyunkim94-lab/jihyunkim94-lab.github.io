@@ -2,7 +2,7 @@
 layout: page
 permalink: /photos/
 title: Photos
-description: Life at Kim Lab
+description: 
 nav: true
 nav_order: 6
 ---
