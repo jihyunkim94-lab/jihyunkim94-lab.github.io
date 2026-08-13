@@ -17,16 +17,26 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
 /* ===== 테마 공통: 크기 / 레이아웃 ===== */
-/* 사진 크기·위치는 아래 변수 3개만 조절하면 됩니다 */
+/* 이름줄 ~ 이메일줄 블록과 사진을 한 행으로 묶음 */
+.pi-header {
+  display: flex;
+  align-items: stretch;      /* 사진 높이 = 텍스트 블록 높이 */
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.2rem;
+}
+.pi-header-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .pi-photo-wrap {
-  --pi-size: 160px;      /* 사진 지름 */
-  --pi-zoom: 1;          /* 1.1 = 확대(더 잘림), 0.9 = 축소(여백 생김) */
-  --pi-pos: center 25%;  /* 머리가 잘리면 20% → 15% 로 낮추기 */
-
-  float: right;
-  width: var(--pi-size);
-  height: var(--pi-size);
-  margin: 0 0.5rem 1.5rem 2rem;
+  flex: 0 0 auto;
+  align-self: stretch;
+  aspect-ratio: 1 / 1;       /* 높이에 맞춰 너비 자동 결정 → 항상 정원 */
+  height: auto;
+  max-height: 150px;         /* 너무 커지지 않도록 상한 */
+  min-height: 110px;         /* 너무 작아지지 않도록 하한 */
+  margin-right: 0.5rem;
   border-radius: 50%;
   overflow: hidden;
   background-color: var(--global-bg-color);
@@ -36,9 +46,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: var(--pi-pos);
-  transform: scale(var(--pi-zoom));
-  transform-origin: center 30%;
+  object-position: center 25%;  /* 머리가 잘리면 20% → 15% 로 낮추기 */
 }
 .pi-namerow { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem; }
 .pi-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.2; }
@@ -52,16 +60,19 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 .pi-links a:hover { opacity: 1; transform: translateY(-1px); }
 .pi-role { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.9rem; }
-.pi-contact { font-size: 0.88rem; margin-bottom: 1.2rem; }
+.pi-contact { font-size: 0.88rem; margin-bottom: 0; }
 .pi-contact .label { font-weight: 700; display: inline-block; width: 60px; }
-.pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid; padding-top: 0.9rem; margin: 1.4rem 0 0.7rem 0; clear: none; }
+.pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid; padding-top: 0.9rem; margin: 1.4rem 0 0.7rem 0; clear: both; }
 .pi-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
 .pi-table td { padding: 0.28rem 0; vertical-align: top; border: none; }
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
 .pi-placeholder { font-size: 0.88rem; opacity: 0.5; font-style: italic; margin-bottom: 2.5rem; }
 @media (max-width: 700px) {
-  .pi-photo-wrap { --pi-size: 140px; float: none; margin: 0 0 1rem 0; }
+  .pi-header { flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+  .pi-photo-wrap { align-self: center; width: 130px; height: 130px; max-height: none; min-height: 0; margin-right: 0; }
+  .pi-namerow { justify-content: center; }
+  .pi-contact .label { width: auto; margin-right: 0.35rem; }
   .pi-table td.when { width: 120px; font-size: 0.8rem; }
 }
 /* ===== 라이트 모드: 색상 ===== */
@@ -104,22 +115,26 @@ html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.28) !
 html[data-theme="dark"] .pi-links a { color: #86CFDA !important; }
 html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
 </style>
-<div class="pi-photo-wrap">
-  <img class="pi-photo" src="{{ '/assets/img/prof_pic.jpg' | relative_url }}" alt="Jihyun Kim">
-</div>
-<div class="pi-namerow">
-  <span class="pi-name">Jihyun Kim, Ph.D.</span>
-  <span class="pi-links">
-    <a href="{{ '/assets/pdf/CV_JIHYUN_KIM.pdf' | relative_url }}" target="_blank" title="Curriculum Vitae"><i class="ai ai-cv"></i></a>
-    <a href="https://scholar.google.com/citations?hl=ko&user=68-RYuUAAAAJ" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
-  </span>
-</div>
-<div class="pi-role">
-  Assistant Professor<br>
-  Dept. of Intelligent Semiconductor Engineering, Ajou University
-</div>
-<div class="pi-contact">
-  <span class="label">Email</span> <a href="mailto:jhkim94@mit.edu">jhkim94@mit.edu</a>
+<div class="pi-header">
+  <div class="pi-header-text">
+    <div class="pi-namerow">
+      <span class="pi-name">Jihyun Kim, Ph.D.</span>
+      <span class="pi-links">
+        <a href="{{ '/assets/pdf/CV_JIHYUN_KIM.pdf' | relative_url }}" target="_blank" title="Curriculum Vitae"><i class="ai ai-cv"></i></a>
+        <a href="https://scholar.google.com/citations?hl=ko&user=68-RYuUAAAAJ" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      </span>
+    </div>
+    <div class="pi-role">
+      Assistant Professor<br>
+      Dept. of Intelligent Semiconductor Engineering, Ajou University
+    </div>
+    <div class="pi-contact">
+      <span class="label">Email</span> <a href="mailto:jhkim94@mit.edu">jhkim94@mit.edu</a>
+    </div>
+  </div>
+  <div class="pi-photo-wrap">
+    <img class="pi-photo" src="{{ '/assets/img/prof_pic.jpg' | relative_url }}" alt="Jihyun Kim">
+  </div>
 </div>
 <div class="pi-section">Professional Position</div>
 <table class="pi-table">
