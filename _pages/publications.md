@@ -12,6 +12,22 @@ body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
+
+/* ===== ① 탭 이동 시 전체 축 밀림 방지 — 스크롤바 폭 항상 예약 =====
+   Publications는 길어서 스크롤바가 생기고 Home/Team은 안 생겨서
+   컨테이너가 좌우로 약 7~8px 튀는 현상을 없앤다.
+   (Home / Team 페이지에도 동일 블록을 넣어야 완전히 통일됨)          */
+html {
+  scrollbar-gutter: stable;      /* 최신 브라우저 */
+  overflow-y: scroll;            /* 구형 브라우저 폴백 */
+}
+body { overflow-x: clip; }       /* 가로 스크롤바로 인한 밀림 방지 */
+
+/* 긴 제목·DOI가 컨테이너를 넘기지 않도록 */
+.publications .title,
+.publications .author,
+.publications .periodical { overflow-wrap: break-word; word-break: break-word; }
+
 /* 네비게이션 */
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
@@ -59,26 +75,43 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   border-radius: 6px;
   transition: background-color 0.15s ease;
 }
-/* ===== 논문 번호 ===== */
-.publications { counter-reset: pubnum 43; }
-.publications ol.bibliography { padding-left: 0; }
+
+/* ===== ② 논문 번호 — 번호를 왼쪽 여백으로 빼서 본문 축을
+   h1 "Publications" · 연도 헤딩 · 구분선과 정확히 일치시킴 ===== */
+.publications {
+  counter-reset: pubnum 43;      /* 논문 수 바뀌면 이 숫자만 수정 */
+  --pubnum-gutter: 2.9rem;       /* 번호 자리 폭 (한 곳에서 관리) */
+  overflow: visible;
+}
+.publications ol.bibliography {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  list-style: none;
+}
 .publications ol.bibliography > li {
   counter-increment: pubnum -1;
   position: relative;
-  padding-left: 2.9rem;
   list-style: none;
+  padding-left: var(--pubnum-gutter);
+  margin-left: calc(-1 * var(--pubnum-gutter));  /* ← 축 정렬 핵심 */
+  padding-right: 0.4rem;
 }
 .publications ol.bibliography > li::before {
   content: "(" counter(pubnum) ")";
   position: absolute;
   left: 0;
   top: 0.25rem;
-  width: 2.2rem;
+  width: calc(var(--pubnum-gutter) - 0.7rem);
   text-align: right;
   font-size: 0.78rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
+/* 화면이 좁으면 번호가 잘리므로 여백 밖으로 빼지 않음 */
+@media (max-width: 992px) {
+  .publications ol.bibliography > li { margin-left: 0; }
+}
+
 /* ===== 라이트 모드: 색상 ===== */
 html[data-theme="light"] {
   /* 연도 · 연도 구분선 밝기 (이 두 줄만 조절) */
