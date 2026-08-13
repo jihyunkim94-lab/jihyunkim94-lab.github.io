@@ -8,6 +8,14 @@ nav_order: 2
 ---
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* ===== 탭 이동 시 전체 축 밀림 방지 — Publications와 동일하게 스크롤바 폭 예약 ===== */
+html {
+  scrollbar-gutter: stable;   /* 최신 브라우저: 스크롤바 자리 항상 확보 */
+  overflow-y: scroll;         /* 구형 브라우저 폴백 */
+}
+body { overflow-x: clip; }    /* 가로 스크롤바로 인한 밀림 방지 */
+
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
