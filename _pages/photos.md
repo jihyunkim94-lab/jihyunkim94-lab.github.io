@@ -61,7 +61,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   cursor: zoom-out;
 }
 .ph-lightbox.on { display: flex; }
-.ph-lightbox img {
+.ph-lightbox .ph-lb-img {
   max-width: 92vw;
   max-height: 78vh;
   object-fit: contain;
@@ -122,36 +122,34 @@ html[data-theme="dark"] .ph-item .ph-date { color: #B5B5B5 !important; }
 html[data-theme="dark"] .ph-year { border-top-color: rgba(252,252,252,0.28) !important; }
 </style>
 
-{% assign photos = site.data.gallery | sort: "date" | reverse %}
-{% if photos.size == 0 %}
-  <div class="ph-empty">Photos coming soon.</div>
-{% else %}
-  {% assign current_year = "" %}
-  {% for p in photos %}
-    {% assign y = p.date | date: "%Y" %}
-    {% if y != current_year %}
-      {% unless forloop.first %}</div>{% endunless %}
-      {% assign current_year = y %}
-      <div class="ph-year">{{ y }}</div>
-      <div class="ph-grid">
-    {% endif %}
+{% assign gallery = site.data.gallery %}
+{% if gallery and gallery.size > 0 %}
+  {% assign photos = gallery | sort: "date" | reverse %}
+  {% assign years = photos | group_by_exp: "p", "p.date | date: '%Y'" %}
+  {% for yr in years %}
+  <div class="ph-year">{{ yr.name }}</div>
+  <div class="ph-grid">
+    {% for p in yr.items %}
     <figure class="ph-item">
       <img src="{{ '/assets/img/gallery/' | append: p.image | relative_url }}"
-           alt="{{ p.caption }}"
+           alt="{{ p.caption | default: 'Kim Lab photo' }}"
            data-caption="{{ p.caption }}"
            loading="lazy">
       <figcaption>
-        <span class="ph-cap">{{ p.caption }}</span>
+        {% if p.caption %}<span class="ph-cap">{{ p.caption }}</span>{% endif %}
         {% if p.date %}<span class="ph-date">{{ p.date | date: "%b %d, %Y" }}</span>{% endif %}
       </figcaption>
     </figure>
-    {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
+  </div>
   {% endfor %}
+{% else %}
+  <div class="ph-empty">Photos coming soon.</div>
 {% endif %}
 
 <div class="ph-lightbox" id="phLightbox">
-  <button class="ph-lb-close" aria-label="close">&times;</button>
-  <img src="" alt="">
+  <button class="ph-lb-close" type="button" aria-label="close">&times;</button>
+  <img class="ph-lb-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
   <div class="ph-lb-cap"></div>
 </div>
 
@@ -159,8 +157,9 @@ html[data-theme="dark"] .ph-year { border-top-color: rgba(252,252,252,0.28) !imp
 (function () {
   var box = document.getElementById("phLightbox");
   if (!box) return;
-  var boxImg = box.querySelector("img");
+  var boxImg = box.querySelector(".ph-lb-img");
   var boxCap = box.querySelector(".ph-lb-cap");
+  var blank = boxImg.getAttribute("src");
 
   document.querySelectorAll(".ph-item img").forEach(function (img) {
     img.addEventListener("click", function () {
@@ -174,7 +173,7 @@ html[data-theme="dark"] .ph-year { border-top-color: rgba(252,252,252,0.28) !imp
 
   function close() {
     box.classList.remove("on");
-    boxImg.src = "";
+    boxImg.src = blank;
     document.body.style.overflow = "";
   }
 
