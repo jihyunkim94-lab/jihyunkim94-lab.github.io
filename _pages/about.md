@@ -25,12 +25,14 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 /* 네비게이션 — 다른 페이지와 동일하게 통일 */
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
-/* 홈에서도 좌측 "Kim Lab" 브랜드가 항상 보이도록 (al-folio 기본 동작 해제) */
+/* 홈에서도 좌측 "Kim Lab" 브랜드가 항상 보이도록 */
 .navbar .navbar-brand, #navbar .navbar-brand {
   visibility: visible !important;
   opacity: 1 !important;
   display: inline-block !important;
   transform: none !important;
+  font-size: 1.1rem;
+  text-decoration: none;
 }
 /* 슬라이더 아래 섹션 겹침 방지 */
 .news, .publications, .post-list, h2 { clear: both; }
@@ -109,6 +111,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
   .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
 }
 </style>
+
 <div class="kimlab-slider">
   <div class="kimlab-slide active">
     <img src="{{ '/assets/img/featured/paper1.png' | relative_url }}" alt="">
@@ -158,10 +161,15 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
     <button class="kimlab-btn kimlab-next" aria-label="next">&#8250;</button>
   </div>
 </div>
+
 Kim Lab designs materials at the **atomic scale** and engineers them into **scalable, reproducible platforms** for next-generation electronics.
+
 Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what device architectures become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.
+
 We are always looking for curious students who want to build things that do not exist yet.
+
 <div style="clear: both;"></div>
+
 <script>
 (function () {
   var root = document.querySelector(".kimlab-slider");
@@ -178,5 +186,31 @@ We are always looking for curious students who want to build things that do not 
   root.querySelector(".kimlab-next").addEventListener("click", function () { show(i + 1); });
   dots.forEach(function (d, k) { d.addEventListener("click", function () { show(k); }); });
   setInterval(function () { show(i + 1); }, 6000);
+})();
+</script>
+
+<script>
+(function () {
+  function addBrand() {
+    var nav = document.querySelector("#navbar") || document.querySelector("nav.navbar");
+    if (!nav) return;
+    if (nav.querySelector(".navbar-brand")) return;   // 이미 있으면 아무것도 안 함
+
+    var host = nav.querySelector(".container")
+            || nav.querySelector(".container-fluid")
+            || nav;
+
+    var a = document.createElement("a");
+    a.className = "navbar-brand title font-weight-lighter";
+    a.href = "{{ '/' | relative_url }}";
+    a.textContent = "{{ site.title | default: 'Kim Lab' }}";
+    host.insertBefore(a, host.firstChild);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", addBrand);
+  } else {
+    addBrand();
+  }
 })();
 </script>
