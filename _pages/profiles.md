@@ -76,12 +76,26 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
 .pi-placeholder { font-size: 0.88rem; opacity: 0.5; font-style: italic; margin-bottom: 2.5rem; }
+
+/* ===== 지도교수 표기 (작은 괄호 텍스트) =====
+   본문 0.86rem 보다 작게, 색은 더 연하게 — 줄 끝에 자연스럽게 붙는다.
+   ※ 항상 아래 줄로 내리고 싶으면 display:block + margin-top 주석 해제 */
+.pi-adv {
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  /* display: block; margin-top: 0.1rem; */
+}
+
 @media (max-width: 700px) {
   .pi-header { flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
   .pi-photo-wrap { align-self: center; width: 130px; height: 130px; max-height: none; min-height: 0; margin-right: 0; }
   .pi-namerow { justify-content: center; }
   .pi-contact .label { width: auto; margin-right: 0.35rem; }
   .pi-table td.when { width: 120px; font-size: 0.8rem; }
+  /* 좁은 화면에서는 지도교수를 별도 줄로 */
+  .pi-adv { display: block; margin-top: 0.1rem; white-space: normal; font-size: 0.74rem; }
 }
 /* ===== 라이트 모드: 색상 ===== */
 html[data-theme="light"] {
@@ -110,6 +124,7 @@ html[data-theme="light"] .pi-section,
 html[data-theme="light"] .pi-table td,
 html[data-theme="light"] .pi-contact .label { color: #191919 !important; }
 html[data-theme="light"] .pi-role { color: #5A5A5A !important; }
+html[data-theme="light"] .pi-adv { color: #7A7A7A !important; }
 html[data-theme="light"] .pi-section { border-top-color: rgba(25,25,25,0.12) !important; }
 html[data-theme="light"] .pi-links a { color: #651FFF !important; }
 html[data-theme="light"] .pi-photo-wrap { background-color: #FCFCFC; }
@@ -119,6 +134,7 @@ html[data-theme="dark"] .pi-section,
 html[data-theme="dark"] .pi-table td,
 html[data-theme="dark"] .pi-contact .label { color: #FCFCFC !important; }
 html[data-theme="dark"] .pi-role { color: #B5B5B5 !important; }
+html[data-theme="dark"] .pi-adv { color: #8F8F8F !important; }
 html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.28) !important; }
 html[data-theme="dark"] .pi-links a { color: #86CFDA !important; }
 html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
@@ -152,18 +168,21 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
   </tr>
   <tr>
     <td class="when">2025.09 – 2026.08</td>
-    <td>Postdoctoral Fellow, Research Laboratory of Electronics, Massachusetts Institute of Technology, United States</td>
+    <td>Postdoctoral Fellow, Research Laboratory of Electronics, Massachusetts Institute of Technology, United States
+      <span class="pi-adv">(Advisor: Prof. Suraj Cheema)</span></td>
   </tr>
   <tr>
     <td class="when">2025.03 – 2025.08</td>
-    <td>Postdoctoral Fellow, Department of Chemical and Biomolecular Engineering, Yonsei University, Republic of Korea</td>
+    <td>Postdoctoral Fellow, Department of Chemical and Biomolecular Engineering, Yonsei University, Republic of Korea
+      <span class="pi-adv">(Advisor: Prof. Joohoon Kang)</span></td>
   </tr>
 </table>
 <div class="pi-section">Education</div>
 <table class="pi-table">
   <tr>
     <td class="when">2019.03 – 2025.02</td>
-    <td>M.S. &amp; Ph.D., Department of Advanced Materials Science and Engineering, Sungkyunkwan University, Republic of Korea</td>
+    <td>M.S. &amp; Ph.D., Department of Advanced Materials Science and Engineering, Sungkyunkwan University, Republic of Korea
+      <span class="pi-adv">(Advisor: Prof. Joohoon Kang)</span></td>
   </tr>
   <tr>
     <td class="when">2013.03 – 2019.02</td>
