@@ -117,11 +117,11 @@ html[data-theme="dark"] .publications .author em,
 html[data-theme="dark"] .publications .author strong { color: #86CFDA !important; }
 
 html[data-theme="dark"] .publications h2.year,
-html[data-theme="dark"] .publications .year { color: rgba(252,252,252,0.42) !important; }
-html[data-theme="dark"] .publications ol.bibliography > li::before { color: #9A9A9A; }
+html[data-theme="dark"] .publications .year { color: #FCFCFC !important; }
+html[data-theme="dark"] .publications ol.bibliography > li::before { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications h2.year,
 html[data-theme="dark"] .publications .year,
-html[data-theme="dark"] hr { border-color: rgba(252,252,252,0.28) !important; }
+html[data-theme="dark"] hr { border-color: rgba(252,252,252,0.45) !important; }
 </style>
 
 <div class="publications">
