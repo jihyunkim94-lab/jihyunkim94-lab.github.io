@@ -28,33 +28,36 @@ body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
 
-/* ===== 네비게이션 왼쪽 정렬 ===== */
-.navbar-nav,
-.navbar-nav.ms-auto,
-.navbar-nav.ml-auto,
-.navbar ul.ms-auto {
-  margin-left: 0 !important;
-  margin-right: auto !important;
-  padding-left: 0 !important;
+/* 네비게이션 */
+.navbar-nav, .navbar-nav.ms-auto, .navbar-nav.ml-auto, .navbar ul.ms-auto {
+  margin-left: 0 !important; margin-right: auto !important; padding-left: 0 !important;
 }
-nav.navbar > .container,
-nav.navbar > .container-fluid,
-nav.navbar > div,
-.navbar-collapse {
+nav.navbar > .container, nav.navbar > .container-fluid, nav.navbar > div, .navbar-collapse {
   justify-content: flex-start !important;
 }
 .navbar .nav-item:first-child .nav-link { padding-left: 0 !important; }
 
-/* ===== 섹션 제목 크기 통일 ===== */
-.news h2, .publications h2,
-h2.news-title, .news .title {
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.8rem;
-}
+/* 슬라이더 아래 섹션 겹침 방지 */
+.news, .publications, .post-list, h2 { clear: both; }
+.news { padding-top: 1.5rem; }
 
-/* ===== 라이트 모드 색상 ===== */
+/* ===== 테마 공통: 크기 / 굵기 ===== */
+.publications .title {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+}
+.publications .author,
+.publications .periodical {
+  font-size: 0.82rem !important;
+  line-height: 1.45;
+  font-weight: 400 !important;
+}
+.publications .author em,
+.publications .author strong { font-weight: 600 !important; }
+
+/* ===== 라이트 모드: 색상 ===== */
 html[data-theme="light"] {
   --global-theme-color: #651FFF;
   --global-hover-color: #651FFF;
@@ -75,45 +78,33 @@ html[data-theme="light"] .navbar .nav-item.active .nav-link:hover,
 html[data-theme="light"] .navbar .dropdown-toggle:hover,
 html[data-theme="light"] .navbar-brand:hover { color: #651FFF !important; }
 
-html[data-theme="light"] h1,
-html[data-theme="light"] h2,
-html[data-theme="light"] h3,
-html[data-theme="light"] h4,
-html[data-theme="light"] h5,
-html[data-theme="light"] h6,
+html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3,
+html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
 html[data-theme="light"] .post-title,
 html[data-theme="light"] .news .date { color: #191919 !important; }
 
-html[data-theme="light"] .abbr abbr,
-html[data-theme="light"] .abbr .badge,
-html[data-theme="light"] abbr.badge,
-html[data-theme="light"] .badge { color: #FCFCFC !important; }
+html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
+html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
 
-html[data-theme="light"] .abbr abbr a,
-html[data-theme="light"] .badge a { color: #FCFCFC !important; }
-
-html[data-theme="light"] p a,
-html[data-theme="light"] li a,
+html[data-theme="light"] p a, html[data-theme="light"] li a,
 html[data-theme="light"] .news a { color: #651FFF !important; }
 
-/* 논문 목록: 저자 / 저널 / 연도 */
+html[data-theme="light"] .publications .title { color: #191919 !important; }
 html[data-theme="light"] .publications .author,
-html[data-theme="light"] .publications .periodical {
-  font-size: 0.82rem !important;
-  color: #5A5A5A !important;
-  line-height: 1.45;
-}
-
+html[data-theme="light"] .publications .periodical { color: #5A5A5A !important; }
 html[data-theme="light"] .publications .author a,
-html[data-theme="light"] .publications .author .more-authors {
-  color: #5A5A5A !important;
-}
-
+html[data-theme="light"] .publications .author .more-authors { color: #5A5A5A !important; }
 html[data-theme="light"] .publications .author em,
-html[data-theme="light"] .publications .author strong {
-  color: #651FFF !important;
-  font-weight: 600;
-}
+html[data-theme="light"] .publications .author strong { color: #651FFF !important; }
+
+/* ===== 다크 모드: 색상 ===== */
+html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
+html[data-theme="dark"] .publications .author,
+html[data-theme="dark"] .publications .periodical { color: #B0B0B0 !important; }
+html[data-theme="dark"] .publications .author a,
+html[data-theme="dark"] .publications .author .more-authors { color: #B0B0B0 !important; }
+html[data-theme="dark"] .publications .author em,
+html[data-theme="dark"] .publications .author strong { color: #86CFDA !important; }
 
 /* ===== 슬라이더 ===== */
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
@@ -194,6 +185,8 @@ Kim Lab designs materials at the **atomic scale** and engineers them into **scal
 Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what device architectures become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.
 
 We are always looking for curious students who want to build things that do not exist yet.
+
+<div style="clear: both;"></div>
 
 <script>
 (function () {
