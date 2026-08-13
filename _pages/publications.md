@@ -81,14 +81,14 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 /* ===== 라이트 모드: 색상 ===== */
 html[data-theme="light"] {
-  /* 연도 · 구분선 밝기는 이 두 줄만 조절하면 됩니다 */
+  /* 연도 · 연도 구분선 밝기 (이 두 줄만 조절) */
   --year-color: rgba(25, 25, 25, 0.45);
   --line-color: rgba(25, 25, 25, 0.26);
 
   --global-theme-color: #651FFF;
   --global-hover-color: #651FFF;
   --global-text-color: #191919;
-  --global-divider-color: var(--line-color);
+  --global-divider-color: rgba(25, 25, 25, 0.12);
   --global-bg-color: #FCFCFC;
   background-color: #FCFCFC;
 }
@@ -118,18 +118,15 @@ html[data-theme="light"] .publications h2.year,
 html[data-theme="light"] .publications h2.bibliography,
 html[data-theme="light"] .publications .year { color: var(--year-color) !important; }
 html[data-theme="light"] .publications ol.bibliography > li::before { color: #A8A8A8; }
+/* 연도 구분선만 밝게 — 네비게이션 · 제목 아래 선은 건드리지 않음 */
 html[data-theme="light"] .publications h2.year,
 html[data-theme="light"] .publications h2.bibliography,
-html[data-theme="light"] .publications .year,
-html[data-theme="light"] hr,
-html[data-theme="light"] .post-header { border-top-color: var(--line-color) !important; }
+html[data-theme="light"] .publications .year { border-top-color: var(--line-color) !important; }
 /* ===== 다크 모드: 색상 ===== */
 html[data-theme="dark"] {
-  /* 연도 · 구분선 밝기는 이 두 줄만 조절하면 됩니다 */
+  /* 연도 · 연도 구분선 밝기 (이 두 줄만 조절) */
   --year-color: rgba(252, 252, 252, 0.62);
   --line-color: rgba(252, 252, 252, 0.38);
-
-  --global-divider-color: var(--line-color);
 }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .title a.pub-link:hover { color: #86CFDA !important; }
@@ -146,28 +143,22 @@ html[data-theme="dark"] .publications .year { color: var(--year-color) !importan
 html[data-theme="dark"] .publications ol.bibliography > li::before { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications h2.year,
 html[data-theme="dark"] .publications h2.bibliography,
-html[data-theme="dark"] .publications .year,
-html[data-theme="dark"] hr,
-html[data-theme="dark"] .post-header { border-top-color: var(--line-color) !important; }
+html[data-theme="dark"] .publications .year { border-top-color: var(--line-color) !important; }
 </style>
 <div class="publications">
 {% bibliography %}
 </div>
-
 <script>
 (function () {
   function linkify() {
     var items = document.querySelectorAll(".publications ol.bibliography > li");
-
     items.forEach(function (li) {
       var titleEl = li.querySelector(".title");
       if (!titleEl || titleEl.querySelector("a")) return;
-
       // 1순위: 링크 버튼 영역의 외부 링크 (Abs 토글, 페이지 내 앵커는 제외)
       var href = null;
       var btn = li.querySelector('.links a[href^="http"]:not(.abs), .links a[href^="/"]:not(.abs)');
       if (btn) href = btn.getAttribute("href");
-
       // 2순위: 저자명 링크를 뺀 나머지 외부 링크
       if (!href) {
         var all = li.querySelectorAll('a[href^="http"]');
@@ -178,7 +169,6 @@ html[data-theme="dark"] .post-header { border-top-color: var(--line-color) !impo
           break;
         }
       }
-
       // 3순위: data-doi 속성
       if (!href) {
         var doiEl = li.hasAttribute("data-doi") ? li : li.querySelector("[data-doi]");
@@ -187,9 +177,7 @@ html[data-theme="dark"] .post-header { border-top-color: var(--line-color) !impo
           if (doi) href = "https://doi.org/" + doi.replace(/^https?:\/\/doi\.org\//, "");
         }
       }
-
       if (!href) return; // 링크가 없으면 원래대로 (일반 텍스트)
-
       var a = document.createElement("a");
       a.href = href;
       a.target = "_blank";
@@ -197,11 +185,9 @@ html[data-theme="dark"] .post-header { border-top-color: var(--line-color) !impo
       a.className = "pub-link";
       while (titleEl.firstChild) a.appendChild(titleEl.firstChild);
       titleEl.appendChild(a);
-
       li.classList.add("has-link");
       li.dataset.href = href;
     });
-
     // 항목 아무 곳이나 클릭해도 이동 (텍스트 선택·기존 링크 클릭은 방해하지 않음)
     document.querySelectorAll(".publications ol.bibliography > li.has-link").forEach(function (li) {
       li.addEventListener("click", function (e) {
@@ -211,7 +197,6 @@ html[data-theme="dark"] .post-header { border-top-color: var(--line-color) !impo
       });
     });
   }
-
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", linkify);
   } else {
