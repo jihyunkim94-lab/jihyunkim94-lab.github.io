@@ -2,20 +2,17 @@
 layout: page
 permalink: /people/
 title: Team
-description: Members of Kim Lab
 nav: true
 nav_order: 2
 ---
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-
-/* ===== 탭 이동 시 전체 축 밀림 방지 — Publications와 동일하게 스크롤바 폭 예약 ===== */
+/* ===== 탭 이동 시 전체 축 밀림 방지 ===== */
 html {
-  scrollbar-gutter: stable;   /* 최신 브라우저: 스크롤바 자리 항상 확보 */
-  overflow-y: scroll;         /* 구형 브라우저 폴백 */
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
-body { overflow-x: clip; }    /* 가로 스크롤바로 인한 밀림 방지 */
-
+body { overflow-x: clip; }
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
@@ -24,11 +21,47 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 /* 네비게이션 */
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
-/* ===== 테마 공통: 크기 / 레이아웃 ===== */
-/* 이름줄 ~ 이메일줄 블록과 사진을 한 행으로 묶음 */
+
+/* ============================================================
+   위계 1단계 — 대분류 (Principal Investigator / Graduate Students …)
+   ============================================================ */
+.tm-group {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  border-top: 1px solid;
+  padding-top: 1.15rem;
+  margin: 2.6rem 0 1.3rem 0;
+  clear: both;
+}
+/* 첫 그룹은 페이지 제목 아래 구분선과 겹치므로 선 없이 */
+.tm-group.first {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 1.6rem;
+}
+/* 내용이 아직 없는 그룹끼리 붙지 않도록 여백 확보 */
+.tm-group + .tm-group { margin-top: 3.2rem; }
+
+/* ============================================================
+   위계 2단계 — 소분류 (Professional Position / Education)
+   ============================================================ */
+.pi-section {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-top: 1px solid;
+  padding-top: 0.7rem;
+  margin: 1.6rem 0 0.55rem 0;
+  clear: both;
+}
+
+/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 ===== */
 .pi-header {
   display: flex;
-  align-items: stretch;      /* 사진 높이 = 텍스트 블록 높이 */
+  align-items: stretch;
   justify-content: space-between;
   gap: 2rem;
   margin-bottom: 1.2rem;
@@ -40,10 +73,10 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .pi-photo-wrap {
   flex: 0 0 auto;
   align-self: stretch;
-  aspect-ratio: 1 / 1;       /* 높이에 맞춰 너비 자동 결정 → 항상 정원 */
+  aspect-ratio: 1 / 1;
   height: auto;
-  max-height: 150px;         /* 너무 커지지 않도록 상한 */
-  min-height: 110px;         /* 너무 작아지지 않도록 하한 */
+  max-height: 145px;
+  min-height: 115px;
   margin-right: 0.5rem;
   border-radius: 50%;
   overflow: hidden;
@@ -54,49 +87,51 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center 25%;  /* 머리가 잘리면 20% → 15% 로 낮추기 */
+  object-position: center 25%;
 }
-.pi-namerow { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem; }
-.pi-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.2; }
-.pi-links { display: flex; align-items: center; gap: 0.55rem; }
+.pi-namerow { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
+.pi-name { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.2; }
+.pi-links { display: flex; align-items: center; gap: 0.5rem; }
 .pi-links a {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   line-height: 1;
   opacity: 0.85;
   transition: opacity 0.15s ease, transform 0.15s ease;
   text-decoration: none;
 }
 .pi-links a:hover { opacity: 1; transform: translateY(-1px); }
-.pi-role { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.9rem; }
-.pi-contact { font-size: 0.88rem; margin-bottom: 0; }
+.pi-role { font-size: 0.88rem; line-height: 1.5; margin-bottom: 0.8rem; }
+.pi-contact { font-size: 0.86rem; margin-bottom: 0; }
 .pi-contact .label { font-weight: 700; display: inline-block; width: 60px; }
-.pi-section { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; border-top: 1px solid; padding-top: 0.9rem; margin: 1.4rem 0 0.7rem 0; clear: both; }
+
+/* ===== 이력 표 ===== */
 .pi-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
-.pi-table td { padding: 0.28rem 0; vertical-align: top; border: none; }
+.pi-table td { padding: 0.3rem 0; vertical-align: top; border: none; line-height: 1.5; }
 .pi-table td.when { width: 155px; font-weight: 600; white-space: nowrap; padding-right: 0.8rem; }
 .pi-end { clear: both; }
-.pi-placeholder { font-size: 0.88rem; opacity: 0.5; font-style: italic; margin-bottom: 2.5rem; }
 
-/* ===== 지도교수 표기 (작은 괄호 텍스트) =====
-   본문 0.86rem 보다 작게, 색은 더 연하게 — 줄 끝에 자연스럽게 붙는다.
-   ※ 항상 아래 줄로 내리고 싶으면 display:block + margin-top 주석 해제 */
+/* ===== 지도교수 표기 ===== */
 .pi-adv {
   font-size: 0.78rem;
   font-weight: 400;
   letter-spacing: -0.005em;
   white-space: nowrap;
-  /* display: block; margin-top: 0.1rem; */
 }
 
+/* ===== Open Positions 본문 ===== */
+.tm-body { font-size: 0.92rem; line-height: 1.65; max-width: 62ch; }
+
 @media (max-width: 700px) {
+  .tm-group { font-size: 1.25rem; margin: 2.1rem 0 1rem 0; }
+  .tm-group + .tm-group { margin-top: 2.6rem; }
   .pi-header { flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
   .pi-photo-wrap { align-self: center; width: 130px; height: 130px; max-height: none; min-height: 0; margin-right: 0; }
   .pi-namerow { justify-content: center; }
   .pi-contact .label { width: auto; margin-right: 0.35rem; }
-  .pi-table td.when { width: 120px; font-size: 0.8rem; }
-  /* 좁은 화면에서는 지도교수를 별도 줄로 */
+  .pi-table td.when { width: 118px; font-size: 0.8rem; }
   .pi-adv { display: block; margin-top: 0.1rem; white-space: normal; font-size: 0.74rem; }
 }
+
 /* ===== 라이트 모드: 색상 ===== */
 html[data-theme="light"] {
   --global-theme-color: #651FFF;
@@ -119,26 +154,35 @@ html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light
 html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
 html[data-theme="light"] .post-title { color: #191919 !important; }
 html[data-theme="light"] p a, html[data-theme="light"] li a { color: #651FFF !important; }
+html[data-theme="light"] .tm-group,
 html[data-theme="light"] .pi-name,
-html[data-theme="light"] .pi-section,
 html[data-theme="light"] .pi-table td,
-html[data-theme="light"] .pi-contact .label { color: #191919 !important; }
+html[data-theme="light"] .pi-contact .label,
+html[data-theme="light"] .tm-body { color: #191919 !important; }
+html[data-theme="light"] .pi-section { color: #8A8A8A !important; }
 html[data-theme="light"] .pi-role { color: #5A5A5A !important; }
 html[data-theme="light"] .pi-adv { color: #7A7A7A !important; }
-html[data-theme="light"] .pi-section { border-top-color: rgba(25,25,25,0.12) !important; }
+html[data-theme="light"] .tm-group { border-top-color: rgba(25,25,25,0.22) !important; }
+html[data-theme="light"] .pi-section { border-top-color: rgba(25,25,25,0.10) !important; }
 html[data-theme="light"] .pi-links a { color: #651FFF !important; }
 html[data-theme="light"] .pi-photo-wrap { background-color: #FCFCFC; }
 /* ===== 다크 모드: 색상 ===== */
+html[data-theme="dark"] .tm-group,
 html[data-theme="dark"] .pi-name,
-html[data-theme="dark"] .pi-section,
 html[data-theme="dark"] .pi-table td,
-html[data-theme="dark"] .pi-contact .label { color: #FCFCFC !important; }
+html[data-theme="dark"] .pi-contact .label,
+html[data-theme="dark"] .tm-body { color: #FCFCFC !important; }
+html[data-theme="dark"] .pi-section { color: #909090 !important; }
 html[data-theme="dark"] .pi-role { color: #B5B5B5 !important; }
 html[data-theme="dark"] .pi-adv { color: #8F8F8F !important; }
-html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.28) !important; }
+html[data-theme="dark"] .tm-group { border-top-color: rgba(252,252,252,0.42) !important; }
+html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !important; }
 html[data-theme="dark"] .pi-links a { color: #86CFDA !important; }
 html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
 </style>
+
+<div class="tm-group first">Principal Investigator</div>
+
 <div class="pi-header">
   <div class="pi-header-text">
     <div class="pi-namerow">
@@ -160,6 +204,7 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
     <img class="pi-photo" src="{{ '/assets/img/prof_pic.jpg' | relative_url }}" alt="Jihyun Kim">
   </div>
 </div>
+
 <div class="pi-section">Professional Position</div>
 <table class="pi-table">
   <tr>
@@ -177,6 +222,7 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
       <span class="pi-adv">(Advisor: Prof. Joohoon Kang)</span></td>
   </tr>
 </table>
+
 <div class="pi-section">Education</div>
 <table class="pi-table">
   <tr>
@@ -189,10 +235,15 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
     <td>B.S., School of Chemical Engineering, Sungkyunkwan University, Republic of Korea</td>
   </tr>
 </table>
+
 <div class="pi-end"></div>
-<div class="pi-section">Graduate Students</div>
-<div class="pi-placeholder">Joining September 2026.</div>
-<div class="pi-section">Undergraduate Researchers</div>
-<div class="pi-placeholder">Joining September 2026.</div>
-<div class="pi-section">Open Positions</div>
-Kim Lab is recruiting **graduate students** (M.S. / Ph.D.) and **undergraduate interns** starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, electrical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know.
+
+<div class="tm-group">Graduate Students</div>
+
+<div class="tm-group">Undergraduate Researchers</div>
+
+<div class="tm-group">Open Positions</div>
+
+<div class="tm-body">
+Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, or electrical engineering — and, more importantly, a willingness to learn what they do not yet know.
+</div>
