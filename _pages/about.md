@@ -17,14 +17,12 @@ latest_posts:
 ---
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-
-/* ===== 탭 이동 시 전체 축 밀림 방지 — Publications와 동일하게 스크롤바 폭 예약 ===== */
+/* ===== 탭 이동 시 전체 축 밀림 방지 ===== */
 html {
-  scrollbar-gutter: stable;   /* 최신 브라우저: 스크롤바 자리 항상 확보 */
-  overflow-y: scroll;         /* 구형 브라우저 폴백 */
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
-body { overflow-x: clip; }    /* 가로 스크롤바로 인한 밀림 방지 */
-
+body { overflow-x: clip; }
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
@@ -100,10 +98,27 @@ html[data-theme="dark"] .publications .author a,
 html[data-theme="dark"] .publications .author .more-authors { color: #B0B0B0 !important; }
 html[data-theme="dark"] .publications .author em,
 html[data-theme="dark"] .publications .author strong { color: #86CFDA !important; }
+
 /* ===== 슬라이더 ===== */
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
-.kimlab-slide { display: none; }
-.kimlab-slide.active { display: block; }
+
+/* 핵심: 슬라이드 5개를 같은 그리드 칸에 겹쳐 쌓는다.
+   → 컨테이너 높이 = 가장 긴 슬라이드 높이로 항상 고정.
+   display:none 이 아니라 visibility 로 숨기므로 높이 계산에 모두 참여한다. */
+.kimlab-slides { display: grid; }
+.kimlab-slide {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.kimlab-slide.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .kimlab-slide img { width: 100%; aspect-ratio: 1 / 1.386; object-fit: cover; object-position: top center; border-radius: 6px; display: block; }
 .kimlab-cap { font-size: 0.72rem; line-height: 1.35; margin-top: 0.5rem; }
 .kimlab-cap .tag { display: block; letter-spacing: 0.12em; font-size: 0.58rem; opacity: 0.55; margin-bottom: 2px; }
@@ -117,47 +132,53 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 @media (max-width: 768px) {
   .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
 }
+/* 애니메이션 최소화 설정을 켠 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+  .kimlab-slide { transition: none; }
+}
 </style>
 
 <div class="kimlab-slider">
-  <div class="kimlab-slide active">
-    <img src="{{ '/assets/img/featured/paper1.png' | relative_url }}" alt="">
-    <div class="kimlab-cap">
-      <span class="tag">FEATURED WORK</span>
-      <span class="ttl">Sub-stoichiometric zirconium oxide as a solution-processed dielectric for reconfigurable electronics</span><br>
-      <span class="src"><em>Nature Electronics</em> 8, 461–473 (2025)</span>
+  <div class="kimlab-slides">
+    <div class="kimlab-slide active">
+      <img src="{{ '/assets/img/featured/paper1.png' | relative_url }}" alt="">
+      <div class="kimlab-cap">
+        <span class="tag">FEATURED WORK</span>
+        <span class="ttl">Sub-stoichiometric zirconium oxide as a solution-processed dielectric for reconfigurable electronics</span><br>
+        <span class="src"><em>Nature Electronics</em> 8, 461–473 (2025)</span>
+      </div>
     </div>
-  </div>
-  <div class="kimlab-slide">
-    <img src="{{ '/assets/img/featured/paper2.png' | relative_url }}" alt="">
-    <div class="kimlab-cap">
-      <span class="tag">COVER ARTICLE</span>
-      <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
-      <span class="src"><em>Nature Electronics</em> — March 2025 cover</span>
+    <div class="kimlab-slide">
+      <img src="{{ '/assets/img/featured/paper2.png' | relative_url }}" alt="">
+      <div class="kimlab-cap">
+        <span class="tag">COVER ARTICLE</span>
+        <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
+        <span class="src"><em>Nature Electronics</em> — March 2025 cover</span>
+      </div>
     </div>
-  </div>
-  <div class="kimlab-slide">
-    <img src="{{ '/assets/img/featured/paper3.png' | relative_url }}" alt="">
-    <div class="kimlab-cap">
-      <span class="tag">FEATURED WORK</span>
-      <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
-      <span class="src"><em>Nature Electronics</em> 8, 235–243 (2025)</span>
+    <div class="kimlab-slide">
+      <img src="{{ '/assets/img/featured/paper3.png' | relative_url }}" alt="">
+      <div class="kimlab-cap">
+        <span class="tag">FEATURED WORK</span>
+        <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
+        <span class="src"><em>Nature Electronics</em> 8, 235–243 (2025)</span>
+      </div>
     </div>
-  </div>
-  <div class="kimlab-slide">
-    <img src="{{ '/assets/img/featured/paper4.png' | relative_url }}" alt="">
-    <div class="kimlab-cap">
-      <span class="tag">FEATURED WORK</span>
-      <span class="ttl">Wafer-scale transistor arrays fabricated using slot-die printing of molybdenum disulfide and sodium-embedded alumina</span><br>
-      <span class="src"><em>Nature Electronics</em> 6, 443–450 (2023)</span>
+    <div class="kimlab-slide">
+      <img src="{{ '/assets/img/featured/paper4.png' | relative_url }}" alt="">
+      <div class="kimlab-cap">
+        <span class="tag">FEATURED WORK</span>
+        <span class="ttl">Wafer-scale transistor arrays fabricated using slot-die printing of molybdenum disulfide and sodium-embedded alumina</span><br>
+        <span class="src"><em>Nature Electronics</em> 6, 443–450 (2023)</span>
+      </div>
     </div>
-  </div>
-  <div class="kimlab-slide">
-    <img src="{{ '/assets/img/featured/paper5.png' | relative_url }}" alt="">
-    <div class="kimlab-cap">
-      <span class="tag">COVER ARTICLE</span>
-      <span class="ttl">All-solution-processed van der Waals heterostructures for wafer-scale electronics</span><br>
-      <span class="src"><em>Advanced Materials</em> — 2022 cover</span>
+    <div class="kimlab-slide">
+      <img src="{{ '/assets/img/featured/paper5.png' | relative_url }}" alt="">
+      <div class="kimlab-cap">
+        <span class="tag">COVER ARTICLE</span>
+        <span class="ttl">All-solution-processed van der Waals heterostructures for wafer-scale electronics</span><br>
+        <span class="src"><em>Advanced Materials</em> — 2022 cover</span>
+      </div>
     </div>
   </div>
   <div class="kimlab-nav">
@@ -202,18 +223,15 @@ We are always looking for curious students who want to build things that do not 
     var nav = document.querySelector("#navbar") || document.querySelector("nav.navbar");
     if (!nav) return;
     if (nav.querySelector(".navbar-brand")) return;   // 이미 있으면 아무것도 안 함
-
     var host = nav.querySelector(".container")
             || nav.querySelector(".container-fluid")
             || nav;
-
     var a = document.createElement("a");
     a.className = "navbar-brand title font-weight-lighter";
     a.href = "{{ '/' | relative_url }}";
     a.textContent = "{{ site.title | default: 'Kim Lab' }}";
     host.insertBefore(a, host.firstChild);
   }
-
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", addBrand);
   } else {
@@ -221,4 +239,3 @@ We are always looking for curious students who want to build things that do not 
   }
 })();
 </script>
-
