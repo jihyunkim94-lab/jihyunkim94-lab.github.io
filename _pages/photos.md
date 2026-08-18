@@ -37,17 +37,17 @@ body { overflow-x: clip; }
 }
 .ph-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.3em;
   margin-bottom: 0.5rem;
 }
 /* 사진이 한 장뿐인 해 — 썸네일처럼 작게 놓이지 않도록 크게 */
 .ph-grid:has(> .ph-item:only-child) {
-  grid-template-columns: minmax(0, 560px);
+  grid-template-columns: minmax(0, 320px);
 }
 /* 사진이 두 장인 해 — 지나치게 커지지 않게 상한 */
 .ph-grid:has(> .ph-item:nth-child(2):last-child) {
-  grid-template-columns: repeat(2, minmax(0, 340px));
+  grid-template-columns: repeat(2, minmax(0, 320px));
 }
 /* YAML 에서 wide: true 를 준 사진은 두 칸 차지 */
 .ph-item.is-wide { grid-column: span 2; }
@@ -114,7 +114,7 @@ body { overflow-x: clip; }
 .ph-lightbox .ph-lb-close:hover { opacity: 1; }
 @media (max-width: 700px) {
   .ph-year { font-size: 1.3rem; }
-  .ph-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
+  .ph-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.8rem; }
   .ph-grid:has(> .ph-item:only-child),
   .ph-grid:has(> .ph-item:nth-child(2):last-child) { grid-template-columns: minmax(0, 1fr); }
   .ph-item.is-wide { grid-column: span 1; }
