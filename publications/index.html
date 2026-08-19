@@ -11,25 +11,44 @@ body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
-
-/* ===== ① 탭 이동 시 전체 축 밀림 방지 — 스크롤바 폭 항상 예약 =====
-   Publications는 길어서 스크롤바가 생기고 Home/Team은 안 생겨서
-   컨테이너가 좌우로 약 7~8px 튀는 현상을 없앤다.
-   (Home / Team 페이지에도 동일 블록을 넣어야 완전히 통일됨)          */
+/* ===== 탭 이동 시 전체 축 밀림 방지 ===== */
 html {
-  scrollbar-gutter: stable;      /* 최신 브라우저 */
-  overflow-y: scroll;            /* 구형 브라우저 폴백 */
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
-body { overflow-x: clip; }       /* 가로 스크롤바로 인한 밀림 방지 */
-
-/* 긴 제목·DOI가 컨테이너를 넘기지 않도록 */
-.publications .title,
-.publications .author,
-.publications .periodical { overflow-wrap: break-word; word-break: break-word; }
-
+body { overflow-x: clip; }
 /* 네비게이션 */
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
+
+/* ============================================================
+   저널 약어 배지 제거 + 배지가 쓰던 칸 회수
+   ------------------------------------------------------------
+   al-folio는 각 항목을 Bootstrap row(배지 칸 + 본문 칸)로 만든다.
+   배지를 숨기는 것만으로는 빈 칸이 남으므로, row 자체를 블록으로
+   되돌리고 열 너비를 100%로 풀어야 본문이 왼쪽으로 붙는다.
+   ============================================================ */
+.publications ol.bibliography > li .abbr,
+.publications ol.bibliography > li abbr.badge,
+.publications ol.bibliography > li .badge { display: none !important; }
+
+.publications ol.bibliography > li > .row,
+.publications ol.bibliography > li > div {
+  display: block !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.publications ol.bibliography > li [class*="col-"] {
+  flex: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+}
+/* 링크 버튼(Abs / HTML 등)도 숨김 — 제목 클릭으로 대체 */
+.publications ol.bibliography > li .links { display: none !important; }
+
 /* ===== 테마 공통: 크기 / 굵기 / 간격 ===== */
 .publications .title,
 .publications ol.bibliography > li > div:not(.abbr) > .title {
@@ -37,11 +56,12 @@ body { overflow-x: clip; }       /* 가로 스크롤바로 인한 밀림 방지 
   font-weight: 700 !important;
   letter-spacing: -0.015em;
   line-height: 1.4;
+  margin-bottom: 0.15rem;
 }
 .publications .author,
 .publications .periodical {
   font-size: 0.82rem !important;
-  line-height: 1.45;
+  line-height: 1.5;
   font-weight: 400 !important;
 }
 .publications .author em,
@@ -68,47 +88,40 @@ body { overflow-x: clip; }       /* 가로 스크롤바로 인한 밀림 방지 
   transition: background-size 0.25s ease, color 0.15s ease;
 }
 .publications .title a.pub-link:hover { background-size: 100% 1px; }
-/* 링크가 있는 항목만 커서 변경 */
 .publications ol.bibliography > li.has-link { cursor: pointer; }
-.publications ol.bibliography > li {
-  border-radius: 6px;
-  transition: background-color 0.15s ease;
-}
 
-/* ===== ② 논문 번호 — 번호를 왼쪽 여백으로 빼서 본문 축을
-   h1 "Publications" · 연도 헤딩 · 구분선과 정확히 일치시킴 ===== */
-.publications {
-  counter-reset: pubnum 43;      /* 논문 수 바뀌면 이 숫자만 수정 */
-  --pubnum-gutter: 2.9rem;       /* 번호 자리 폭 (한 곳에서 관리) */
-  overflow: visible;
-}
-.publications ol.bibliography {
-  padding-left: 0 !important;
-  margin-left: 0 !important;
-  list-style: none;
-}
+/* ===== 논문 번호 + 정렬 ===== */
+.publications { counter-reset: pubnum 43; }
+.publications ol.bibliography { padding-left: 0; margin-left: 0; list-style: none; }
 .publications ol.bibliography > li {
   counter-increment: pubnum -1;
   position: relative;
+  padding-left: 2.7rem;      /* 번호가 들어갈 여백 — 본문 왼쪽 정렬선 */
+  padding-right: 0;
+  margin-bottom: 1.15rem;
   list-style: none;
-  padding-left: var(--pubnum-gutter);
-  margin-left: calc(-1 * var(--pubnum-gutter));  /* ← 축 정렬 핵심 */
-  padding-right: 0.4rem;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
 }
 .publications ol.bibliography > li::before {
   content: "(" counter(pubnum) ")";
   position: absolute;
   left: 0;
-  top: 0.25rem;
-  width: calc(var(--pubnum-gutter) - 0.7rem);
+  top: 0.12rem;
+  width: 2.1rem;
   text-align: right;
   font-size: 0.78rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+  line-height: 1.4;
 }
-/* 화면이 좁으면 번호가 잘리므로 여백 밖으로 빼지 않음 */
-@media (max-width: 992px) {
-  .publications ol.bibliography > li { margin-left: 0; }
+
+@media (max-width: 700px) {
+  .publications h2.year,
+  .publications h2.bibliography,
+  .publications .year { font-size: 1.3rem !important; }
+  .publications ol.bibliography > li { padding-left: 2.3rem; }
+  .publications ol.bibliography > li::before { width: 1.8rem; }
 }
 
 /* ===== 라이트 모드: 색상 ===== */
@@ -144,13 +157,10 @@ html[data-theme="light"] .publications .author a,
 html[data-theme="light"] .publications .author .more-authors { color: #5A5A5A !important; }
 html[data-theme="light"] .publications .author em,
 html[data-theme="light"] .publications .author strong { color: #651FFF !important; }
-html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
-html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
 html[data-theme="light"] .publications h2.year,
 html[data-theme="light"] .publications h2.bibliography,
 html[data-theme="light"] .publications .year { color: var(--year-color) !important; }
 html[data-theme="light"] .publications ol.bibliography > li::before { color: #A8A8A8; }
-/* 연도 구분선만 밝게 — 네비게이션 · 제목 아래 선은 건드리지 않음 */
 html[data-theme="light"] .publications h2.year,
 html[data-theme="light"] .publications h2.bibliography,
 html[data-theme="light"] .publications .year { border-top-color: var(--line-color) !important; }
@@ -172,7 +182,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 html[data-theme="dark"] .publications h2.year,
 html[data-theme="dark"] .publications h2.bibliography,
 html[data-theme="dark"] .publications .year { color: var(--year-color) !important; }
-html[data-theme="dark"] .publications ol.bibliography > li::before { color: #FCFCFC !important; }
+html[data-theme="dark"] .publications ol.bibliography > li::before { color: #8F8F8F !important; }
 html[data-theme="dark"] .publications h2.year,
 html[data-theme="dark"] .publications h2.bibliography,
 html[data-theme="dark"] .publications .year { border-top-color: var(--line-color) !important; }
@@ -183,7 +193,7 @@ html[data-theme="dark"] .publications .year { border-top-color: var(--line-color
     items.forEach(function (li) {
       var titleEl = li.querySelector(".title");
       if (!titleEl || titleEl.querySelector("a")) return;
-      // 1순위: 링크 버튼 영역의 외부 링크 (Abs 토글, 페이지 내 앵커는 제외)
+      // 1순위: 링크 버튼 영역의 외부 링크 (숨겨져 있어도 DOM에는 존재)
       var href = null;
       var btn = li.querySelector('.links a[href^="http"]:not(.abs), .links a[href^="/"]:not(.abs)');
       if (btn) href = btn.getAttribute("href");
@@ -205,7 +215,7 @@ html[data-theme="dark"] .publications .year { border-top-color: var(--line-color
           if (doi) href = "https://doi.org/" + doi.replace(/^https?:\/\/doi\.org\//, "");
         }
       }
-      if (!href) return; // 링크가 없으면 원래대로 (일반 텍스트)
+      if (!href) return;
       var a = document.createElement("a");
       a.href = href;
       a.target = "_blank";
@@ -216,7 +226,6 @@ html[data-theme="dark"] .publications .year { border-top-color: var(--line-color
       li.classList.add("has-link");
       li.dataset.href = href;
     });
-    // 항목 아무 곳이나 클릭해도 이동 (텍스트 선택·기존 링크 클릭은 방해하지 않음)
     document.querySelectorAll(".publications ol.bibliography > li.has-link").forEach(function (li) {
       li.addEventListener("click", function (e) {
         if (e.target.closest("a") || e.target.closest("button")) return;
