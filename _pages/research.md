@@ -17,7 +17,7 @@ html {
 body { overflow-x: clip; }
 /* Inter font, declared explicitly on custom classes */
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
-.rs-kicker, .rs-sec, .rs-lede, .rs-prose, .rs-refs, .rs-refnote {
+.rs-sec, .rs-lede, .rs-prose, .rs-refs, .rs-refnote {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
@@ -28,17 +28,8 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 
 /* Hierarchy, matched to the Team page
    1. group heading  h2.rs-sec   1.38rem / 800   = Team .tm-group
-   2. kicker         .rs-kicker  0.76rem caps    = Team .pi-section
-   3. body           .rs-prose p 0.92rem         = Team .tm-body
-   4. references     .rs-refs    0.80rem grey    = Team .pi-adv          */
-.rs-kicker {
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin: 0.2rem 0 1.6rem 0;
-}
-
+   2. body           .rs-prose p 0.92rem         = Team .tm-body
+   3. references     .rs-refs    0.80rem grey    = Team .pi-adv          */
 h2.rs-sec {
   font-size: 1.38rem !important;
   font-weight: 800 !important;
@@ -48,6 +39,7 @@ h2.rs-sec {
   padding-top: 1.15rem;
   margin: 2.6rem 0 1.2rem 0;
 }
+/* First heading: no rule, and the same top offset as Team's .tm-group.first */
 h2.rs-sec.first {
   border-top: none;
   padding-top: 0;
@@ -103,6 +95,7 @@ ol.rs-refs .eq { font-size: 0.85em; vertical-align: super; line-height: 0; }
 
 @media (max-width: 700px) {
   h2.rs-sec { font-size: 1.18rem !important; margin: 2.1rem 0 0.95rem 0; }
+  h2.rs-sec.first { margin-top: 1.3rem; }
   .rs-lede, .rs-prose p { font-size: 0.89rem; }
   ol.rs-refs { font-size: 0.76rem; }
   .rs-refnote { font-size: 0.73rem; }
@@ -131,7 +124,6 @@ html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light
 html[data-theme="light"] .post-title { color: #191919 !important; }
 html[data-theme="light"] h2.rs-sec { color: #191919 !important; border-top-color: rgba(25,25,25,0.22) !important; }
 html[data-theme="light"] h2.rs-sec .num { color: #651FFF !important; }
-html[data-theme="light"] .rs-kicker { color: #8A8A8A !important; }
 html[data-theme="light"] .rs-lede,
 html[data-theme="light"] .rs-prose p { color: #191919 !important; }
 html[data-theme="light"] .rs-prose sup a { color: #651FFF !important; }
@@ -141,7 +133,6 @@ html[data-theme="light"] ol.rs-refs .self { color: #191919 !important; }
 /* Dark theme */
 html[data-theme="dark"] h2.rs-sec { color: #FCFCFC !important; border-top-color: rgba(252,252,252,0.42) !important; }
 html[data-theme="dark"] h2.rs-sec .num { color: #86CFDA !important; }
-html[data-theme="dark"] .rs-kicker { color: #909090 !important; }
 html[data-theme="dark"] .rs-lede,
 html[data-theme="dark"] .rs-prose p { color: #FCFCFC !important; }
 html[data-theme="dark"] .rs-prose sup a { color: #86CFDA !important; }
@@ -149,8 +140,6 @@ html[data-theme="dark"] ol.rs-refs,
 html[data-theme="dark"] .rs-refnote { color: #8F8F8F !important; }
 html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
 </style>
-
-<div class="rs-kicker">Printed electronics &amp; intelligent sensors</div>
 
 <div class="rs-prose">
   <h2 class="rs-sec first">Vision</h2>
