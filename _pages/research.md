@@ -13,9 +13,9 @@ html {
   overflow-y: scroll;
 }
 body { overflow-x: clip; }
-/* Inter 폰트 — 커스텀 클래스까지 명시 */
+/* Inter 폰트 — 커스텀 클래스까지 명시 (상속에 의존하지 않도록) */
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
-.rs-kicker, .rs-sec, .rs-lede, .rs-prose, .rs-refs, .rs-figcap {
+.rs-kicker, .rs-sec, .rs-lede, .rs-prose, .rs-refs {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
@@ -25,53 +25,33 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
 
 /* ============================================================
-   Research 본문
+   위계 — Team 페이지와 동일 규격
+   ① 대분류 h2.rs-sec   : 1.38rem / 800   (Team의 .tm-group)
+   ② 킥커   .rs-kicker  : 0.76rem 대문자  (Team의 .pi-section)
+   ③ 본문   .rs-prose p : 0.92rem         (Team의 .tm-body)
+   ④ 참고문헌 .rs-refs  : 0.80rem 연회색  (Team의 .pi-adv)
    ============================================================ */
 .rs-kicker {
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin: 0.2rem 0 1.7rem 0;
+  margin: 0.2rem 0 1.6rem 0;
 }
 
-/* ----- 애니메이션 도해 ----- */
-.rs-figure {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #050a18;
-  margin: 0 0 2.6rem 0;
-}
-.rs-figure canvas { display: block; width: 100%; height: 100%; }
-.rs-figcap {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 3.2rem 1.3rem 1.1rem;
-  background: linear-gradient(to top, rgba(4,8,20,0.88), rgba(4,8,20,0));
-  color: #EAF2FF;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  text-shadow: 0 1px 12px rgba(0,0,0,0.6);
-}
-.rs-figcap b { font-weight: 600; }
-
-/* ----- 섹션 제목 ----- */
 h2.rs-sec {
-  font-size: 1.2rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  font-size: 1.38rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
   border-top: 1px solid;
-  padding-top: 1.05rem;
-  margin: 2.6rem 0 0.9rem 0;
+  padding-top: 1.15rem;
+  margin: 2.6rem 0 1.2rem 0;
 }
 h2.rs-sec.first {
   border-top: none;
   padding-top: 0;
-  margin-top: 0;
+  margin-top: 1.6rem;
 }
 h2.rs-sec .num {
   font-size: 0.82em;
@@ -83,16 +63,15 @@ h2.rs-sec .num {
 
 /* ----- 본문 ----- */
 .rs-lede {
-  font-size: 1.05rem !important;
-  line-height: 1.7;
-  margin: 0 0 1.15rem 0;
-  max-width: 68ch;
+  font-size: 0.92rem !important;
+  font-weight: 500;
+  line-height: 1.65;
+  margin: 0 0 1rem 0;
 }
 .rs-prose p {
-  font-size: 0.95rem;
-  line-height: 1.75;
-  margin: 0 0 1.05rem 0;
-  max-width: 72ch;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 0 0 1rem 0;
 }
 .rs-prose sup { font-size: 0.68em; line-height: 0; }
 .rs-prose sup a {
@@ -104,24 +83,22 @@ h2.rs-sec .num {
 .rs-prose sup a:hover { text-decoration: underline; }
 
 /* ----- 참고문헌 ----- */
-h2.rs-sec.refs { margin-top: 3.2rem; }
 ol.rs-refs {
   margin: 0;
   padding-left: 1.5em;
-  font-size: 0.82rem;
-  line-height: 1.65;
+  font-size: 0.8rem;
+  line-height: 1.6;
 }
 ol.rs-refs li {
-  margin-bottom: 0.55em;
+  margin-bottom: 0.5em;
   scroll-margin-top: 5rem;   /* 고정 네비게이션에 가려지지 않도록 */
 }
 ol.rs-refs .self { font-weight: 700; }
 
 @media (max-width: 700px) {
-  .rs-figure { aspect-ratio: 4 / 3; border-radius: 10px; }
-  h2.rs-sec { font-size: 1.08rem !important; margin-top: 2.1rem; }
-  .rs-lede { font-size: 1rem !important; }
-  .rs-prose p { font-size: 0.92rem; }
+  h2.rs-sec { font-size: 1.18rem !important; margin: 2.1rem 0 0.95rem 0; }
+  .rs-lede, .rs-prose p { font-size: 0.89rem; }
+  ol.rs-refs { font-size: 0.76rem; }
 }
 
 /* ===== 라이트 모드: 색상 ===== */
@@ -145,33 +122,26 @@ html[data-theme="light"] .navbar-brand:hover { color: #651FFF !important; }
 html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3,
 html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
 html[data-theme="light"] .post-title { color: #191919 !important; }
-html[data-theme="light"] h2.rs-sec { color: #191919 !important; border-top-color: rgba(25,25,25,0.12) !important; }
+html[data-theme="light"] h2.rs-sec { color: #191919 !important; border-top-color: rgba(25,25,25,0.22) !important; }
 html[data-theme="light"] h2.rs-sec .num { color: #651FFF !important; }
 html[data-theme="light"] .rs-kicker { color: #8A8A8A !important; }
-html[data-theme="light"] .rs-lede { color: #191919 !important; }
-html[data-theme="light"] .rs-prose p { color: #3D3D3D !important; }
+html[data-theme="light"] .rs-lede,
+html[data-theme="light"] .rs-prose p { color: #191919 !important; }
 html[data-theme="light"] .rs-prose sup a { color: #651FFF !important; }
-html[data-theme="light"] ol.rs-refs { color: #6A6A6A !important; }
+html[data-theme="light"] ol.rs-refs { color: #7A7A7A !important; }
 html[data-theme="light"] ol.rs-refs .self { color: #191919 !important; }
 /* ===== 다크 모드: 색상 ===== */
-html[data-theme="dark"] h2.rs-sec { color: #FCFCFC !important; border-top-color: rgba(252,252,252,0.28) !important; }
+html[data-theme="dark"] h2.rs-sec { color: #FCFCFC !important; border-top-color: rgba(252,252,252,0.42) !important; }
 html[data-theme="dark"] h2.rs-sec .num { color: #86CFDA !important; }
 html[data-theme="dark"] .rs-kicker { color: #909090 !important; }
-html[data-theme="dark"] .rs-lede { color: #FCFCFC !important; }
-html[data-theme="dark"] .rs-prose p { color: #C4C4C4 !important; }
+html[data-theme="dark"] .rs-lede,
+html[data-theme="dark"] .rs-prose p { color: #FCFCFC !important; }
 html[data-theme="dark"] .rs-prose sup a { color: #86CFDA !important; }
-html[data-theme="dark"] ol.rs-refs { color: #9A9A9A !important; }
+html[data-theme="dark"] ol.rs-refs { color: #8F8F8F !important; }
 html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
 </style>
 
 <div class="rs-kicker">Printed electronics &amp; intelligent sensors</div>
-
-<figure class="rs-figure">
-  <canvas id="ioe"></canvas>
-  <figcaption class="rs-figcap">
-    <b>Toward an Internet of Everything.</b> Computing is spreading to surfaces silicon was never made for.
-  </figcaption>
-</figure>
 
 <div class="rs-prose">
 
@@ -203,7 +173,7 @@ html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
 
 <p>These three axes converge on one thing: a printed electronics platform. What the Internet of Everything needs is electronics cheap enough to put anywhere, in the right form factor, and good enough to be worth putting there. That is what we are building.</p>
 
-<h2 class="rs-sec refs">References</h2>
+<h2 class="rs-sec">References</h2>
 
 <ol class="rs-refs">
   <li id="r1">Kim, K., <span class="self">Kim, J.</span> <em>et al.</em> Sub-stoichiometric zirconium oxide as a solution-processed dielectric for reconfigurable electronics. <em>Nat. Electron.</em> <strong>8</strong>, 461&ndash;473 (2025).</li>
@@ -218,401 +188,6 @@ html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
 </ol>
 
 </div>
-
-{% raw %}
-<script>
-(function(){
-  'use strict';
-
-  var CFG = {
-    seed:        20260820,
-    nodeCount:   64,
-    linkDist:    190,
-    nodeSpeed:   0.16,
-    pulseRate:   0.006,
-    horizon:     0.74,
-    palette: {
-      skyTop:    '#0a1030',
-      skyMid:    '#1b3f6e',
-      skyGlow:   '#4a7fa8',
-      waterTop:  '#0d2440',
-      waterBot:  '#050b18',
-      farTower:  '#16304f',
-      nearTower: '#0a1830',
-      window:    '#ffcf87',
-      nodeCore:  '#ffffff',
-      nodeGlow:  '#39c6ff',
-      nodeAlt:   '#2f7dff',
-      link:      '#7fd8ff'
-    }
-  };
-
-  var cv  = document.getElementById('ioe');
-  if (!cv) return;
-  var ctx = cv.getContext('2d');
-  var off = document.createElement('canvas');
-  var octx = off.getContext('2d');
-  var W = 0, H = 0, DPR = 1, scale = 1;
-  var far = [], near = [], nodes = [], pulses = [];
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var frame = 0, raf = null;
-
-  function mulberry32(a){
-    return function(){
-      a |= 0; a = a + 0x6D2B79F5 | 0;
-      var t = Math.imul(a ^ a >>> 15, 1 | a);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    };
-  }
-
-  function buildSkyline(rand, opts){
-    var band = [], x = -20;
-    while (x < W + 40){
-      var w = (opts.minW + rand() * (opts.maxW - opts.minW)) * scale;
-      var h = (opts.minH + Math.pow(rand(), 1.7) * (opts.maxH - opts.minH)) * scale;
-      var b = { x:x, w:w, h:h, win:[] };
-
-      var cw = 3.1 * scale, ch = 4.6 * scale, gx = 3.0 * scale, gy = 5.4 * scale;
-      var cols = Math.floor((w - gx) / (cw + gx));
-      var rows = Math.floor((h - gy) / (ch + gy));
-      if (cols > 0 && rows > 0){
-        for (var c = 0; c < cols; c++){
-          for (var r = 0; r < rows; r++){
-            if (rand() < opts.litChance){
-              b.win.push({
-                x: gx + c * (cw + gx),
-                y: gy + r * (ch + gy),
-                w: cw, h: ch,
-                a: 0.35 + rand() * 0.65,
-                ph: rand() * Math.PI * 2,
-                sp: 0.004 + rand() * 0.012
-              });
-            }
-          }
-        }
-      }
-      band.push(b);
-      x += w + (opts.gap * (0.4 + rand())) * scale;
-    }
-    return band;
-  }
-
-  function buildNodes(rand){
-    var n = Math.round(CFG.nodeCount * Math.min(1.5, Math.max(0.6, W / (1000 * DPR))));
-    var arr = [];
-    for (var i = 0; i < n; i++){
-      var a = rand() * Math.PI * 2;
-      arr.push({
-        x: rand() * W,
-        y: rand() * H,
-        vx: Math.cos(a) * CFG.nodeSpeed * scale,
-        vy: Math.sin(a) * CFG.nodeSpeed * scale,
-        r: (1.0 + rand() * 2.2) * scale,
-        bright: rand() < 0.22,
-        ph: rand() * Math.PI * 2,
-        alt: rand() < 0.35
-      });
-    }
-    return arr;
-  }
-
-  function resize(){
-    var rect = cv.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    DPR = Math.min(2, window.devicePixelRatio || 1);
-    W = Math.round(rect.width * DPR);
-    H = Math.round(rect.height * DPR);
-    cv.width = W; cv.height = H;
-    off.width = W; off.height = H;
-    scale = Math.max(0.75, (W / DPR) / 1000) * DPR;
-
-    var rand = mulberry32(CFG.seed);
-    far  = buildSkyline(rand, {minW:16,maxW:40,minH:26,maxH:130,gap:7,litChance:0.16});
-    near = buildSkyline(rand, {minW:22,maxW:62,minH:38,maxH:210,gap:9,litChance:0.26});
-    nodes = buildNodes(mulberry32(CFG.seed + 7));
-    pulses = [];
-  }
-
-  function drawSky(){
-    var hz = H * CFG.horizon;
-    var g = ctx.createLinearGradient(0, 0, 0, hz);
-    g.addColorStop(0,    CFG.palette.skyTop);
-    g.addColorStop(0.55, CFG.palette.skyMid);
-    g.addColorStop(1,    CFG.palette.skyGlow);
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, W, hz);
-
-    var sun = ctx.createRadialGradient(W * 0.72, hz, 0, W * 0.72, hz, H * 0.55);
-    sun.addColorStop(0,   'rgba(255,196,140,0.30)');
-    sun.addColorStop(0.4, 'rgba(255,160,120,0.10)');
-    sun.addColorStop(1,   'rgba(255,160,120,0)');
-    ctx.fillStyle = sun;
-    ctx.fillRect(0, 0, W, hz);
-
-    ctx.save();
-    ctx.globalAlpha = 0.10;
-    var cr = mulberry32(CFG.seed + 31);
-    for (var i = 0; i < 14; i++){
-      var cy = hz * (0.12 + cr() * 0.55);
-      var cx = cr() * W;
-      var cw = (60 + cr() * 220) * scale;
-      var chh = (4 + cr() * 10) * scale;
-      var cg = ctx.createLinearGradient(cx - cw, 0, cx + cw, 0);
-      cg.addColorStop(0, 'rgba(255,255,255,0)');
-      cg.addColorStop(0.5, 'rgba(255,255,255,1)');
-      cg.addColorStop(1, 'rgba(255,255,255,0)');
-      ctx.fillStyle = cg;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, cw, chh, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-
-  function drawBand(c, band, color, alpha, t){
-    var hz = H * CFG.horizon;
-    c.save();
-    c.globalAlpha = alpha;
-    c.fillStyle = color;
-    for (var i = 0; i < band.length; i++){
-      var b = band[i];
-      c.fillRect(b.x, hz - b.h, b.w, b.h);
-    }
-    c.restore();
-
-    c.save();
-    c.globalCompositeOperation = 'lighter';
-    for (var j = 0; j < band.length; j++){
-      var bb = band[j];
-      for (var k = 0; k < bb.win.length; k++){
-        var w = bb.win[k];
-        var flick = 0.82 + 0.18 * Math.sin(t * w.sp + w.ph);
-        c.globalAlpha = w.a * alpha * flick * 0.9;
-        c.fillStyle = CFG.palette.window;
-        c.fillRect(bb.x + w.x, hz - bb.h + w.y, w.w, w.h);
-      }
-    }
-    c.restore();
-  }
-
-  function drawWater(t){
-    var hz = H * CFG.horizon;
-    var depthPx = H - hz;
-
-    ctx.save();
-    var g = ctx.createLinearGradient(0, hz, 0, H);
-    g.addColorStop(0,   '#123a52');
-    g.addColorStop(0.5, '#0a1a30');
-    g.addColorStop(1,   CFG.palette.waterBot);
-    ctx.fillStyle = g;
-    ctx.fillRect(0, hz, W, depthPx);
-    ctx.restore();
-
-    var strip = Math.max(2, Math.round(2 * DPR));
-    ctx.save();
-    ctx.beginPath(); ctx.rect(0, hz, W, depthPx); ctx.clip();
-    ctx.globalCompositeOperation = 'lighter';
-    for (var d = 0; d < depthPx; d += strip){
-      var sy = hz - d - strip;
-      if (sy < 0) break;
-      var f = d / depthPx;
-      var wob = Math.sin(t * 0.018 + d * 0.075) * (1.2 + f * 9) * scale;
-      ctx.globalAlpha = 0.30 * Math.pow(1 - f, 1.5);
-      ctx.drawImage(off, 0, sy, W, strip, wob, hz + d, W, strip);
-    }
-    ctx.restore();
-
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    var rr = mulberry32(CFG.seed + 91);
-    for (var y = hz; y < H; y += 3 * scale){
-      var dep = (y - hz) / depthPx;
-      var wb = Math.sin(t * 0.012 + y * 0.05) * 2 * scale * dep;
-      ctx.globalAlpha = 0.030 * (1 - dep * 0.6) + rr() * 0.010;
-      ctx.fillStyle = '#9fd8ff';
-      ctx.fillRect(wb, y, W, 1.1 * scale);
-    }
-    ctx.restore();
-
-    ctx.save();
-    var dg = ctx.createLinearGradient(0, hz, 0, H);
-    dg.addColorStop(0,   'rgba(5,11,24,0)');
-    dg.addColorStop(0.55,'rgba(5,11,24,0.35)');
-    dg.addColorStop(1,   'rgba(3,7,16,0.85)');
-    ctx.fillStyle = dg;
-    ctx.fillRect(0, hz, W, depthPx);
-    ctx.restore();
-
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    var hg = ctx.createLinearGradient(0, hz - 6 * scale, 0, hz + 6 * scale);
-    hg.addColorStop(0,   'rgba(120,190,255,0)');
-    hg.addColorStop(0.5, 'rgba(150,210,255,0.13)');
-    hg.addColorStop(1,   'rgba(120,190,255,0)');
-    ctx.fillStyle = hg;
-    ctx.fillRect(0, hz - 6 * scale, W, 12 * scale);
-    ctx.restore();
-  }
-
-  function drawNetwork(t){
-    var maxD = CFG.linkDist * scale;
-    var maxD2 = maxD * maxD;
-
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.lineWidth = Math.max(0.6, 0.7 * scale);
-    for (var i = 0; i < nodes.length; i++){
-      for (var j = i + 1; j < nodes.length; j++){
-        var a = nodes[i], b = nodes[j];
-        var dx = a.x - b.x, dy = a.y - b.y;
-        var d2 = dx * dx + dy * dy;
-        if (d2 > maxD2) continue;
-        var f = 1 - Math.sqrt(d2) / maxD;
-        ctx.strokeStyle = 'rgba(160,225,255,' + (f * f * 0.42).toFixed(3) + ')';
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-    }
-    ctx.restore();
-
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (var p = pulses.length - 1; p >= 0; p--){
-      var pu = pulses[p];
-      pu.t += pu.sp;
-      if (pu.t >= 1){ pulses.splice(p, 1); continue; }
-      var na = nodes[pu.a], nb = nodes[pu.b];
-      if (!na || !nb) { pulses.splice(p, 1); continue; }
-      var px = na.x + (nb.x - na.x) * pu.t;
-      var py = na.y + (nb.y - na.y) * pu.t;
-      var fade = Math.sin(pu.t * Math.PI);
-      var pg = ctx.createRadialGradient(px, py, 0, px, py, 9 * scale);
-      pg.addColorStop(0, 'rgba(220,245,255,' + (0.9 * fade).toFixed(3) + ')');
-      pg.addColorStop(1, 'rgba(60,180,255,0)');
-      ctx.fillStyle = pg;
-      ctx.beginPath(); ctx.arc(px, py, 9 * scale, 0, Math.PI * 2); ctx.fill();
-    }
-    ctx.restore();
-
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (var n = 0; n < nodes.length; n++){
-      var nd = nodes[n];
-      var puls = 0.75 + 0.25 * Math.sin(t * 0.02 + nd.ph);
-      var rgb = nd.alt ? '47,125,255' : '57,198,255';
-
-      var gr = ctx.createRadialGradient(nd.x, nd.y, 0, nd.x, nd.y, nd.r * 7);
-      gr.addColorStop(0,    'rgba(' + rgb + ',' + (0.85 * puls).toFixed(3) + ')');
-      gr.addColorStop(0.35, 'rgba(' + rgb + ',' + (0.22 * puls).toFixed(3) + ')');
-      gr.addColorStop(1,    'rgba(' + rgb + ',0)');
-      ctx.fillStyle = gr;
-      ctx.beginPath(); ctx.arc(nd.x, nd.y, nd.r * 7, 0, Math.PI * 2); ctx.fill();
-
-      ctx.fillStyle = 'rgba(255,255,255,' + (0.95 * puls).toFixed(3) + ')';
-      ctx.beginPath(); ctx.arc(nd.x, nd.y, nd.r * 0.62, 0, Math.PI * 2); ctx.fill();
-
-      if (nd.bright){
-        var len = nd.r * 11 * puls;
-        var fg = ctx.createLinearGradient(nd.x - len, nd.y, nd.x + len, nd.y);
-        fg.addColorStop(0, 'rgba(' + rgb + ',0)');
-        fg.addColorStop(0.5, 'rgba(210,242,255,' + (0.55 * puls).toFixed(3) + ')');
-        fg.addColorStop(1, 'rgba(' + rgb + ',0)');
-        ctx.fillStyle = fg;
-        ctx.fillRect(nd.x - len, nd.y - 0.5 * scale, len * 2, 1 * scale);
-
-        var fv = ctx.createLinearGradient(nd.x, nd.y - len, nd.x, nd.y + len);
-        fv.addColorStop(0, 'rgba(' + rgb + ',0)');
-        fv.addColorStop(0.5, 'rgba(210,242,255,' + (0.55 * puls).toFixed(3) + ')');
-        fv.addColorStop(1, 'rgba(' + rgb + ',0)');
-        ctx.fillStyle = fv;
-        ctx.fillRect(nd.x - 0.5 * scale, nd.y - len, 1 * scale, len * 2);
-      }
-    }
-    ctx.restore();
-  }
-
-  function drawVignette(){
-    ctx.save();
-    var v = ctx.createRadialGradient(W/2, H*0.45, Math.min(W,H)*0.25, W/2, H*0.5, Math.max(W,H)*0.78);
-    v.addColorStop(0, 'rgba(0,0,0,0)');
-    v.addColorStop(1, 'rgba(2,5,14,0.55)');
-    ctx.fillStyle = v;
-    ctx.fillRect(0, 0, W, H);
-    ctx.restore();
-  }
-
-  function step(){
-    for (var i = 0; i < nodes.length; i++){
-      var n = nodes[i];
-      n.x += n.vx; n.y += n.vy;
-      var m = 30 * scale;
-      if (n.x < -m) n.x = W + m;
-      if (n.x > W + m) n.x = -m;
-      if (n.y < -m) n.y = H + m;
-      if (n.y > H + m) n.y = -m;
-    }
-    if (nodes.length > 2 && Math.random() < CFG.pulseRate * nodes.length * 0.25){
-      var a = (Math.random() * nodes.length) | 0;
-      var b = (Math.random() * nodes.length) | 0;
-      if (a !== b){
-        var na = nodes[a], nb = nodes[b];
-        var dx = na.x - nb.x, dy = na.y - nb.y;
-        if (dx*dx + dy*dy < Math.pow(CFG.linkDist * scale, 2)){
-          pulses.push({ a:a, b:b, t:0, sp: 0.010 + Math.random() * 0.012 });
-        }
-      }
-    }
-  }
-
-  function render(){
-    var t = frame;
-    octx.clearRect(0, 0, W, H);
-    drawBand(octx, far,  CFG.palette.farTower,  0.85, t);
-    drawBand(octx, near, CFG.palette.nearTower, 1.0,  t);
-
-    ctx.clearRect(0, 0, W, H);
-    drawSky();
-    ctx.drawImage(off, 0, 0);
-    drawWater(t);
-    drawNetwork(t);
-    drawVignette();
-  }
-
-  function loop(){
-    frame++;
-    step();
-    render();
-    raf = requestAnimationFrame(loop);
-  }
-
-  function start(){
-    resize();
-    if (reduced){
-      for (var i = 0; i < 260; i++) step();
-      render();
-    } else {
-      if (raf) cancelAnimationFrame(raf);
-      loop();
-    }
-  }
-
-  var rt;
-  window.addEventListener('resize', function(){
-    clearTimeout(rt);
-    rt = setTimeout(start, 180);
-  });
-
-  if ('IntersectionObserver' in window && !reduced){
-    new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting){ if (!raf) loop(); }
-        else { if (raf){ cancelAnimationFrame(raf); raf = null; } }
-      });
-    }, {threshold:0.01}).observe(cv);
-  }
 
   start();
 })();
