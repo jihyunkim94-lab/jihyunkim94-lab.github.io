@@ -13,7 +13,7 @@ html {
   overflow-y: scroll;
 }
 body { overflow-x: clip; }
-/* Inter 폰트 — 커스텀 클래스까지 명시적으로 지정 (상속에 의존하지 않도록) */
+/* Inter 폰트 — 커스텀 클래스까지 명시 (상속에 의존하지 않도록) */
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
 .tm-group, .tm-note, .tm-body,
 .pi-section, .pi-name, .pi-role, .pi-contact, .pi-adv {
@@ -135,7 +135,8 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 
 /* ===== Open Positions 본문 ===== */
-.tm-body { font-size: 0.92rem; line-height: 1.65; max-width: 62ch; }
+/* max-width 없음 — 표·구분선과 같은 지점에서 끝나도록 (Research 페이지와 동일 기준) */
+.tm-body { font-size: 0.92rem; line-height: 1.65; }
 
 @media (max-width: 700px) {
   .tm-group { font-size: 1.18rem; margin: 2.1rem 0 0.95rem 0; }
@@ -145,6 +146,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   .pi-contact .label { width: auto; margin-right: 0.35rem; }
   .pi-table td.when { width: 118px; font-size: 0.8rem; }
   .pi-adv { display: block; margin-top: 0.1rem; white-space: normal; font-size: 0.74rem; }
+  .tm-body { font-size: 0.89rem; }
 }
 
 /* ===== 라이트 모드: 색상 ===== */
@@ -266,5 +268,5 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
 <div class="tm-group">Open Positions</div>
 
 <div class="tm-body">
-Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, or electrical engineering — and, more importantly, a willingness to learn what they do not yet know.
+Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, electrical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know.
 </div>
