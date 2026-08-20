@@ -39,6 +39,15 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   transform: none !important;
   text-decoration: none;
 }
+/* ===== 소속 줄(subtitle) 강조 + 본문과의 간격 ===== */
+.post-header .desc, p.desc {
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  margin-bottom: 0 !important;
+}
+.post-header { margin-bottom: 2.1rem !important; }   /* 제목·소속 블록과 본문 사이 여백 */
 /* 슬라이더 아래 섹션 겹침 방지 */
 .news, .publications, .post-list, h2 { clear: both; }
 .news { padding-top: 1.5rem; }
@@ -79,6 +88,8 @@ html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light
 html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
 html[data-theme="light"] .post-title,
 html[data-theme="light"] .news .date { color: #191919 !important; }
+html[data-theme="light"] .post-header .desc,
+html[data-theme="light"] p.desc { color: #2E2E2E !important; }
 html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
 html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
 html[data-theme="light"] p a, html[data-theme="light"] li a,
@@ -91,6 +102,8 @@ html[data-theme="light"] .publications .author .more-authors { color: #5A5A5A !i
 html[data-theme="light"] .publications .author em,
 html[data-theme="light"] .publications .author strong { color: #651FFF !important; }
 /* ===== 다크 모드: 색상 ===== */
+html[data-theme="dark"] .post-header .desc,
+html[data-theme="dark"] p.desc { color: #D5D5D5 !important; }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .author,
 html[data-theme="dark"] .publications .periodical { color: #B0B0B0 !important; }
@@ -102,9 +115,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 /* ===== 슬라이더 ===== */
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 
-/* 핵심: 슬라이드 5개를 같은 그리드 칸에 겹쳐 쌓는다.
-   → 컨테이너 높이 = 가장 긴 슬라이드 높이로 항상 고정.
-   display:none 이 아니라 visibility 로 숨기므로 높이 계산에 모두 참여한다. */
+/* 슬라이드 5개를 같은 그리드 칸에 겹쳐 쌓아 컨테이너 높이를 고정 */
 .kimlab-slides { display: grid; }
 .kimlab-slide {
   grid-area: 1 / 1;
@@ -131,8 +142,8 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 .kimlab-dot.on { background: var(--global-theme-color); }
 @media (max-width: 768px) {
   .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
+  .post-header { margin-bottom: 1.5rem !important; }
 }
-/* 애니메이션 최소화 설정을 켠 사용자 배려 */
 @media (prefers-reduced-motion: reduce) {
   .kimlab-slide { transition: none; }
 }
@@ -192,7 +203,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 
 Kim Lab designs materials at the **atomic scale** and engineers them into **scalable, reproducible platforms** for next-generation electronics.
 
-Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what device architectures become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.
+Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what devices become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.
 
 We are always looking for curious students who want to build things that do not exist yet.
 
