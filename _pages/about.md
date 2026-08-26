@@ -31,7 +31,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 /* 네비게이션 — 다른 페이지와 동일하게 통일 */
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
-/* 홈에서도 좌측 "Kim Lab" 브랜드가 항상 보이도록 (크기는 테마 기본값을 그대로 사용) */
+/* 홈에서도 좌측 "Kim Lab" 브랜드가 항상 보이도록 */
 .navbar .navbar-brand, #navbar .navbar-brand {
   visibility: visible !important;
   opacity: 1 !important;
@@ -47,7 +47,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   line-height: 1.5;
   margin-bottom: 0 !important;
 }
-.post-header { margin-bottom: 2.1rem !important; }   /* 제목·소속 블록과 본문 사이 여백 */
+.post-header { margin-bottom: 2.1rem !important; }
 /* 슬라이더 아래 섹션 겹침 방지 */
 .news, .publications, .post-list, h2 { clear: both; }
 .news { padding-top: 1.5rem; }
@@ -113,6 +113,7 @@ html[data-theme="dark"] .publications .author em,
 html[data-theme="dark"] .publications .author strong { color: #86CFDA !important; }
 
 /* ===== 슬라이더 ===== */
+.kimlab-intro::after { content: ""; display: block; clear: both; }
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 
 /* 슬라이드 5개를 같은 그리드 칸에 겹쳐 쌓아 컨테이너 높이를 고정 */
@@ -140,72 +141,111 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 .kimlab-dots { display: flex; gap: 0.3rem; }
 .kimlab-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(128,128,128,0.4); cursor: pointer; }
 .kimlab-dot.on { background: var(--global-theme-color); }
+
+/* ===== 모바일 ① : 설명이 먼저, 논문 슬라이더가 그 다음 ===== */
 @media (max-width: 768px) {
-  .kimlab-slider { float: none; width: 100%; max-width: 320px; margin: 0 auto 1.5rem auto; }
+  .kimlab-intro { display: flex; flex-direction: column; }
+  .kimlab-text { order: 1; }
+  .kimlab-slider {
+    order: 2;
+    float: none;
+    width: 100%;
+    max-width: 320px;
+    margin: 1.6rem auto 0.5rem auto;
+  }
   .post-header { margin-bottom: 1.5rem !important; }
 }
+
+/* ===== 모바일 ② : 저널 약어 배지를 내용에 맞는 크기로 ===== */
+@media (max-width: 576px) {
+  .publications ol.bibliography > li .abbr {
+    height: auto !important;
+    text-align: left !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .publications ol.bibliography > li .abbr abbr,
+  .publications ol.bibliography > li .abbr .badge,
+  .publications abbr.badge,
+  .publications .badge {
+    display: inline-block !important;
+    width: auto !important;
+    max-width: max-content !important;
+    font-size: 0.62rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    padding: 0.2rem 0.5rem !important;
+    line-height: 1.25 !important;
+    border-radius: 4px !important;
+    white-space: nowrap;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .kimlab-slide { transition: none; }
 }
 </style>
 
-<div class="kimlab-slider">
-  <div class="kimlab-slides">
-    <div class="kimlab-slide active">
-      <img src="{{ '/assets/img/featured/paper1.png' | relative_url }}" alt="">
-      <div class="kimlab-cap">
-        <span class="tag">FEATURED WORK</span>
-        <span class="ttl">Sub-stoichiometric zirconium oxide as a solution-processed dielectric for reconfigurable electronics</span><br>
-        <span class="src"><em>Nature Electronics</em> 8, 461–473 (2025)</span>
+<div class="kimlab-intro">
+
+  <div class="kimlab-slider">
+    <div class="kimlab-slides">
+      <div class="kimlab-slide active">
+        <img src="{{ '/assets/img/featured/paper1.png' | relative_url }}" alt="">
+        <div class="kimlab-cap">
+          <span class="tag">FEATURED WORK</span>
+          <span class="ttl">Sub-stoichiometric zirconium oxide as a solution-processed dielectric for reconfigurable electronics</span><br>
+          <span class="src"><em>Nature Electronics</em> 8, 461–473 (2025)</span>
+        </div>
+      </div>
+      <div class="kimlab-slide">
+        <img src="{{ '/assets/img/featured/paper2.png' | relative_url }}" alt="">
+        <div class="kimlab-cap">
+          <span class="tag">COVER ARTICLE</span>
+          <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
+          <span class="src"><em>Nature Electronics</em> — March 2025 cover</span>
+        </div>
+      </div>
+      <div class="kimlab-slide">
+        <img src="{{ '/assets/img/featured/paper3.png' | relative_url }}" alt="">
+        <div class="kimlab-cap">
+          <span class="tag">FEATURED WORK</span>
+          <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
+          <span class="src"><em>Nature Electronics</em> 8, 235–243 (2025)</span>
+        </div>
+      </div>
+      <div class="kimlab-slide">
+        <img src="{{ '/assets/img/featured/paper4.png' | relative_url }}" alt="">
+        <div class="kimlab-cap">
+          <span class="tag">FEATURED WORK</span>
+          <span class="ttl">Wafer-scale transistor arrays fabricated using slot-die printing of molybdenum disulfide and sodium-embedded alumina</span><br>
+          <span class="src"><em>Nature Electronics</em> 6, 443–450 (2023)</span>
+        </div>
+      </div>
+      <div class="kimlab-slide">
+        <img src="{{ '/assets/img/featured/paper5.png' | relative_url }}" alt="">
+        <div class="kimlab-cap">
+          <span class="tag">COVER ARTICLE</span>
+          <span class="ttl">All-solution-processed van der Waals heterostructures for wafer-scale electronics</span><br>
+          <span class="src"><em>Advanced Materials</em> — 2022 cover</span>
+        </div>
       </div>
     </div>
-    <div class="kimlab-slide">
-      <img src="{{ '/assets/img/featured/paper2.png' | relative_url }}" alt="">
-      <div class="kimlab-cap">
-        <span class="tag">COVER ARTICLE</span>
-        <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
-        <span class="src"><em>Nature Electronics</em> — March 2025 cover</span>
+    <div class="kimlab-nav">
+      <button class="kimlab-btn kimlab-prev" aria-label="previous">&#8249;</button>
+      <div class="kimlab-dots">
+        <span class="kimlab-dot on"></span><span class="kimlab-dot"></span><span class="kimlab-dot"></span><span class="kimlab-dot"></span><span class="kimlab-dot"></span>
       </div>
-    </div>
-    <div class="kimlab-slide">
-      <img src="{{ '/assets/img/featured/paper3.png' | relative_url }}" alt="">
-      <div class="kimlab-cap">
-        <span class="tag">FEATURED WORK</span>
-        <span class="ttl">Orthogonal photopatterning of two-dimensional percolated network films for wafer-scale heterostructures</span><br>
-        <span class="src"><em>Nature Electronics</em> 8, 235–243 (2025)</span>
-      </div>
-    </div>
-    <div class="kimlab-slide">
-      <img src="{{ '/assets/img/featured/paper4.png' | relative_url }}" alt="">
-      <div class="kimlab-cap">
-        <span class="tag">FEATURED WORK</span>
-        <span class="ttl">Wafer-scale transistor arrays fabricated using slot-die printing of molybdenum disulfide and sodium-embedded alumina</span><br>
-        <span class="src"><em>Nature Electronics</em> 6, 443–450 (2023)</span>
-      </div>
-    </div>
-    <div class="kimlab-slide">
-      <img src="{{ '/assets/img/featured/paper5.png' | relative_url }}" alt="">
-      <div class="kimlab-cap">
-        <span class="tag">COVER ARTICLE</span>
-        <span class="ttl">All-solution-processed van der Waals heterostructures for wafer-scale electronics</span><br>
-        <span class="src"><em>Advanced Materials</em> — 2022 cover</span>
-      </div>
+      <button class="kimlab-btn kimlab-next" aria-label="next">&#8250;</button>
     </div>
   </div>
-  <div class="kimlab-nav">
-    <button class="kimlab-btn kimlab-prev" aria-label="previous">&#8249;</button>
-    <div class="kimlab-dots">
-      <span class="kimlab-dot on"></span><span class="kimlab-dot"></span><span class="kimlab-dot"></span><span class="kimlab-dot"></span><span class="kimlab-dot"></span>
-    </div>
-    <button class="kimlab-btn kimlab-next" aria-label="next">&#8250;</button>
+
+  <div class="kimlab-text">
+    <p>Kim Lab designs materials at the <strong>atomic scale</strong> and engineers them into <strong>scalable, reproducible platforms</strong> for next-generation electronics.</p>
+    <p>Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what devices become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.</p>
+    <p>We are always looking for curious students who want to build things that do not exist yet.</p>
   </div>
+
 </div>
-
-Kim Lab designs materials at the **atomic scale** and engineers them into **scalable, reproducible platforms** for next-generation electronics.
-
-Our guiding question: how do we translate control at the level of individual atomic layers into materials that can be made reliably, repeatedly, and at scale — and what devices become possible once we can? Answering it means working across materials characterizations, thin-film engineering, and device physics.
-
-We are always looking for curious students who want to build things that do not exist yet.
 
 <div style="clear: both;"></div>
 
