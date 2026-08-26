@@ -12,7 +12,7 @@ html {
   overflow-y: scroll;
 }
 body { overflow-x: clip; }
-/* Inter 폰트 — 커스텀 클래스까지 명시 (상속에 의존하지 않도록) */
+/* Inter 폰트 — 커스텀 클래스까지 명시 */
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
 .tm-group, .tm-note, .tm-body,
 .pi-section, .pi-name, .pi-role, .pi-contact, .pi-adv {
@@ -37,13 +37,11 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   margin: 2.6rem 0 1.2rem 0;
   clear: both;
 }
-/* 첫 그룹은 페이지 제목 아래 구분선과 겹치므로 선 없이 */
 .tm-group.first {
   border-top: none;
   padding-top: 0;
   margin-top: 1.6rem;
 }
-/* 그룹 아래 안내 문구 */
 .tm-note {
   font-size: 0.86rem;
   font-style: italic;
@@ -65,7 +63,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   clear: both;
 }
 
-/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 ===== */
+/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 (모바일에서도 같은 배치 유지) ===== */
 .pi-header {
   display: flex;
   align-items: stretch;
@@ -96,7 +94,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   object-fit: cover;
   object-position: center 25%;
 }
-.pi-namerow { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; }
+.pi-namerow { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem; flex-wrap: wrap; }
 .pi-name { font-size: 1.26rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1.2; }
 .pi-links { display: flex; align-items: center; gap: 0.5rem; }
 .pi-links a {
@@ -134,17 +132,23 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 
 /* ===== Open Positions 본문 ===== */
-/* max-width 없음 — 표·구분선과 같은 지점에서 끝나도록 (Research 페이지와 동일 기준) */
 .tm-body { font-size: 0.92rem; line-height: 1.65; }
 
+/* ===== 모바일: 배치는 그대로, 크기만 축소 ===== */
 @media (max-width: 700px) {
   .tm-group { font-size: 1.18rem; margin: 2.1rem 0 0.95rem 0; }
-  .pi-header { flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
-  .pi-photo-wrap { align-self: center; width: 130px; height: 130px; max-height: none; min-height: 0; margin-right: 0; }
-  .pi-namerow { justify-content: center; }
-  .pi-contact .label { width: auto; margin-right: 0.35rem; }
-  .pi-table td.when { width: 118px; font-size: 0.8rem; }
-  .pi-adv { display: block; margin-top: 0.1rem; white-space: normal; font-size: 0.74rem; }
+  .tm-group.first { margin-top: 1.3rem; }
+  /* 사진은 계속 이름·소속 오른쪽에, 텍스트는 왼쪽 정렬 유지 */
+  .pi-header { gap: 1rem; margin-bottom: 1rem; }
+  .pi-photo-wrap { max-height: 115px; min-height: 82px; margin-right: 0; }
+  .pi-name { font-size: 1.1rem; }
+  .pi-links a { font-size: 0.95rem; }
+  .pi-role { font-size: 0.82rem; line-height: 1.45; margin-bottom: 0.6rem; }
+  .pi-contact { font-size: 0.8rem; }
+  .pi-contact .label { width: 50px; }
+  .pi-table { font-size: 0.8rem; }
+  .pi-table td.when { width: 108px; font-size: 0.76rem; padding-right: 0.6rem; }
+  .pi-adv { display: block; margin-top: 0.1rem; white-space: normal; font-size: 0.72rem; }
   .tm-body { font-size: 0.89rem; }
 }
 
