@@ -139,7 +139,6 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 @media (max-width: 700px) {
   .tm-group { font-size: 1.18rem; margin: 2.1rem 0 0.95rem 0; }
   .tm-group.first { margin-top: 1.3rem; }
-  /* 사진은 계속 이름·소속 오른쪽에, 텍스트는 왼쪽 정렬 유지 */
   .pi-header { gap: 1rem; margin-bottom: 1rem; }
   .pi-photo-wrap { max-height: 115px; min-height: 82px; margin-right: 0; }
   .pi-name { font-size: 1.1rem; }
@@ -272,5 +271,5 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
 <div class="tm-group">Open Positions</div>
 
 <div class="tm-body">
-Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in materials science, chemical engineering, electrical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know.
+Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in electrical engineering, materials science, chemical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know.
 </div>
