@@ -51,21 +51,25 @@ h2.rs-sec .num {
 }
 
 /* ===== 섹션 삽화 =====
-   데스크톱: 가로 폭 고정 (오른쪽 띄우기)
-   모바일  : 세로 높이 고정 (비율이 달라도 시각적 크기가 균일해진다)   */
+   가로 상한(max-width)과 세로 상한(max-height)을 함께 걸어,
+   비율이 다른 세 그림의 시각적 크기를 균일하게 맞춘다.
+   더 키우려면 두 값을 같은 비율로 올릴 것 (예: 320px / 390px)     */
 .rs-fig {
   float: right;
-  width: 215px;
-  margin: 0.2rem 0 1.1rem 1.8rem;
+  width: fit-content;
+  max-width: 280px;
+  margin: 0.2rem 0 1.2rem 1.9rem;
   border-radius: 8px;
   overflow: hidden;
   line-height: 0;
   background-color: #FFFFFF;
 }
 .rs-fig img {
-  width: 100%;
-  height: auto;
   display: block;
+  width: auto;
+  height: auto;
+  max-width: 280px;
+  max-height: 340px;
 }
 .rs-fig-up { margin-top: -1.9rem; }
 
@@ -109,13 +113,18 @@ ol.rs-refs li {
 ol.rs-refs .self { font-weight: 700; }
 ol.rs-refs .eq { font-size: 0.85em; vertical-align: super; line-height: 0; }
 
+/* 창이 좁아지면 그림을 한 단계 줄여 본문 폭을 확보 */
+@media (max-width: 1000px) {
+  .rs-fig { max-width: 235px; margin-left: 1.6rem; }
+  .rs-fig img { max-width: 235px; max-height: 290px; }
+}
+
 @media (max-width: 700px) {
   h2.rs-sec { font-size: 1.18rem !important; margin: 2.1rem 0 0.95rem 0; }
   h2.rs-sec.first { margin-top: 1.3rem; }
   .rs-lede, .rs-prose p { font-size: 0.89rem; }
   ol.rs-refs { font-size: 0.76rem; }
   .rs-refnote { font-size: 0.73rem; }
-  /* 세 그림의 세로 높이를 통일 — 흰 여백이 그림에 딱 맞게 줄어든다 */
   .rs-fig {
     float: none;
     width: fit-content;
@@ -123,9 +132,8 @@ ol.rs-refs .eq { font-size: 0.85em; vertical-align: super; line-height: 0; }
     margin: 0.5rem auto 1.4rem auto;
   }
   .rs-fig img {
-    width: auto;
     max-width: 100%;
-    max-height: 250px;      /* 이 값 하나로 세 그림 크기를 함께 조절 */
+    max-height: 250px;
   }
   .rs-fig-up { margin-top: 0.5rem; }
 }
