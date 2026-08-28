@@ -72,7 +72,7 @@ h2.rs-sec .num {
   max-height: 340px;
 }
 
-/* Body text */
+/* Body text — .rs-lede 를 붙인 문단만 한 단계 굵게 */
 .rs-lede {
   font-size: 0.92rem !important;
   font-weight: 500;
@@ -179,8 +179,8 @@ html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
 
 <div class="rs-prose">
   <h2 class="rs-sec first">Vision</h2>
-  <p class="rs-lede">Computing is spreading from the Internet of Things toward an Internet of Everything, and silicon cannot follow it everywhere. A silicon chip takes a long time and enormous cost to bring into production, and it has to be built on a rigid surface &mdash; a poor fit for surfaces that bend, or for devices meant to be ubiquitous, item-level consumer electronics.</p>
-  <p>We build the technology that fills that gap: low-cost, high-performance electronics and intelligent sensors that can be made quickly, over large areas, and on almost any surface. Our approach starts with the material and works upward, in three stages.</p>
+  <p>Computing is spreading from the Internet of Things toward an Internet of Everything, and silicon cannot follow it everywhere. A silicon chip takes a long time and enormous cost to bring into production, and it has to be built on a rigid surface &mdash; a poor fit for surfaces that bend, or for devices meant to be ubiquitous, item-level consumer electronics.</p>
+  <p class="rs-lede">We build the technology that fills that gap: low-cost, high-performance electronics and intelligent sensors that can be made quickly, over large areas, and on almost any surface. Our approach starts with the material and works upward, in three stages.</p>
 
   <h2 class="rs-sec"><span class="num">01</span>Design the material</h2>
   <figure class="rs-fig">
