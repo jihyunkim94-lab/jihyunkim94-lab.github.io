@@ -13,7 +13,7 @@ html {
 }
 body { overflow-x: clip; }
 body, p, li, td, th, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
-.kimlab-text, .kimlab-cap {
+.kimlab-text, .kimlab-cap, .pub-note {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
@@ -39,18 +39,22 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 .post-header { margin-bottom: 2.1rem !important; }
 
+/* ===== 공동 제1저자 범례 ===== */
+.pub-note {
+  font-size: 0.76rem;
+  line-height: 1.5;
+  margin: -0.3rem 0 1rem 0;
+}
+
 /* ============================================================
    글자 규격 통일 — Team / Research 탭과 동일하게
-   섹션 제목  1.38rem / 800   (= .tm-group, h2.rs-sec)
-   본문       0.92rem         (= .tm-body, .rs-prose p)
-   news 행    0.86rem         (= .pi-table, .nw-row)
    ============================================================ */
 .post-content h2, .news h2, .publications h2, main h2 {
   font-size: 1.38rem !important;
   font-weight: 800 !important;
   letter-spacing: -0.025em !important;
   line-height: 1.2 !important;
-  text-transform: capitalize;      /* "news" → "News" — 원치 않으면 이 줄 삭제 */
+  text-transform: capitalize;
   margin: 2.4rem 0 1rem 0 !important;
 }
 .post-content h2 a, .news h2 a, .publications h2 a, main h2 a { color: inherit !important; }
@@ -112,6 +116,7 @@ html[data-theme="light"] .news table th { color: #191919 !important; }
 html[data-theme="light"] .post-header .desc,
 html[data-theme="light"] p.desc { color: #2E2E2E !important; }
 html[data-theme="light"] .kimlab-text p { color: #191919 !important; }
+html[data-theme="light"] .pub-note { color: #7A7A7A !important; }
 html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
 html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
 html[data-theme="light"] p a, html[data-theme="light"] li a,
@@ -127,6 +132,7 @@ html[data-theme="light"] .publications .author strong { color: #651FFF !importan
 html[data-theme="dark"] .post-header .desc,
 html[data-theme="dark"] p.desc { color: #D5D5D5 !important; }
 html[data-theme="dark"] .kimlab-text p { color: #FCFCFC !important; }
+html[data-theme="dark"] .pub-note { color: #8F8F8F !important; }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .author,
 html[data-theme="dark"] .publications .periodical { color: #B0B0B0 !important; }
@@ -139,7 +145,6 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 .kimlab-intro::after { content: ""; display: block; clear: both; }
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 
-/* 슬라이드 5개를 같은 그리드 칸에 겹쳐 쌓아 컨테이너 높이를 고정 */
 .kimlab-slides { display: grid; }
 .kimlab-slide {
   grid-area: 1 / 1;
@@ -185,6 +190,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
   .news table th, .news table td, .news p, .news li { font-size: 0.8rem !important; }
   .publications .title { font-size: 0.94rem !important; }
   .publications .author, .publications .periodical { font-size: 0.78rem !important; }
+  .pub-note { font-size: 0.73rem; }
 }
 
 /* ===== 모바일 ② : 저널 약어 배지를 내용에 맞는 크기로 ===== */
@@ -250,6 +256,23 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
     document.addEventListener("DOMContentLoaded", addBrand);
   } else {
     addBrand();
+  }
+})();
+</script> <script>
+(function () {
+  // "selected publications" 목록 위에 공동 제1저자 범례를 삽입
+  function addPubNote() {
+    var pubs = document.querySelector(".publications");
+    if (!pubs || document.querySelector(".pub-note")) return;
+    var note = document.createElement("div");
+    note.className = "pub-note";
+    note.innerHTML = "\u2020 These authors contributed equally. &nbsp;&nbsp;* Corresponding author.";
+    pubs.parentNode.insertBefore(note, pubs);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", addPubNote);
+  } else {
+    addPubNote();
   }
 })();
 </script> </div> <h2> <a href="/news/" style="color: inherit">news</a> </h2> <div class="news"> <div class="table-responsive"> <table class="table table-sm table-borderless"> <tr> <th scope="row" style="width: 20%">Sep 01, 2026</th> <td> Kim Lab officially opens at Ajou University. We are recruiting graduate students and undergraduate interns! </td> </tr> </table> </div> </div> <h2> <a href="/publications/" style="color: inherit">selected publications</a> </h2> <div class="publications"> <ol class="bibliography"> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Adv. Funct. Mater.</abbr> </div> <div id="kim2025multicolor" class="col-sm-8"> <div class="title">Multicolor optoelectronic synapse enabled by photon-modulated remote doping in solution-processed van der Waals heterostructures</div> <div class="author"> <em>Jihyun Kim<sup>†</sup></em>, H. Kim<sup>†</sup>, G. Cheon, D. Lee, I. Kim, U. Won, J. Lee, S. Won<sup>*</sup>, and J. Kang<sup>*</sup> </div> <div class="periodical"> <em>Advanced Functional Materials</em>, 2025 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Electron.</abbr> </div> <div id="kim2025zirconium" class="col-sm-8"> <div class="title">Sub-stoichiometric zirconium oxide as a solution-processed dielectric for reconfigurable electronics</div> <div class="author"> K. Kim<sup>†</sup>, <em>Jihyun Kim<sup>†</sup></em>, M. Jung, I. Kim, B. Yu, S. Won, D. Son, H. Li, Z. Sofer, D. Hwang, D. Jariwala, and J. Kang<sup>*</sup> </div> <div class="periodical"> <em>Nature Electronics</em>, 2025 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Electron.</abbr> </div> <div id="kwak2025orthogonal" class="col-sm-8"> <div class="title">Orthogonal direct photopatterning of two-dimensional percolated networks enabling wafer-scale van der Waals vertical heterostructures</div> <div class="author"> I. Kwak<sup>†</sup>, <em>Jihyun Kim<sup>†</sup></em>, J. Moon, S. Kim, J. Park, O. Song, V. Mazánek, Z. Sofer, H. Jo, S. Park, M. Kang, J. Kang<sup>*</sup>, and J. Cho<sup>*</sup> </div> <div class="periodical"> <em>Nature Electronics</em>, 2025 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Nat. Electron.</abbr> </div> <div id="kwon2023wafer" class="col-sm-8"> <div class="title">Wafer-scale transistor arrays fabricated using slot-die printing of molybdenum disulfide and sodium-embedded alumina</div> <div class="author"> Y. A. Kwon<sup>†</sup>, <em>Jihyun Kim<sup>†</sup></em>, S. Jo, D. Roe, D. Rhee, Y. Song, B. Kang, D. Kim, J. Kim, D. Kim, M. Kang, J. Kang<sup>*</sup>, and J. Cho<sup>*</sup> </div> <div class="periodical"> <em>Nature Electronics</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> <li> <div class="row"> <div class="col col-sm-2 abbr"> <abbr class="badge rounded w-100">Adv. Mater.</abbr> </div> <div id="kim2022allsolution" class="col-sm-8"> <div class="title">All-solution-processed van der Waals heterostructures for wafer-scale electronics</div> <div class="author"> <em>Jihyun Kim<sup>†</sup></em>, D. Rhee<sup>†</sup>, O. Song<sup>†</sup>, M. Kim, Y. Kwon, D. Lim, I. Kim, V. Mazánek, L. Valdman, Z. Sofer, J. Cho, and J. Kang<sup>*</sup> </div> <div class="periodical"> <em>Advanced Materials</em>, 2022 </div> <div class="periodical"> </div> <div class="links"> </div> </div> </div> </li> </ol> </div> <div class="social"> <div class="contact-icons"> <a href="/assets/pdf/CV_JIHYUN_KIM.pdf" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="mailto:jhkim94@mit.edu" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="https://scholar.google.com/citations?user=68-RYuUAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> </div> <div class="contact-note"></div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jihyun Kim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
