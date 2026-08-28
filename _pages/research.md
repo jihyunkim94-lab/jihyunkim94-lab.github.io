@@ -26,10 +26,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
 
-/* Hierarchy, matched to the Team page
-   1. group heading  h2.rs-sec   1.38rem / 800   = Team .tm-group
-   2. body           .rs-prose p 0.92rem         = Team .tm-body
-   3. references     .rs-refs    0.80rem grey    = Team .pi-adv          */
+/* Hierarchy, matched to the Team page */
 h2.rs-sec {
   font-size: 1.38rem !important;
   font-weight: 800 !important;
@@ -54,8 +51,8 @@ h2.rs-sec .num {
 }
 
 /* ===== 섹션 삽화 =====
-   크기는 .rs-fig 의 width 하나로 조절 (190~250px 권장).
-   배경은 흰색 — 원본 PNG의 흰 배경과 이어져 경계가 보이지 않는다.        */
+   크기: .rs-fig 의 width (190~250px 권장)
+   높이 미세 조정: .rs-fig-up 의 margin-top 값                      */
 .rs-fig {
   float: right;
   width: 215px;
@@ -70,6 +67,8 @@ h2.rs-sec .num {
   height: auto;
   display: block;
 }
+/* 그림을 본문 첫 줄에 맞춰 조금 위로 */
+.rs-fig-up { margin-top: -0.5rem; }
 
 /* Body text */
 .rs-lede {
@@ -123,6 +122,7 @@ ol.rs-refs .eq { font-size: 0.85em; vertical-align: super; line-height: 0; }
     max-width: 300px;
     margin: 0.4rem auto 1.3rem auto;
   }
+  .rs-fig-up { margin-top: 0.4rem; }   /* 모바일에선 보정 불필요 */
 }
 
 /* Light theme */
@@ -186,8 +186,8 @@ html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
   <p>Printing covers flat surfaces well, and some applications additionally require integration into three-dimensional structures, capacitors being one example. For these, we use atomic layer deposition to grow the designed material one atomic layer at a time, so that it conforms to deep, high-aspect-ratio trenches<sup><a href="#r3">3</a></sup>. Printing for planar, large-area integration and ALD for three-dimensional integration together provide the process building blocks that a printed electronics platform requires.</p>
 
   <h2 class="rs-sec"><span class="num">03</span>Build the device</h2>
-  <figure class="rs-fig">
-    <img src="{{ '/assets/img/03-device.png' | relative_url }}" alt="Transistor arrays and a graphene channel device" loading="lazy">
+  <figure class="rs-fig rs-fig-up">
+    <img src="{{ '/assets/img/03-device.png' | relative_url }}" alt="Transistor arrays and a device schematic" loading="lazy">
   </figure>
   <p>Using these scalable films, we develop advanced device fabrication processes, such as photopatterning<sup><a href="#r7">7</a></sup>, to build high-performance transistor, photodetector, and capacitor arrays over large areas<sup><a href="#r2">2</a>,<a href="#r3">3</a></sup>.</p>
   <p>We also work on next-generation devices, including retina-inspired neuromorphic sensors and optoelectronic synapses<sup><a href="#r4">4</a>,<a href="#r8">8</a>,<a href="#r9">9</a></sup>, which have generally been demonstrated using complex device structures such as multiple gate terminals. Our aim is to obtain them from structurally simple devices instead, letting the material properties we design at the atomic scale supply the behavior that would otherwise have to come from the device architecture. Working this way, we aim to build devices with a wide range of functions in a scalable and reproducible manner.</p>
