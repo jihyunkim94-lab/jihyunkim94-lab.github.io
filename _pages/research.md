@@ -51,9 +51,9 @@ h2.rs-sec .num {
 }
 
 /* ===== 섹션 삽화 =====
-   가로 상한(max-width)과 세로 상한(max-height)을 함께 걸어,
-   비율이 다른 세 그림의 시각적 크기를 균일하게 맞춘다.
-   더 키우려면 두 값을 같은 비율로 올릴 것 (예: 320px / 390px)     */
+   세 그림 모두 동일한 규칙 — 본문 첫 줄에 맞춰 시작.
+   가로·세로 상한을 함께 걸어 비율이 달라도 시각적 크기가 균일해진다.
+   더 키우려면 두 값을 같은 비율로 올릴 것 (예: 320px / 390px)        */
 .rs-fig {
   float: right;
   width: fit-content;
@@ -71,7 +71,6 @@ h2.rs-sec .num {
   max-width: 280px;
   max-height: 340px;
 }
-.rs-fig-up { margin-top: -1.9rem; }
 
 /* Body text */
 .rs-lede {
@@ -135,7 +134,6 @@ ol.rs-refs .eq { font-size: 0.85em; vertical-align: super; line-height: 0; }
     max-width: 100%;
     max-height: 250px;
   }
-  .rs-fig-up { margin-top: 0.5rem; }
 }
 
 /* Light theme */
@@ -199,11 +197,12 @@ html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
   <p>Printing covers flat surfaces well, and some applications additionally require integration into three-dimensional structures, capacitors being one example. For these, we use atomic layer deposition to grow the designed material one atomic layer at a time, so that it conforms to deep, high-aspect-ratio trenches<sup><a href="#r3">3</a></sup>. Printing for planar, large-area integration and ALD for three-dimensional integration together provide the process building blocks that a printed electronics platform requires.</p>
 
   <h2 class="rs-sec"><span class="num">03</span>Build the device</h2>
-  <figure class="rs-fig rs-fig-up">
-    <img src="{{ '/assets/img/03-device.png' | relative_url }}" alt="Transistor arrays and a device schematic" loading="lazy">
+  <figure class="rs-fig">
+    <img src="{{ '/assets/img/03-device.png' | relative_url }}" alt="Transistor arrays and a high-aspect-ratio capacitor structure" loading="lazy">
   </figure>
-  <p>Using these scalable films, we develop advanced device fabrication processes, such as photopatterning<sup><a href="#r7">7</a></sup>, to build high-performance transistor, photodetector, and capacitor arrays over large areas<sup><a href="#r2">2</a>,<a href="#r3">3</a></sup>.</p>
-  <p>We also work on next-generation devices, including retina-inspired neuromorphic sensors and optoelectronic synapses<sup><a href="#r4">4</a>,<a href="#r8">8</a>,<a href="#r9">9</a></sup>, which have generally been demonstrated using complex device structures such as multiple gate terminals. Our aim is to obtain them from structurally simple devices instead, letting the material properties we design at the atomic scale supply the behavior that would otherwise have to come from the device architecture. Working this way, we aim to build devices with a wide range of functions in a scalable and reproducible manner.</p>
+  <p>Using these scalable films, we develop advanced fabrication processes, such as photopatterning<sup><a href="#r7">7</a></sup>, to build high-performance transistor and photodetector arrays over large areas<sup><a href="#r2">2</a></sup>. We also work on next-generation devices, including retina-inspired neuromorphic sensors and optoelectronic synapses<sup><a href="#r4">4</a>,<a href="#r8">8</a>,<a href="#r9">9</a></sup>, using the same printed films. These have generally been demonstrated with complex device structures such as multiple gate terminals; we obtain them from structurally simple devices instead, letting the material properties we design at the atomic scale supply the behavior that would otherwise come from the device architecture.</p>
+  <p>The three-dimensional structured films then serve a different purpose: next-generation capacitors that move past the limits of planar geometry &mdash; far more active area within the same footprint, and correspondingly higher charge storage<sup><a href="#r3">3</a></sup>.</p>
+  <p>Our ultimate goal is to bring these devices together into a complete device platform: switching, sensing, and storage in a single working system, built end to end from the materials and processes we develop ourselves.</p>
 
   <h2 class="rs-sec">Looking ahead</h2>
   <p>These three axes converge on one thing: a printed electronics platform. What the Internet of Everything needs is electronics cheap enough to put anywhere, in the right form factor, and good enough to be worth putting there. That is what we are building.</p>
