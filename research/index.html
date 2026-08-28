@@ -48,9 +48,8 @@ h2.rs-sec .num {
 }
 
 /* ===== 섹션 삽화 =====
-   크기: .rs-fig 의 width (190~250px 권장)
-   높이 미세 조정: .rs-fig-up 의 margin-top
-     -1.9rem = 제목 높이까지 / -1.2rem = 제목 바로 아래 / 0 = 본문 첫 줄  */
+   데스크톱: 가로 폭 고정 (오른쪽 띄우기)
+   모바일  : 세로 높이 고정 (비율이 달라도 시각적 크기가 균일해진다)   */
 .rs-fig {
   float: right;
   width: 215px;
@@ -113,13 +112,19 @@ ol.rs-refs .eq { font-size: 0.85em; vertical-align: super; line-height: 0; }
   .rs-lede, .rs-prose p { font-size: 0.89rem; }
   ol.rs-refs { font-size: 0.76rem; }
   .rs-refnote { font-size: 0.73rem; }
+  /* 세 그림의 세로 높이를 통일 — 흰 여백이 그림에 딱 맞게 줄어든다 */
   .rs-fig {
     float: none;
-    width: 100%;
-    max-width: 300px;
-    margin: 0.4rem auto 1.3rem auto;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0.5rem auto 1.4rem auto;
   }
-  .rs-fig-up { margin-top: 0.4rem; }   /* 모바일에선 보정 불필요 */
+  .rs-fig img {
+    width: auto;
+    max-width: 100%;
+    max-height: 250px;      /* 이 값 하나로 세 그림 크기를 함께 조절 */
+  }
+  .rs-fig-up { margin-top: 0.5rem; }
 }
 
 /* Light theme */
