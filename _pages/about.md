@@ -24,7 +24,7 @@ html {
 }
 body { overflow-x: clip; }
 body, p, li, td, th, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
-.kimlab-text, .kimlab-cap {
+.kimlab-text, .kimlab-cap, .pub-note {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
@@ -50,18 +50,22 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 .post-header { margin-bottom: 2.1rem !important; }
 
+/* ===== 공동 제1저자 범례 ===== */
+.pub-note {
+  font-size: 0.76rem;
+  line-height: 1.5;
+  margin: -0.3rem 0 1rem 0;
+}
+
 /* ============================================================
    글자 규격 통일 — Team / Research 탭과 동일하게
-   섹션 제목  1.38rem / 800   (= .tm-group, h2.rs-sec)
-   본문       0.92rem         (= .tm-body, .rs-prose p)
-   news 행    0.86rem         (= .pi-table, .nw-row)
    ============================================================ */
 .post-content h2, .news h2, .publications h2, main h2 {
   font-size: 1.38rem !important;
   font-weight: 800 !important;
   letter-spacing: -0.025em !important;
   line-height: 1.2 !important;
-  text-transform: capitalize;      /* "news" → "News" — 원치 않으면 이 줄 삭제 */
+  text-transform: capitalize;
   margin: 2.4rem 0 1rem 0 !important;
 }
 .post-content h2 a, .news h2 a, .publications h2 a, main h2 a { color: inherit !important; }
@@ -123,6 +127,7 @@ html[data-theme="light"] .news table th { color: #191919 !important; }
 html[data-theme="light"] .post-header .desc,
 html[data-theme="light"] p.desc { color: #2E2E2E !important; }
 html[data-theme="light"] .kimlab-text p { color: #191919 !important; }
+html[data-theme="light"] .pub-note { color: #7A7A7A !important; }
 html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
 html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
 html[data-theme="light"] p a, html[data-theme="light"] li a,
@@ -138,6 +143,7 @@ html[data-theme="light"] .publications .author strong { color: #651FFF !importan
 html[data-theme="dark"] .post-header .desc,
 html[data-theme="dark"] p.desc { color: #D5D5D5 !important; }
 html[data-theme="dark"] .kimlab-text p { color: #FCFCFC !important; }
+html[data-theme="dark"] .pub-note { color: #8F8F8F !important; }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .author,
 html[data-theme="dark"] .publications .periodical { color: #B0B0B0 !important; }
@@ -150,7 +156,6 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 .kimlab-intro::after { content: ""; display: block; clear: both; }
 .kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
 
-/* 슬라이드 5개를 같은 그리드 칸에 겹쳐 쌓아 컨테이너 높이를 고정 */
 .kimlab-slides { display: grid; }
 .kimlab-slide {
   grid-area: 1 / 1;
@@ -196,6 +201,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
   .news table th, .news table td, .news p, .news li { font-size: 0.8rem !important; }
   .publications .title { font-size: 0.94rem !important; }
   .publications .author, .publications .periodical { font-size: 0.78rem !important; }
+  .pub-note { font-size: 0.73rem; }
 }
 
 /* ===== 모바일 ② : 저널 약어 배지를 내용에 맞는 크기로 ===== */
@@ -329,6 +335,25 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
     document.addEventListener("DOMContentLoaded", addBrand);
   } else {
     addBrand();
+  }
+})();
+</script>
+
+<script>
+(function () {
+  // "selected publications" 목록 위에 공동 제1저자 범례를 삽입
+  function addPubNote() {
+    var pubs = document.querySelector(".publications");
+    if (!pubs || document.querySelector(".pub-note")) return;
+    var note = document.createElement("div");
+    note.className = "pub-note";
+    note.innerHTML = "\u2020 These authors contributed equally. &nbsp;&nbsp;* Corresponding author.";
+    pubs.parentNode.insertBefore(note, pubs);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", addPubNote);
+  } else {
+    addPubNote();
   }
 })();
 </script>
