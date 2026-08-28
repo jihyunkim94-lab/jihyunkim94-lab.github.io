@@ -52,7 +52,8 @@ h2.rs-sec .num {
 
 /* ===== 섹션 삽화 =====
    크기: .rs-fig 의 width (190~250px 권장)
-   높이 미세 조정: .rs-fig-up 의 margin-top 값                      */
+   높이 미세 조정: .rs-fig-up 의 margin-top
+     -1.9rem = 제목 높이까지 / -1.2rem = 제목 바로 아래 / 0 = 본문 첫 줄  */
 .rs-fig {
   float: right;
   width: 215px;
@@ -67,8 +68,7 @@ h2.rs-sec .num {
   height: auto;
   display: block;
 }
-/* 그림을 본문 첫 줄에 맞춰 조금 위로 */
-.rs-fig-up { margin-top: -0.5rem; }
+.rs-fig-up { margin-top: -1.9rem; }
 
 /* Body text */
 .rs-lede {
@@ -173,7 +173,7 @@ html[data-theme="dark"] ol.rs-refs .self { color: #FCFCFC !important; }
 
   <h2 class="rs-sec"><span class="num">01</span>Design the material</h2>
   <figure class="rs-fig">
-    <img src="{{ '/assets/img/01-material.png' | relative_url }}" alt="Solution-processed van der Waals inks and layered building blocks" loading="lazy">
+    <img src="{{ '/assets/img/01-material.png' | relative_url }}" alt="Solution-processed van der Waals inks and controlled-composition dielectric" loading="lazy">
   </figure>
   <p>Every electronic device is built from three kinds of materials: conductors that carry current, semiconductors that switch it, and insulators that block it. We design and synthesize all three ourselves as nanomaterials, and our goal is to engineer their properties at the atomic scale.</p>
   <p>For example, controlling the stoichiometry, ion incorporation, and composition of a dielectric layer<sup><a href="#r1">1</a>&ndash;<a href="#r3">3</a></sup>, or the defect density and heterojunction design of a semiconducting channel<sup><a href="#r4">4</a>,<a href="#r5">5</a></sup>, lets us tune the electrical and optical characteristics of the material itself. We are now extending this design space toward finer control &mdash; over local composition, crystalline phase, and the interfaces between layers &mdash; in order to develop exotic material properties that conventional thin films do not offer.</p>
