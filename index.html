@@ -12,7 +12,8 @@ html {
   overflow-y: scroll;
 }
 body { overflow-x: clip; }
-body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6 {
+body, p, li, td, th, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
+.kimlab-text, .kimlab-cap {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
@@ -37,10 +38,40 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   margin-bottom: 0 !important;
 }
 .post-header { margin-bottom: 2.1rem !important; }
+
+/* ============================================================
+   글자 규격 통일 — Team / Research 탭과 동일하게
+   섹션 제목  1.38rem / 800   (= .tm-group, h2.rs-sec)
+   본문       0.92rem         (= .tm-body, .rs-prose p)
+   news 행    0.86rem         (= .pi-table, .nw-row)
+   ============================================================ */
+.post-content h2, .news h2, .publications h2, main h2 {
+  font-size: 1.38rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.2 !important;
+  text-transform: capitalize;      /* "news" → "News" — 원치 않으면 이 줄 삭제 */
+  margin: 2.4rem 0 1rem 0 !important;
+}
+.post-content h2 a, .news h2 a, .publications h2 a, main h2 a { color: inherit !important; }
+
+.kimlab-text p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 0 0 1rem 0;
+}
+
+.news table th, .news table td, .news p, .news li {
+  font-size: 0.86rem !important;
+  line-height: 1.5 !important;
+}
+.news table th { font-weight: 600 !important; white-space: nowrap; padding-right: 0.8rem; }
+.news table td { padding-top: 0 !important; }
+
 /* 슬라이더 아래 섹션 겹침 방지 */
 .news, .publications, .post-list, h2 { clear: both; }
-.news { padding-top: 1.5rem; }
-/* ===== 테마 공통: 크기 / 굵기 ===== */
+.news { padding-top: 1.2rem; }
+/* ===== Publications 항목 ===== */
 .publications .title {
   font-size: 1rem !important;
   font-weight: 700 !important;
@@ -76,9 +107,11 @@ html[data-theme="light"] .navbar-brand:hover { color: #651FFF !important; }
 html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3,
 html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
 html[data-theme="light"] .post-title,
-html[data-theme="light"] .news .date { color: #191919 !important; }
+html[data-theme="light"] .news .date,
+html[data-theme="light"] .news table th { color: #191919 !important; }
 html[data-theme="light"] .post-header .desc,
 html[data-theme="light"] p.desc { color: #2E2E2E !important; }
+html[data-theme="light"] .kimlab-text p { color: #191919 !important; }
 html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
 html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
 html[data-theme="light"] p a, html[data-theme="light"] li a,
@@ -93,6 +126,7 @@ html[data-theme="light"] .publications .author strong { color: #651FFF !importan
 /* ===== 다크 모드: 색상 ===== */
 html[data-theme="dark"] .post-header .desc,
 html[data-theme="dark"] p.desc { color: #D5D5D5 !important; }
+html[data-theme="dark"] .kimlab-text p { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .author,
 html[data-theme="dark"] .publications .periodical { color: #B0B0B0 !important; }
@@ -131,7 +165,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
 .kimlab-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(128,128,128,0.4); cursor: pointer; }
 .kimlab-dot.on { background: var(--global-theme-color); }
 
-/* ===== 모바일 ① : 설명이 먼저, 논문 슬라이더가 그 다음 ===== */
+/* ===== 모바일 ① : 설명이 먼저, 논문 슬라이더가 그 다음 + 글자 규격 ===== */
 @media (max-width: 768px) {
   .kimlab-intro { display: flex; flex-direction: column; }
   .kimlab-text { order: 1; }
@@ -143,6 +177,14 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
     margin: 1.6rem auto 0.5rem auto;
   }
   .post-header { margin-bottom: 1.5rem !important; }
+  .post-content h2, .news h2, .publications h2, main h2 {
+    font-size: 1.18rem !important;
+    margin: 2rem 0 0.85rem 0 !important;
+  }
+  .kimlab-text p { font-size: 0.89rem; }
+  .news table th, .news table td, .news p, .news li { font-size: 0.8rem !important; }
+  .publications .title { font-size: 0.94rem !important; }
+  .publications .author, .publications .periodical { font-size: 0.78rem !important; }
 }
 
 /* ===== 모바일 ② : 저널 약어 배지를 내용에 맞는 크기로 ===== */
@@ -194,7 +236,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
   function addBrand() {
     var nav = document.querySelector("#navbar") || document.querySelector("nav.navbar");
     if (!nav) return;
-    if (nav.querySelector(".navbar-brand")) return;   // 이미 있으면 아무것도 안 함
+    if (nav.querySelector(".navbar-brand")) return;
     var host = nav.querySelector(".container")
             || nav.querySelector(".container-fluid")
             || nav;
