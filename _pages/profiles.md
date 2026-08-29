@@ -221,7 +221,7 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
       Dept. of Intelligent Semiconductor Engineering, Ajou University
     </div>
     <div class="pi-contact">
-      <span class="label">Email</span> <a href="mailto:jhkim94@mit.edu">jhkim94@mit.edu</a>
+      <span class="label">Email</span> <a href="mailto:jhkim94@ajou.ac.kr">jhkim94@ajou.ac.kr</a>
     </div>
   </div>
   <div class="pi-photo-wrap">
