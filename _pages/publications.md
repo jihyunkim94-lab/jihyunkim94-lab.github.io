@@ -7,7 +7,7 @@ nav_order: 4
 ---
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6, .pub-note {
+body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6, .pub-note, .pub-cover {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
@@ -27,6 +27,22 @@ body { overflow-x: clip; }
   font-size: 0.76rem;
   line-height: 1.5;
   margin: 0.2rem 0 1.1rem 0;
+}
+
+/* ===== 표지 논문 칩 ===== */
+.pub-cover {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  vertical-align: 0.09em;
+  white-space: nowrap;
 }
 
 /* ============================================================
@@ -126,6 +142,7 @@ body { overflow-x: clip; }
   .publications ol.bibliography > li { padding-left: 2.3rem; }
   .publications ol.bibliography > li::before { width: 1.8rem; }
   .pub-note { font-size: 0.73rem; }
+  .pub-cover { font-size: 0.56rem; margin-left: 0.4rem; }
 }
 
 /* ===== 라이트 모드: 색상 ===== */
@@ -152,6 +169,7 @@ html[data-theme="light"] .navbar-brand:hover { color: #651FFF !important; }
 html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3,
 html[data-theme="light"] .post-title { color: #191919 !important; }
 html[data-theme="light"] .pub-note { color: #7A7A7A !important; }
+html[data-theme="light"] .pub-cover { color: #651FFF !important; }
 html[data-theme="light"] .publications .title { color: #191919 !important; }
 html[data-theme="light"] .publications .title a.pub-link:hover { color: #651FFF !important; }
 html[data-theme="light"] .publications ol.bibliography > li.has-link:hover { background-color: rgba(101, 31, 255, 0.05); }
@@ -174,6 +192,7 @@ html[data-theme="dark"] {
   --line-color: rgba(252, 252, 252, 0.38);
 }
 html[data-theme="dark"] .pub-note { color: #8F8F8F !important; }
+html[data-theme="dark"] .pub-cover { color: #86CFDA !important; }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .title a.pub-link:hover { color: #86CFDA !important; }
 html[data-theme="dark"] .publications ol.bibliography > li.has-link:hover { background-color: rgba(134, 207, 218, 0.07); }
@@ -197,6 +216,42 @@ html[data-theme="dark"] .publications .year { border-top-color: var(--line-color
 </div>
 <script>
 (function () {
+  /* ============================================================
+     표지 논문 목록 — 새 표지가 나오면 여기에 한 줄만 추가하면 된다.
+     ["제목의 고유한 일부(소문자)", "표시할 문구"]
+     ============================================================ */
+  var COVERS = [
+    ["multilevel optical programming",                        "Front Cover"],
+    ["orthogonal direct photopatterning",                     "Front Cover"],
+    ["two-dimensional indium oxide on sodium-embedded",       "Front Cover"],
+    ["all-solution-processed van der waals heterostructures", "Back Cover"],
+    ["area-selective chemical doping",                        "Cover"],
+    ["wide bandgap halide perovskite",                        "Front Cover"],
+    ["scalable synthesis of pt nanoflowers",                  "Front Cover"]
+  ];
+
+  function addCovers() {
+    document.querySelectorAll(".publications ol.bibliography > li").forEach(function (li) {
+      if (li.querySelector(".pub-cover")) return;
+      var titleEl = li.querySelector(".title");
+      if (!titleEl) return;
+      var t = titleEl.textContent.toLowerCase();
+
+      var label = null;
+      for (var i = 0; i < COVERS.length; i++) {
+        if (t.indexOf(COVERS[i][0]) !== -1) { label = COVERS[i][1]; break; }
+      }
+      if (!label) return;
+
+      var host = li.querySelector(".periodical") || li.querySelector(".author") || titleEl;
+      var chip = document.createElement("span");
+      chip.className = "pub-cover";
+      chip.textContent = label;
+      host.appendChild(document.createTextNode(" "));
+      host.appendChild(chip);
+    });
+  }
+
   function linkify() {
     var items = document.querySelectorAll(".publications ol.bibliography > li");
     items.forEach(function (li) {
@@ -240,10 +295,13 @@ html[data-theme="dark"] .publications .year { border-top-color: var(--line-color
       });
     });
   }
+
+  function init() { addCovers(); linkify(); }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", linkify);
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    linkify();
+    init();
   }
 })();
 </script>
