@@ -66,7 +66,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   letter-spacing: -0.025em !important;
   line-height: 1.2 !important;
   text-transform: capitalize;
-  margin: 2.4rem 0 1rem 0 !important;
+  margin: 2.6rem 0 1rem 0 !important;
 }
 .post-content h2 a, .news h2 a, .publications h2 a, main h2 a { color: inherit !important; }
 
@@ -97,9 +97,12 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   padding: 0.25rem 0 !important;
 }
 
-/* 슬라이더 아래 섹션 겹침 방지 */
+/* 슬라이더 아래 섹션 겹침 방지 + News 와 다음 섹션 사이 여백 */
 .news, .publications, .post-list, h2 { clear: both; }
-.news { padding-top: 1.2rem; }
+.news {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;   /* 마진과 달리 합쳐지지 않아 간격이 확실히 확보된다 */
+}
 /* ===== Publications 항목 ===== */
 .publications .title {
   font-size: 1rem !important;
@@ -215,8 +218,9 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
   .post-header { margin-bottom: 1.5rem !important; }
   .post-content h2, .news h2, .publications h2, main h2 {
     font-size: 1.18rem !important;
-    margin: 2rem 0 0.85rem 0 !important;
+    margin: 2.1rem 0 0.85rem 0 !important;
   }
+  .news { padding-bottom: 1rem; }
   .kimlab-text p { font-size: 0.89rem; }
   .news table th, .news table td, .news p, .news li { font-size: 0.8rem !important; }
   .news table th { width: 108px !important; padding-right: 0.7rem !important; }
