@@ -65,12 +65,26 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   margin: 0 0 1rem 0;
 }
 
+/* ============================================================
+   News 표 정렬 — 날짜 칸 130px 고정 (News 탭과 동일 규격)
+   Bootstrap 의 기본 패딩을 걷어내 날짜가 왼쪽 여백에 딱 붙게 한다
+   ============================================================ */
+.news table { width: 100%; margin-bottom: 0 !important; }
 .news table th, .news table td, .news p, .news li {
   font-size: 0.86rem !important;
   line-height: 1.5 !important;
+  border: none !important;
+  vertical-align: top !important;
 }
-.news table th { font-weight: 600 !important; white-space: nowrap; padding-right: 0.8rem; }
-.news table td { padding-top: 0 !important; }
+.news table th {
+  width: 130px !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+  padding: 0.25rem 0.9rem 0.25rem 0 !important;
+}
+.news table td {
+  padding: 0.25rem 0 !important;
+}
 
 /* 슬라이더 아래 섹션 겹침 방지 */
 .news, .publications, .post-list, h2 { clear: both; }
@@ -88,6 +102,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   line-height: 1.45;
   font-weight: 400 !important;
 }
+.publications .author { margin-bottom: 0.15rem !important; }
 .publications .author em,
 .publications .author strong { font-weight: 600 !important; }
 /* ===== 라이트 모드: 색상 ===== */
@@ -113,6 +128,7 @@ html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light
 html[data-theme="light"] .post-title,
 html[data-theme="light"] .news .date,
 html[data-theme="light"] .news table th { color: #191919 !important; }
+html[data-theme="light"] .news table td { color: #5A5A5A !important; }
 html[data-theme="light"] .post-header .desc,
 html[data-theme="light"] p.desc { color: #2E2E2E !important; }
 html[data-theme="light"] .kimlab-text p { color: #191919 !important; }
@@ -133,6 +149,8 @@ html[data-theme="dark"] .post-header .desc,
 html[data-theme="dark"] p.desc { color: #D5D5D5 !important; }
 html[data-theme="dark"] .kimlab-text p { color: #FCFCFC !important; }
 html[data-theme="dark"] .pub-note { color: #8F8F8F !important; }
+html[data-theme="dark"] .news table th { color: #FCFCFC !important; }
+html[data-theme="dark"] .news table td { color: #B0B0B0 !important; }
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .author,
 html[data-theme="dark"] .publications .periodical { color: #B0B0B0 !important; }
@@ -141,9 +159,11 @@ html[data-theme="dark"] .publications .author .more-authors { color: #B0B0B0 !im
 html[data-theme="dark"] .publications .author em,
 html[data-theme="dark"] .publications .author strong { color: #86CFDA !important; }
 
-/* ===== 슬라이더 ===== */
+/* ===== 슬라이더 =====
+   margin 첫 값(-120px)이 슬라이더 높이를 결정한다.
+   더 올리려면 -140px, 내리려면 -100px                          */
 .kimlab-intro::after { content: ""; display: block; clear: both; }
-.kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -100px 0 1.5rem 2rem; }
+.kimlab-slider { float: right; width: 300px; max-width: 100%; margin: -120px 0 1.5rem 2rem; }
 
 .kimlab-slides { display: grid; }
 .kimlab-slide {
@@ -188,6 +208,7 @@ html[data-theme="dark"] .publications .author strong { color: #86CFDA !important
   }
   .kimlab-text p { font-size: 0.89rem; }
   .news table th, .news table td, .news p, .news li { font-size: 0.8rem !important; }
+  .news table th { width: 108px !important; padding-right: 0.7rem !important; }
   .publications .title { font-size: 0.94rem !important; }
   .publications .author, .publications .periodical { font-size: 0.78rem !important; }
   .pub-note { font-size: 0.73rem; }
