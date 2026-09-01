@@ -64,7 +64,10 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   clear: both;
 }
 
-/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 (모바일에서도 같은 배치 유지) ===== */
+/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 =====
+   사진 높이는 텍스트 블록을 따라가고,
+   position/top 으로 크기 변화 없이 위치만 올린다.
+   더 올리려면 top 값을 -0.9rem 처럼 키울 것                    */
 .pi-header {
   display: flex;
   align-items: stretch;
@@ -84,6 +87,8 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   max-height: 145px;
   min-height: 112px;
   margin-right: 0.5rem;
+  position: relative;
+  top: -0.6rem;
   border-radius: 50%;
   overflow: hidden;
   background-color: var(--global-bg-color);
@@ -140,7 +145,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   .tm-group { font-size: 1.18rem; margin: 2.1rem 0 0.95rem 0; }
   .tm-group.first { margin-top: 1.3rem; }
   .pi-header { gap: 1rem; margin-bottom: 1rem; }
-  .pi-photo-wrap { max-height: 115px; min-height: 82px; margin-right: 0; }
+  .pi-photo-wrap { max-height: 115px; min-height: 82px; margin-right: 0; top: -0.35rem; }
   .pi-name { font-size: 1.1rem; }
   .pi-links a { font-size: 0.95rem; }
   .pi-role { font-size: 0.82rem; line-height: 1.45; margin-bottom: 0.6rem; }
