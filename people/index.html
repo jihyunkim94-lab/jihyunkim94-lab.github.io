@@ -6,17 +6,19 @@
     initTheme();
   </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Kim Lab </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">Home </a> </li> <li class="nav-item active"> <a class="nav-link" href="/people/">Team <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/research/">Research </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">Publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/news/">News </a> </li> <li class="nav-item "> <a class="nav-link" href="/photos/">Photos </a> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Team</h1> <p class="post-description"></p> </header> <article> <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 /* ===== 탭 이동 시 전체 축 밀림 방지 ===== */
 html {
   scrollbar-gutter: stable;
   overflow-y: scroll;
 }
 body { overflow-x: clip; }
-/* Inter 폰트 — 커스텀 클래스까지 명시 */
+/* 폰트 — 영문은 Inter, 한글은 Pretendard 로 자동 전환 */
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
 .tm-group, .tm-note, .tm-body,
-.pi-section, .pi-name, .pi-role, .pi-contact, .pi-adv {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
+.pi-section, .pi-name, .pi-role, .pi-contact, .pi-adv, .pi-kr {
+  font-family: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Malgun Gothic", sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
@@ -63,7 +65,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   clear: both;
 }
 
-/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 =====
+/* ===== PI 헤더: 이름줄 ~ 연락처 + 사진 =====
    사진 높이는 텍스트 블록을 따라가고,
    position/top 으로 크기 변화 없이 위치만 올린다.
    더 올리려면 top 값을 -0.9rem 처럼 키울 것                    */
@@ -111,8 +113,11 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 .pi-links a:hover { opacity: 1; transform: translateY(-1px); }
 .pi-role { font-size: 0.88rem; line-height: 1.5; margin-bottom: 0.8rem; }
-.pi-contact { font-size: 0.86rem; margin-bottom: 0; }
+.pi-contact { font-size: 0.86rem; line-height: 1.6; margin-bottom: 0; }
+.pi-contact + .pi-contact { margin-top: 0.12rem; }
 .pi-contact .label { font-weight: 700; display: inline-block; width: 60px; }
+/* 한글은 Latin 대비 시각적으로 넓고 가늘게 보이므로 자간을 좁히고 한 단계 굵게 */
+.pi-kr { letter-spacing: -0.025em; font-weight: 500; }
 
 /* ===== 이력 표 ===== */
 .pi-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
@@ -144,7 +149,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   .tm-group { font-size: 1.18rem; margin: 2.1rem 0 0.95rem 0; }
   .tm-group.first { margin-top: 1.3rem; }
   .pi-header { gap: 1rem; margin-bottom: 1rem; }
-  .pi-photo-wrap { max-height: 115px; min-height: 82px; margin-right: 0; top: -0.35rem; }
+  .pi-photo-wrap { max-height: 125px; min-height: 90px; margin-right: 0; top: -0.35rem; }
   .pi-name { font-size: 1.1rem; }
   .pi-links a { font-size: 0.95rem; }
   .pi-role { font-size: 0.82rem; line-height: 1.45; margin-bottom: 0.6rem; }
@@ -182,6 +187,7 @@ html[data-theme="light"] .tm-group,
 html[data-theme="light"] .pi-name,
 html[data-theme="light"] .pi-table td,
 html[data-theme="light"] .pi-contact .label,
+html[data-theme="light"] .pi-kr,
 html[data-theme="light"] .tm-body { color: #191919 !important; }
 html[data-theme="light"] .pi-section { color: #8A8A8A !important; }
 html[data-theme="light"] .tm-note { color: #9A9A9A !important; }
@@ -197,6 +203,7 @@ html[data-theme="dark"] .tm-group,
 html[data-theme="dark"] .pi-name,
 html[data-theme="dark"] .pi-table td,
 html[data-theme="dark"] .pi-contact .label,
+html[data-theme="dark"] .pi-kr,
 html[data-theme="dark"] .tm-body { color: #FCFCFC !important; }
 html[data-theme="dark"] .pi-section { color: #909090 !important; }
 html[data-theme="dark"] .tm-note { color: #7F7F7F !important; }
@@ -207,7 +214,7 @@ html[data-theme="dark"] .tm-group { border-top-color: rgba(252,252,252,0.42) !im
 html[data-theme="dark"] .pi-section { border-top-color: rgba(252,252,252,0.18) !important; }
 html[data-theme="dark"] .pi-links a { color: #86CFDA !important; }
 html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
-</style> <div class="tm-group first">Principal Investigator</div> <div class="pi-header"> <div class="pi-header-text"> <div class="pi-namerow"> <span class="pi-name">Jihyun Kim, Ph.D.</span> <span class="pi-links"> <a href="/assets/pdf/CV_JIHYUN_KIM.pdf" target="_blank" title="Curriculum Vitae"><i class="ai ai-cv"></i></a> <a href="https://scholar.google.com/citations?hl=ko&amp;user=68-RYuUAAAAJ" target="_blank" title="Google Scholar" rel="external nofollow noopener"><i class="ai ai-google-scholar"></i></a> </span> </div> <div class="pi-role"> Assistant Professor<br> Dept. of Intelligent Semiconductor Engineering, Ajou University </div> <div class="pi-contact"> <span class="label">Email</span> <a href="mailto:jhkim94@ajou.ac.kr">jhkim94@ajou.ac.kr</a> </div> </div> <div class="pi-photo-wrap"> <img class="pi-photo" src="/assets/img/prof_pic.jpg" alt="Jihyun Kim"> </div> </div> <div class="pi-section">Professional Position</div> <table class="pi-table"> <tr> <td class="when">2026.09 – Present</td> <td>Assistant Professor, Department of Intelligent Semiconductor Engineering, Ajou University, Republic of Korea</td> </tr> <tr> <td class="when">2025.09 – 2026.08</td> <td>Postdoctoral Fellow, Research Laboratory of Electronics, Massachusetts Institute of Technology, United States <span class="pi-adv">(Advisor: <a href="https://sites.google.com/view/scheema/home" target="_blank" rel="noopener noreferrer">Prof. Suraj Cheema</a>)</span> </td> </tr> <tr> <td class="when">2025.03 – 2025.08</td> <td>Postdoctoral Fellow, Department of Chemical and Biomolecular Engineering, Yonsei University, Republic of Korea <span class="pi-adv">(Advisor: <a href="https://sites.google.com/yonsei.ac.kr/mfmp/home" target="_blank" rel="noopener noreferrer">Prof. Joohoon Kang</a>)</span> </td> </tr> </table> <div class="pi-section">Education</div> <table class="pi-table"> <tr> <td class="when">2019.03 – 2025.02</td> <td>M.S. &amp; Ph.D., Department of Advanced Materials Science and Engineering, Sungkyunkwan University, Republic of Korea <span class="pi-adv">(Advisor: <a href="https://sites.google.com/yonsei.ac.kr/mfmp/home" target="_blank" rel="noopener noreferrer">Prof. Joohoon Kang</a>)</span> </td> </tr> <tr> <td class="when">2013.03 – 2019.02</td> <td>B.S., School of Chemical Engineering, Sungkyunkwan University, Republic of Korea</td> </tr> </table> <div class="pi-end"></div> <div class="tm-group">Graduate Students</div> <div class="tm-note">Recruiting — see Open Positions below.</div> <div class="tm-group">Undergraduate Researchers</div> <div class="tm-note">Recruiting — see Open Positions below.</div> <div class="tm-group">Open Positions</div> <div class="tm-body"> Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in electrical engineering, materials science, chemical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know. </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jihyun Kim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+</style> <div class="tm-group first">Principal Investigator</div> <div class="pi-header"> <div class="pi-header-text"> <div class="pi-namerow"> <span class="pi-name">Jihyun Kim, Ph.D.</span> <span class="pi-links"> <a href="/assets/pdf/CV_JIHYUN_KIM.pdf" target="_blank" title="Curriculum Vitae"><i class="ai ai-cv"></i></a> <a href="https://scholar.google.com/citations?hl=ko&amp;user=68-RYuUAAAAJ" target="_blank" title="Google Scholar" rel="external nofollow noopener"><i class="ai ai-google-scholar"></i></a> </span> </div> <div class="pi-role"> Assistant Professor<br> Dept. of Intelligent Semiconductor Engineering, Ajou University </div> <div class="pi-contact"> <span class="label">Email</span> <a href="mailto:jhkim94@ajou.ac.kr">jhkim94@ajou.ac.kr</a> </div> <div class="pi-contact"> <span class="label">Office</span> <span class="pi-kr">에너지센터 213호</span> </div> </div> <div class="pi-photo-wrap"> <img class="pi-photo" src="/assets/img/prof_pic.jpg" alt="Jihyun Kim"> </div> </div> <div class="pi-section">Professional Position</div> <table class="pi-table"> <tr> <td class="when">2026.09 – Present</td> <td>Assistant Professor, Department of Intelligent Semiconductor Engineering, Ajou University, Republic of Korea</td> </tr> <tr> <td class="when">2025.09 – 2026.08</td> <td>Postdoctoral Fellow, Research Laboratory of Electronics, Massachusetts Institute of Technology, United States <span class="pi-adv">(Advisor: <a href="https://sites.google.com/view/scheema/home" target="_blank" rel="noopener noreferrer">Prof. Suraj Cheema</a>)</span> </td> </tr> <tr> <td class="when">2025.03 – 2025.08</td> <td>Postdoctoral Fellow, Department of Chemical and Biomolecular Engineering, Yonsei University, Republic of Korea <span class="pi-adv">(Advisor: <a href="https://sites.google.com/yonsei.ac.kr/mfmp/home" target="_blank" rel="noopener noreferrer">Prof. Joohoon Kang</a>)</span> </td> </tr> </table> <div class="pi-section">Education</div> <table class="pi-table"> <tr> <td class="when">2019.03 – 2025.02</td> <td>M.S. &amp; Ph.D., Department of Advanced Materials Science and Engineering, Sungkyunkwan University, Republic of Korea <span class="pi-adv">(Advisor: <a href="https://sites.google.com/yonsei.ac.kr/mfmp/home" target="_blank" rel="noopener noreferrer">Prof. Joohoon Kang</a>)</span> </td> </tr> <tr> <td class="when">2013.03 – 2019.02</td> <td>B.S., School of Chemical Engineering, Sungkyunkwan University, Republic of Korea</td> </tr> </table> <div class="pi-end"></div> <div class="tm-group">Graduate Students</div> <div class="tm-note">Recruiting — see Open Positions below.</div> <div class="tm-group">Undergraduate Researchers</div> <div class="tm-note">Recruiting — see Open Positions below.</div> <div class="tm-group">Open Positions</div> <div class="tm-body"> Kim Lab is recruiting <strong>graduate students</strong> (M.S. / Ph.D.) and <strong>undergraduate interns</strong> starting September 2026. We welcome students with backgrounds in electrical engineering, materials science, chemical engineering, chemistry, or physics — and, more importantly, a willingness to learn what they do not yet know. </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jihyun Kim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false
   };
