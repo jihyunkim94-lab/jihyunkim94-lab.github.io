@@ -7,17 +7,19 @@ nav_order: 2
 ---
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 /* ===== 탭 이동 시 전체 축 밀림 방지 ===== */
 html {
   scrollbar-gutter: stable;
   overflow-y: scroll;
 }
 body { overflow-x: clip; }
-/* Inter 폰트 — 커스텀 클래스까지 명시 */
+/* 폰트 — 영문은 Inter, 한글은 Pretendard 로 자동 전환 */
 body, p, li, td, .navbar, .navbar-brand, h1, h2, h3, h4, h5, h6,
 .tm-group, .tm-note, .tm-body,
-.pi-section, .pi-name, .pi-role, .pi-contact, .pi-adv {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
+.pi-section, .pi-name, .pi-role, .pi-contact, .pi-adv, .pi-kr {
+  font-family: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Malgun Gothic", sans-serif !important;
 }
 h1, h2, h3, .navbar-brand { font-weight: 700 !important; letter-spacing: -0.02em; }
 body { font-weight: 400; letter-spacing: -0.005em; }
@@ -64,7 +66,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   clear: both;
 }
 
-/* ===== PI 헤더: 이름줄 ~ 이메일줄 + 사진 =====
+/* ===== PI 헤더: 이름줄 ~ 연락처 + 사진 =====
    사진 높이는 텍스트 블록을 따라가고,
    position/top 으로 크기 변화 없이 위치만 올린다.
    더 올리려면 top 값을 -0.9rem 처럼 키울 것                    */
@@ -112,8 +114,11 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 }
 .pi-links a:hover { opacity: 1; transform: translateY(-1px); }
 .pi-role { font-size: 0.88rem; line-height: 1.5; margin-bottom: 0.8rem; }
-.pi-contact { font-size: 0.86rem; margin-bottom: 0; }
+.pi-contact { font-size: 0.86rem; line-height: 1.6; margin-bottom: 0; }
+.pi-contact + .pi-contact { margin-top: 0.12rem; }
 .pi-contact .label { font-weight: 700; display: inline-block; width: 60px; }
+/* 한글은 Latin 대비 시각적으로 넓고 가늘게 보이므로 자간을 좁히고 한 단계 굵게 */
+.pi-kr { letter-spacing: -0.025em; font-weight: 500; }
 
 /* ===== 이력 표 ===== */
 .pi-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
@@ -145,7 +150,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   .tm-group { font-size: 1.18rem; margin: 2.1rem 0 0.95rem 0; }
   .tm-group.first { margin-top: 1.3rem; }
   .pi-header { gap: 1rem; margin-bottom: 1rem; }
-  .pi-photo-wrap { max-height: 115px; min-height: 82px; margin-right: 0; top: -0.35rem; }
+  .pi-photo-wrap { max-height: 125px; min-height: 90px; margin-right: 0; top: -0.35rem; }
   .pi-name { font-size: 1.1rem; }
   .pi-links a { font-size: 0.95rem; }
   .pi-role { font-size: 0.82rem; line-height: 1.45; margin-bottom: 0.6rem; }
@@ -183,6 +188,7 @@ html[data-theme="light"] .tm-group,
 html[data-theme="light"] .pi-name,
 html[data-theme="light"] .pi-table td,
 html[data-theme="light"] .pi-contact .label,
+html[data-theme="light"] .pi-kr,
 html[data-theme="light"] .tm-body { color: #191919 !important; }
 html[data-theme="light"] .pi-section { color: #8A8A8A !important; }
 html[data-theme="light"] .tm-note { color: #9A9A9A !important; }
@@ -198,6 +204,7 @@ html[data-theme="dark"] .tm-group,
 html[data-theme="dark"] .pi-name,
 html[data-theme="dark"] .pi-table td,
 html[data-theme="dark"] .pi-contact .label,
+html[data-theme="dark"] .pi-kr,
 html[data-theme="dark"] .tm-body { color: #FCFCFC !important; }
 html[data-theme="dark"] .pi-section { color: #909090 !important; }
 html[data-theme="dark"] .tm-note { color: #7F7F7F !important; }
@@ -227,6 +234,9 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
     </div>
     <div class="pi-contact">
       <span class="label">Email</span> <a href="mailto:jhkim94@ajou.ac.kr">jhkim94@ajou.ac.kr</a>
+    </div>
+    <div class="pi-contact">
+      <span class="label">Office</span> <span class="pi-kr">에너지센터 213호</span>
     </div>
   </div>
   <div class="pi-photo-wrap">
