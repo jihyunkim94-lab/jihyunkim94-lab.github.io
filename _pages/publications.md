@@ -52,30 +52,6 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   margin: 1.2rem 0 0.6rem 0 !important;
 }
 
-/* ===== 구역 헤더 ===== */
-.pub-era {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 2.6rem 0 0.8rem 0;
-  padding-bottom: 0.65rem;
-  border-bottom: 1px solid;
-}
-.pub-era.first { margin-top: 0.4rem; }
-.pub-era-tag {
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.55rem;
-  border-radius: 3px;
-  background: var(--global-theme-color);
-  color: #FCFCFC;
-}
-.pub-era-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
-.pub-era-range { font-size: 0.82rem; font-weight: 500; margin-left: auto; font-variant-numeric: tabular-nums; }
-
 /* ===== 논문 번호 (자동 계산) ===== */
 .publications ol.bibliography { padding-left: 0; }
 .publications ol.bibliography > li {
@@ -134,10 +110,6 @@ html[data-theme="light"] .publications h2.year,
 html[data-theme="light"] .publications .year,
 html[data-theme="light"] hr { border-color: rgba(25,25,25,0.14) !important; }
 
-html[data-theme="light"] .pub-era { border-bottom-color: rgba(25,25,25,0.22); }
-html[data-theme="light"] .pub-era-title { color: #191919; }
-html[data-theme="light"] .pub-era-range { color: #8A8A8A; }
-
 /* ===== 다크 모드: 색상 ===== */
 html[data-theme="dark"] .publications .title { color: #FCFCFC !important; }
 html[data-theme="dark"] .publications .author,
@@ -153,29 +125,10 @@ html[data-theme="dark"] .publications ol.bibliography > li::before { color: #FCF
 html[data-theme="dark"] .publications h2.year,
 html[data-theme="dark"] .publications .year,
 html[data-theme="dark"] hr { border-color: rgba(252,252,252,0.45) !important; }
-
-html[data-theme="dark"] .pub-era { border-bottom-color: rgba(252,252,252,0.45); }
-html[data-theme="dark"] .pub-era-title { color: #FCFCFC; }
-html[data-theme="dark"] .pub-era-range { color: #B0B0B0; }
 </style>
 
 <div class="publications">
-
-<div class="pub-era first">
-  <span class="pub-era-tag">At Ajou</span>
-  <span class="pub-era-title">Ajou University</span>
-  <span class="pub-era-range">2026 – Present</span>
-</div>
-
-{% bibliography --group_by none --query @*[ajou=true]* %}
-
-<div class="pub-era">
-  <span class="pub-era-tag">Before Ajou</span>
-  <span class="pub-era-range">2020 – 2026</span>
-</div>
-
-{% bibliography --query @*[ajou!=true]* %}
-
+{% bibliography %}
 </div>
 
 <script>
@@ -183,17 +136,9 @@ html[data-theme="dark"] .pub-era-range { color: #B0B0B0; }
   function run() {
     var root = document.querySelector(".publications");
     if (!root) return;
-    var all = root.querySelectorAll("ol.bibliography > li");
-    var seen = {};
-    var shown = [];
-    all.forEach(function (li) {
-      var t = li.querySelector(".title");
-      var key = (t ? t.textContent : li.textContent).trim().toLowerCase();
-      if (seen[key]) { li.style.display = "none"; }
-      else { seen[key] = true; shown.push(li); }
-    });
-    var n = shown.length;
-    shown.forEach(function (li, i) { li.setAttribute("data-num", n - i); });
+    var items = Array.prototype.slice.call(root.querySelectorAll("ol.bibliography > li"));
+    var n = items.length;
+    items.forEach(function (li, i) { li.setAttribute("data-num", n - i); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
