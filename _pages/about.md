@@ -4,7 +4,7 @@ title: Home
 permalink: /
 nav: false
 nav_order: 1
-subtitle: Department of Intelligent Semiconductor Engineering, Ajou University
+subtitle: Department of Intelligence Semiconductor Engineering, Ajou University
 news: true
 selected_papers: true
 social: true
