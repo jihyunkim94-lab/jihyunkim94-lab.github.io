@@ -19,6 +19,14 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .navbar .navbar-nav, .navbar ul { margin-left: 2rem !important; margin-right: auto !important; }
 .navbar .container, .navbar .container-fluid, .navbar > div { justify-content: flex-start !important; }
 
+/* ===== 저널 배지 숨김 (이 페이지만, Home은 유지) ===== */
+.publications .abbr { display: none !important; }
+.publications ol.bibliography > li .row > div:not(.abbr) {
+  flex: 1 1 auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
 /* ===== 테마 공통: 크기 / 굵기 / 간격 ===== */
 .publications .title,
 .publications ol.bibliography > li > div:not(.abbr) > .title {
@@ -44,7 +52,7 @@ body { font-weight: 400; letter-spacing: -0.005em; }
   margin: 1.2rem 0 0.6rem 0 !important;
 }
 
-/* ===== 구역 헤더 (Ajou / 이전 연구) ===== */
+/* ===== 구역 헤더 ===== */
 .pub-era {
   display: flex;
   align-items: baseline;
@@ -68,17 +76,15 @@ body { font-weight: 400; letter-spacing: -0.005em; }
 .pub-era-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
 .pub-era-range { font-size: 0.82rem; font-weight: 500; margin-left: auto; font-variant-numeric: tabular-nums; }
 
-/* ===== 논문 번호 (전체 43편, 두 구역 연속) ===== */
-.publications { counter-reset: pubnum 44; }
+/* ===== 논문 번호 (자동 계산) ===== */
 .publications ol.bibliography { padding-left: 0; }
 .publications ol.bibliography > li {
-  counter-increment: pubnum -1;
   position: relative;
   padding-left: 2.9rem;
   list-style: none;
 }
-.publications ol.bibliography > li::before {
-  content: "(" counter(pubnum) ")";
+.publications ol.bibliography > li[data-num]::before {
+  content: "(" attr(data-num) ")";
   position: absolute;
   left: 0;
   top: 0.25rem;
@@ -121,9 +127,6 @@ html[data-theme="light"] .publications .author .more-authors { color: #5A5A5A !i
 html[data-theme="light"] .publications .author em,
 html[data-theme="light"] .publications .author strong { color: #651FFF !important; }
 
-html[data-theme="light"] .abbr abbr, html[data-theme="light"] .abbr .badge,
-html[data-theme="light"] abbr.badge, html[data-theme="light"] .badge { color: #FCFCFC !important; }
-
 html[data-theme="light"] .publications h2.year,
 html[data-theme="light"] .publications .year { color: rgba(25,25,25,0.28) !important; }
 html[data-theme="light"] .publications ol.bibliography > li::before { color: #A8A8A8; }
@@ -159,7 +162,7 @@ html[data-theme="dark"] .pub-era-range { color: #B0B0B0; }
 <div class="publications">
 
 <div class="pub-era first">
-  <span class="pub-era-tag">Independent Career</span>
+  <span class="pub-era-tag">At Ajou</span>
   <span class="pub-era-title">Ajou University</span>
   <span class="pub-era-range">2026 – Present</span>
 </div>
@@ -167,11 +170,32 @@ html[data-theme="dark"] .pub-era-range { color: #B0B0B0; }
 {% bibliography --group_by none --query @*[ajou=true]* %}
 
 <div class="pub-era">
-  <span class="pub-era-tag">Ph.D. &amp; Postdoctoral Research</span>
-  <span class="pub-era-title">SKKU · Yonsei · MIT</span>
+  <span class="pub-era-tag">Before Ajou</span>
   <span class="pub-era-range">2020 – 2026</span>
 </div>
 
 {% bibliography --query @*[ajou!=true]* %}
 
 </div>
+
+<script>
+(function () {
+  function run() {
+    var root = document.querySelector(".publications");
+    if (!root) return;
+    var all = root.querySelectorAll("ol.bibliography > li");
+    var seen = {};
+    var shown = [];
+    all.forEach(function (li) {
+      var t = li.querySelector(".title");
+      var key = (t ? t.textContent : li.textContent).trim().toLowerCase();
+      if (seen[key]) { li.style.display = "none"; }
+      else { seen[key] = true; shown.push(li); }
+    });
+    var n = shown.length;
+    shown.forEach(function (li, i) { li.setAttribute("data-num", n - i); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+})();
+</script>
