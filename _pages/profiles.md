@@ -230,7 +230,7 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
     </div>
     <div class="pi-role">
       Assistant Professor<br>
-      Dept. of Intelligent Semiconductor Engineering, Ajou University
+      Dept. of Intelligence Semiconductor Engineering, Ajou University
     </div>
     <div class="pi-contact">
       <span class="label">Email</span> <a href="mailto:jhkim94@ajou.ac.kr">jhkim94@ajou.ac.kr</a>
@@ -248,7 +248,7 @@ html[data-theme="dark"] .pi-photo-wrap { background-color: #1F1F1F; }
 <table class="pi-table">
   <tr>
     <td class="when">2026.09 – Present</td>
-    <td>Assistant Professor, Department of Intelligent Semiconductor Engineering, Ajou University, Republic of Korea</td>
+    <td>Assistant Professor, Department of Intelligence Semiconductor Engineering, Ajou University, Republic of Korea</td>
   </tr>
   <tr>
     <td class="when">2025.09 – 2026.08</td>
