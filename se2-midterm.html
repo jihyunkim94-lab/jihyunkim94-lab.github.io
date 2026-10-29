@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>반도체공학2 중간고사 성적조회</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: one narrow column (max 560px), form card → result card; numbers in mono, tabular. */
+  :root {
+    --bg: #f4f5f1;
+    --surface: #ffffff;
+    --fg: #16201c;
+    --muted: #5f6b66;
+    --line: #d9ded9;
+    --accent: #0f766e;
+    --accent-soft: #e2f1ee;
+    --warn: #b4530a;
+    --warn-soft: #fbeee2;
+    --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1412; --surface: #171d1a; --fg: #e8ece9; --muted: #9aa6a0; --line: #2a332e;
+      --accent: #4fc3b5; --accent-soft: #15302b; --warn: #f0a365; --warn-soft: #3a2616; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1412; --surface: #171d1a; --fg: #e8ece9; --muted: #9aa6a0; --line: #2a332e;
+    --accent: #4fc3b5; --accent-soft: #15302b; --warn: #f0a365; --warn-soft: #3a2616; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 28px 48px; min-height: 100%;
+  }
+  main { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+  header h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em; text-wrap: balance; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px 20px; }
+  form { display: flex; flex-direction: column; gap: 14px; }
+  label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); font-weight: 500; }
+  input {
+    font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); color: var(--fg); width: 100%;
+  }
+  input#sid { font-family: var(--font-mono); letter-spacing: 0.04em; }
+  input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button {
+    font: inherit; font-weight: 600; font-size: 15px; padding: 12px 16px; border-radius: 8px; border: 0;
+    background: var(--accent); color: #fff; cursor: pointer; margin-top: 4px;
+  }
+  button[disabled] { opacity: 0.6; cursor: progress; }
+  .hint { font-size: 12.5px; color: var(--muted); margin: 0; }
+  .msg { margin: 0; padding: 12px 14px; border-radius: 8px; font-size: 14px; background: var(--warn-soft); color: var(--warn); }
+  .result .who { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .result .who strong { font-size: 17px; }
+  .result .who span { font-family: var(--font-mono); color: var(--muted); font-size: 14px; }
+  .total { display: flex; align-items: baseline; gap: 8px; margin: 14px 0 18px; }
+  .total .num { font-family: var(--font-mono); font-size: 56px; font-weight: 500; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .total .den { font-family: var(--font-mono); color: var(--muted); font-size: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 9px 4px; border-bottom: 1px solid var(--line); text-align: left; }
+  th { font-weight: 500; color: var(--muted); font-size: 12.5px; }
+  td.n, th.n { text-align: right; font-family: var(--font-mono); }
+  td.bar { width: 34%; }
+  .track { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .fill { height: 100%; background: var(--accent); border-radius: 3px; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
+  .stat { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; }
+  .stat .k { font-size: 12px; color: var(--muted); }
+  .stat .v { font-family: var(--font-mono); font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .note { font-size: 13px; color: var(--muted); margin: 16px 0 0; }
+  .note b { color: var(--fg); font-weight: 600; }
+  footer { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  footer p { margin: 0 0 4px; }
+  @media (prefers-reduced-motion: no-preference) { .fill { transition: width .5s ease-out; } }
+</style>
+</head>
+<body>
+
+
+<main>
+  <header>
+    <div class="eyebrow">2026학년도 2학기 · C077-2</div>
+    <h1>반도체공학2 중간고사 성적조회</h1>
+    <p>시험일 2026. 10. 21. · 담당 김지현 · 학번과 이름을 입력하면 본인 점수만 표시됩니다.</p>
+  </header>
+
+  <section class="card">
+    <form id="f" autocomplete="off">
+      <label for="sid">학번
+        <input id="sid" name="sid" inputmode="numeric" pattern="[0-9]*" placeholder="예: 202220000" required>
+      </label>
+      <label for="name">이름
+        <input id="name" name="name" placeholder="학적부 이름 (예: 홍길동)" required>
+      </label>
+      <button id="go" type="submit">점수 조회</button>
+      <p class="hint">점수는 이 페이지 안에서만 복호화되며 어디에도 전송되지 않습니다. 다른 학생의 점수는 조회할 수 없습니다.</p>
+    </form>
+  </section>
+
+  <p id="msg" class="msg" hidden></p>
+
+  <section id="res" class="card result" hidden>
+    <div class="who"><strong id="r-name"></strong><span id="r-sid"></span></div>
+    <div class="total"><span class="num" id="r-total">0</span><span class="den">/ 100</span></div>
+    <table aria-label="파트별 점수">
+      <thead><tr><th>파트</th><th>문항 · 배점</th><th class="n">득점</th><th class="bar"></th></tr></thead>
+      <tbody id="r-parts"></tbody>
+    </table>
+    <div class="grid">
+      <div class="stat"><div class="k">전체 평균 (n=67)</div><div class="v">85.3</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>배점 — 1번 파트 42점 (1~6번 2점×6, 7~12번 5점×6) · 2번 파트 30점 (6점×5) · 3번 파트 10점 (18~19번 각 5점) · 4번 파트 18점 (20~22번 각 6점)</p>
+    <p>이름은 띄어쓰기·대소문자와 무관하게 인식됩니다. 조회가 안 되면 학번 9자리와 학적부상 이름을 다시 확인해 주세요.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  const DATA = {"iter": 200000, "prefix": "ajou-se2-2026-2-mid|", "stats": {"n": 67, "mean": 85.3, "median": 90, "max": 100, "min": 31}, "records": [{"id": "bd95866daf14fd40b8612e97ced88ecd", "s": "3f64b5e4204f61b2498d4839cb7b672e", "iv": "c456e6f121a956f1e0869e2b", "c": "598068aec89b2b1200a098aa7513d808acccc10f22025da5cb245c8dd4c2d201d78e0e1ae81f1e19f292892573c09b1750224e68016b2be922615a4a69bfccfbcfcd5cc8fd70230770ba19b2b3ff3064e60e1453c2f08a854be3036673c3fa42ebd0d2c952fc13241269222592957b5519"}, {"id": "fadb73de9e2e419c28bff01d290a1b04", "s": "4f82610b5ffb1c8c68227c819dbe45ed", "iv": "46a42e379bfaedd2c08f3b85", "c": "cb03954e9c007418336297f9b5b84f2421c06305961d3001949b056602f26226ca5006b1d2d91fae92d0ac0521d32935659bd9757e94b05b06a1d24a66fe90b8d1bbfb2e38905ec31885c3c5d84e77fb03467ae98a9d7417b3cb364738334c9b483bb5b2f3bf5e0ad12d873ae07163606f"}, {"id": "9f194ee8dc645b3f4db257ad4064b3cb", "s": "9baec228e06654132edaad40f53ddd37", "iv": "66c1c7dd42d776154a0fc6ee", "c": "fdcdf6b3dac9b9ef5ac7078fd9c9049523751385bc02b19afb5151c4c2476da2b7d5eb6ab2126d2aa4b0d7746b6d58ce0eb25401d0c7eb58c2d3b091a694ed0a9511d6c2a3f1943056bd29318dd81e0b70305cd288a2ac072796780489b2d1a2291a5a58335eb87e4ba24665c82b8c837c37"}, {"id": "ebc08ab6518c7525c507dd6436199f06", "s": "49f58c357b8b3c0fa62ff28da68eb00a", "iv": "7fd1e688f5bf858c2d3f1c5c", "c": "97d09e10d0fb452da05dee02ba9b50105b488d8cafa32cac520ab9e11a0f2d3294bd56ca1f790d4035915c451c827d59c0b3facb318bd1735d8165aff8577ac564175ea8b2ab4dedd62389d3439c9a8da334d8166fcf3c3212d1278e46fcfd6d0fb0a678060a220cd4b6201a86ed"}, {"id": "43cc17abe72f67b4094e4c15b39b4627", "s": "3b60ebf4f5163e77f47f53fc3ad910be", "iv": "02a478d115ab927ac2b5076d", "c": "62ab35429f88542432237a2f6d31db692eb7b07e5339af3ded12eedb4d0ef330e963380495db39aed60ead0490c3a6ea20775b4217ab210a1550b312709abc1fd126168e3a2c9c3fecd4900b213c425f93f19d8c233726b2911285f286265172075531f541f47f68ffa9273fbccd1db66c"}, {"id": "48eb62c3bc098978404392891ddb4a78", "s": "204f6abdc22f0a0c8e7b51a2dd1c0440", "iv": "9533fff52b7a5f3f631fb018", "c": "affaf7220806dfa6282d5b641d0070a3fd165d4bc878599356802462795932004141168a832f8b278750a22d5061df911908b7a66fba45dd21ed3707ba66e3227c18f85a0b4d416ad9655ae4a6c7fe41e8f5d6c4e7edc206335e4ef51d87d7765008b94ec0aa71781f97c7e65fec"}, {"id": "6fa400bb6572a9c6b5dcc62fbb0e29c7", "s": "0b4bd7a56834469455875151a746caaa", "iv": "8f6ffb46d73e7388834467c9", "c": "cabc4474825ba47b20a14d4c4b3473034409576e2417eda4c510f76811c49214000f6b279cee71fb938a13bf0b463d607f9ca70f716ea99e9a8eee4fb35edc4f68524364c037a52921fdd91f3d26f48f8e34487278291e63514d1ea9c37358bc679830627eefd62bdbbf5c49ed19f4195f"}, {"id": "03dba8069e789909ab6ca8b6203d50a2", "s": "da8bd809447280fa566a62771e13c6bb", "iv": "3c4979e54406dfe6a36ed046", "c": "965b0651759569bd82420d60259ddc31da92e51f65ce8177dd81567f8b812684d531b3d26e754c948083faa011019c3174501999ba905bd3ce44dc01c29db1449c8a1c819f9ef80ce733bf0fc7859532b24f40dd1ef461a0bfb9e944601edf5fdc784fc3b3df0722c5ef4e0fc663af9504"}, {"id": "44f4b6f8a483c7a14a0f174ac3ec6be3", "s": "d1a62ba48a93d6f130128bbad2f06557", "iv": "560ce42ab05a801a36661f78", "c": "f59dfc9b11d8ad7b63182a926323ba84147082716d580c73663ddc27de028bbb7a82220419d3efc2688c85ff53571a825b008ab85847ea835b8338b8cbd3b6b1fc8f6780f1ca9afc6142943858b6734b2dc7af437b16aa567589ee41ff9c361c63179dfbc5b1b3477e9a4e54d203"}, {"id": "c4cfaeade5313cfbab36ef0ba3d7e653", "s": "5bd845fb72f53c82037974c1e4ba6e5d", "iv": "8483f1592686451034fff8f7", "c": "0453c00facbe158b06dfec9f26704f49238daa0692200e2a77c30725fc06cdf795b52df8a9de56003ccdb96b7cbb0795be7bd9e29f8b5ea75da10e005ff1c75c72ec6b827fd1afaafc2894132a08307ba83674d33ac4d0335528803cfbb92bc058152bdf9b13189d2d207f1bf3787ed7ae"}, {"id": "fb00da93c686b3ec7f0e3e9ab30c52d0", "s": "84ac94ad4027054184fc9a6ad74119ae", "iv": "b5be9d38450bb9f6d6534558", "c": "43bb48781761d141a833c8673151532f35cd80074f5b8559f181e13921af2a8afbcc9034058c2c5f3224988ab2ce0d9837c858785b113f4889c2ef61fe95467f04fb61b49e89a9ee43bb95cf697b8a848c0ae20850caca949324626e5057b5cae349ba235d1858fcc41413db66b7dc"}, {"id": "6165e1a897984c37bfd37e3bd228d234", "s": "92029731c89a57149418b3ed943c6206", "iv": "179a5ff2559d9b2084267ec2", "c": "90332d7673d502601d6b2c85e1241ba2e29de3f5d00e15b9b5f51a6266b6832886ee231643c74d5bba8f84829a4121ea8730cbec468cf1e9efb1edebd31e2a17bd56a09e0acaf033c32c74cf5609d42f6853556cf9f433b1dfc9857fb3dd6cfc9bbbf3ccd0db5a5ea0fe3f85c64be88f9b"}, {"id": "a5f9182c25d896687bf6c9c022d016ad", "s": "038e8965c2ef811f155073de29874e74", "iv": "34f77120dec403b182f529fb", "c": "1a7f453ffc39f2d0949d2ffd07349c96924e25889281e73b24ecfa9d28627635ee82cb905ec3707c577679635ccc5d4f4ac82e03e313dbaffa5fd9c479dcc5f5ddf0fe7059e0a10290c7a5ee069ebcfa1126b3fcc7ba2545192e7a6423f0831ff94e4d6e8e3b9b05fb5dcfb83731abc99add"}, {"id": "f68864f6a378d4ab92c3f32d1e0db96e", "s": "383b47450016ce411fb3e6c4ae439263", "iv": "61c05c4009aa9923543af902", "c": "1131b9593516247f4530c269322a84f213a8c4dc98e8e2d3e220598cc7ec4efb49f7ce574ab1e25d7a925e06964350519b0596066cc5146df550db043eded95e435b2ba52026431cff0ce3ff9af02d35be08aaef3e480783446661643e3ae417155021950fed3b5a0e81e3934e198af6b7"}, {"id": "35285d02d5751af16b2cbd00ce38ac7a", "s": "59676fa2d847ba84f22748fe41283123", "iv": "5f897e1618226345469dcfda", "c": "4e24d88540b3774e8987db1700e6af973d2dcdda7f68d629d000ab539fcb5e94c3a26083ac8a5f26fec09fdd21b04624f55a0dd34ef415af3e95e71a0fe069e1b1e8d78844e16632d345a586e6b005656ac5d6fcde6acec997446a84fb95feb98d77e940b719e12f9b35b84bcfc0f1a965"}, {"id": "33e7bfea4271dbceea425d859abbeac7", "s": "f0ea4d26cb8ae694a9220b5d1fb4dff6", "iv": "dcd19a094a2e1a23210db656", "c": "26eaac9dc2c9c6e71837266f93feafc7853fed9196a843183c962799686b9f8f29fa8b8bbbe7d5c49ac56e049390eaac46fb90449f52e4506ca031b1ec2e022059bb419bd7da35cecb1483e52bf332a3a176010a5c859c3838b3f239c19a9b627fbb3e9c15c860a31c92df03898c689a"}, {"id": "7e1a63041addcd069c2fba6c86fcb82c", "s": "bb4e9fbaefeb7834b20df5c0555b65b0", "iv": "19c4b30e0e05a10318a6455c", "c": "003e69017292baaa4e9ca304cb2b36925d37051a674e7d216268245f518e767a07963cd8e804bed20d3f87fa95bd1c725d4ab221f23371bd4464aee7b72877d41f79eba334f1f852d346a96d067730a95d1007c6d86ade7078246160d52732f469b0e0d1365701a04cd6ed05d23a"}, {"id": "50b02d7fcdcb948957c3576788aa1497", "s": "70d6ede5759847d4f986157c3a13e3e1", "iv": "1f8a5531c0730fa0d2e42d56", "c": "d1b9a848c8ce470251a0156c2a9decef79f00965f1fe5fb1b86cfdad3ed4a034ba867e393677522ce6b41756ba903fd1153f656fe96ce6af041357ff74bd49269b90a67228a06bf7b285a9fca5873c03d81a9c5d03d51ecc9a7345299be3c89f4722be3d77a95c9f9e1daed9b6e87b48"}, {"id": "ae98c9aac86302b883628c9e27d9bbf7", "s": "d26d5f0843f8ed882b86f53b55dd80fa", "iv": "75a34ea943b1ab2273e2e3ec", "c": "99dde199f8bedb6a488b6bbdd8bdaa192a7ade463b2ba586989d43e5ecba4708a8aa592fda8b816c1b4998cba003ac704d0614cc11017aa9c62b61a8fd716a7251bb287526ac4d449236c3765677a9fbd50cc0cc5773ce6f4cfb7350b529e28e6a7e7ddd4ce74c2998c9a67bd38c6879a7"}, {"id": "22e4aafdbd63afd0f60d95cbccab2afb", "s": "b276b65f5be50673828550f3cff7fe5d", "iv": "1eed2e011fe6bda24d70047e", "c": "85a34282d1943d4d1e572108fdb0919ea2e7431a1108fa0a96a9b7a4ebc324a82568cb7e8db3034807b045fdef6d05687f5db7bfbe5472de3e1f4e5f53968d609391a802a7a9e682fc6cad58bff8b106d5fd3e04e7b810042311b118a55675df8fa638ebdb201f2ccfdcdc343636a2d274"}, {"id": "e2073fcba434f1ede3c39d555d7db41d", "s": "2f95201449b9d6f417d43f6004be4763", "iv": "f62c12f98b5ae2f985f824ed", "c": "6e9eebb103cf00b9061a68c751235ddd08dca9e232088c9b26b0f266c5b4e70897fe55ca3adca8ac7053a73d4a31a0fb177271896272fd8cdd6cbd218d8bf4928ea85fdc2ebda7b3dac0c72190fdfabdd4324df7705477aa3913236ee0b087f91486f94cf3e06498f08f419c50ea"}, {"id": "afdaf82e4cbac9f5773f7a469a85a431", "s": "1c7fd10a786acdddde279eb0a9b7c604", "iv": "e128a4dc6395223c9e9b3bb0", "c": "e773b135c8eb5791d52a6e6febec76ac9119a9190d9ff02005301061bdf08a386ffe780611649de4acc1f42f90a22f0cafea5e001e38e6df38c4067df8a723fb8da0c4b1d15cdecb29f5cab778e37efea594987a7bc68f1ce1f0189ebe30923e5477f3353d958b95a580b8073731a0a0ae"}, {"id": "3fff9c767848f46c8a4efc080cf6bf47", "s": "e0e29295dea162c74ff0744e6209a19b", "iv": "4ae28e22789df4d5de401568", "c": "66f0d90ca5bf151cafb908068e885b029f7ac6ae84cd8ac125c4d038954a5e0fe015b74062ec045510e17848797ef332bc4184c0a330c66710b029daafea88109bbb3dc50f045658e03a96645cdc02f0e5d6b34342d6389d4f2bec908af1c39c793de155ad4414db67f8c0cc9fefb3fbb01e"}, {"id": "d8d8e6a2cde9c26975f6173bc2093e96", "s": "cdd69c1f7c05df0cd726b34aa091575a", "iv": "2e1e9026ec153c77cd7714f7", "c": "b9f6e2c018bc4a37a5124e0efdd52e350aa8e9acc5dc8f1a5263b58e51c7d72a5625e1cd4341b040175b5b693297aaa0ebda2066409f836115c54b268b303164c34b964ef2bf8481409fe4cac421c19a25f2d91d9df41524dd6c6e5eb9e44ff722327aa26eea156df42e32c9c11af5dbbefc"}, {"id": "f133485156927c1605ea291b865ad87b", "s": "981644f627349b70faecd7abc78be90a", "iv": "be735298186689bce3fde4e0", "c": "c50a473f673803d30e95d7d2626f3533026547369a020b5f447402647dd4a4d110c05d78345e0ce00067a5ee0adb0612f83064a212a19c5d91441ca6c59725f68b8f91b1baa286a4a2c09a16df5dfca84c72a7c123f1503586293c879db533b4343d0b4ebb586e63b09867fc015ddb5f39a2"}, {"id": "f3fb19efa80d28b70297dddb6ac36064", "s": "910df55f0205366e8b7289def90bebc1", "iv": "fa745dffc7eef134dcf9b4d5", "c": "c22f687020005155239a05124e4f287e451bdbe7d3ae92f6e00e84743ec49ff982aff2366a2c0b2b6b5fd8505c04c10e9a3d0b28959ca0ca54e023c24b7c17c6e94b6f0c0636d1652cd2bbe6d4b9f7dac2b53e8099fb42391c8cc7d483e94ce5ee994d7ab4d407175e735a92124ee998"}, {"id": "7683dcd8c3319aeaef6fd4a879186f1c", "s": "1b9a714d8d6a05ff04336d64483d7fb5", "iv": "df683418e6004546b5afc7b0", "c": "f8b0315fbf0f80ace0b5f3f5fc81034086792e547bf36a0b107c99ce80646ba0e2c337a1e26bd5dd3b501d893a640458bb3326fec5239cbdab10ecd72789583a88a97f83a096687240d21c76aeef15dffe8a5fd1a160271f4428c7163db1ab2fa880361134bc809b46ba5464f59710deac"}, {"id": "5959866b734c9329c4bfbe886a31040e", "s": "f18c981ada26b385c7b5b00e5408fd91", "iv": "f96d51ffc42561d21e0ff06a", "c": "6626229bbd810488c8cc316504d289a9a4530833448a17e32b4e74f5e9dad8fc7c337603efeff15351ba3b732d4f15b2e6e0ae6ef6de7f7d0f46c45307c31737d6710ee308f9bbcfe31e0c5183284c674ac4fc8325c2147095e8ea0becd7de9c02c837c18dd1baa4d1711d265dfcca2796d3"}, {"id": "d112dabce56b02d0d896217e1e98c32d", "s": "80feb37c0bc1f51d74c21c37d90a8e71", "iv": "f19d6cd0cb8657f5d49813d7", "c": "4244772f245d486bef44c6537ec685c408aeac5d06906ee8411a3e7335f14c70fb2a88f2669e95385d2de1767e18bcf8cb096a7b53bb43309d3a106402fb052a8003711cf6ee0b580c565b4a6d24f2d3e6d81bb8f78464647a35d061480b924e5cfc0bf81fece5228ccef5d6dc27996ba36d"}, {"id": "c891bfcc8ce118f3c2c506ad702e9096", "s": "f2360b87a8bec4cf7becad016a562b1a", "iv": "1dac0c1e5e8f6452834c1835", "c": "1132b0794d6f168dfde2c8a734a05007c297dba1cce641d9dd4990168c0536ee4d834c2486bd68e4a2f7fca407072f8c72de5418657c6b5137f1d7cbfed850fb7079f1594757f9310befc2395738150737798cf5ad932c2ac566a5acc882e3b6a19bfd41ead5e8fc815de24cc7ebf347c8a5"}, {"id": "d928c4cd0f54d8938097abd6f1fd7b24", "s": "45ed8bc113006b7bcbb9f0d5966a3565", "iv": "ff6ce1855e23d8d202bdec6a", "c": "cc0ef7ba61f072921b05065834510a3c541dace7d7998694a5b55b56c41628804a569c452a0a720ab0f88650fa494fddc8431dcabdb73d058bb161ecd00eaf0f8dd816645d5b917518491305f965b61b67230ec3ab8675bc5098e06929a9437790795a066370c946383d8d9995148ca056"}, {"id": "aa032aed0a07c6f203d4192834950532", "s": "a3f969565a9ec16a7d7a70a62bf3d586", "iv": "a16f675e403ad486aa4ba8c3", "c": "769b65272886e66cdb3ce74f2e11bd631e37165314911533227461e187d594da165b580e15f1cc3f4c7a290556d3b03b64a062c0a3c57850b2a22a17940ec5d8a1b89c850596c8fe315a9d3b17961a476c944b41cc2b4a533966b4a052b62ed9823b9b79c059dd74c36c602af9c1f2a267"}, {"id": "fd4073a7deb63d2fe9cc26a29203cf7d", "s": "0be239c486f64fd5e13556da38595588", "iv": "afd9d63dde1cbe0b6c18aa02", "c": "f2cddabef504c5cc860436dd6255333b2cbc5ec2e718e665165466dca8dabb4c30d82fc1915a8f2e6028ce0788ed93eef8dc2afa0530496960d4845c79692cccef76f17072d220eabfdd8c6816316d042f34cc8b791e61e1b28f4b9418842286b9e524bcc5c89925bd63c48e19587944359d"}, {"id": "7219e47ff8233c02b453c19a8648bd53", "s": "679a3461d689f29042c6060070cf8871", "iv": "185334e9842f3ff843ef3b9a", "c": "a2b141cf49bae470afaf4ba7a8a501f40a9fafb88840728152116e58c9bd00d9aed40f4a89ff42c7ffaffc583e896172a57512b89d8c1dca2b52dba08749798abc74a8c5132a7198ef03a42f55f48bf075c3b65a35760f7f12c1105a9e6d513b12892e972faf1a80daef858464ee63edb8"}, {"id": "2cdb9165ed6ef92ca6f7de92c52892a7", "s": "d92b2d79670931d5c3666c73970c3876", "iv": "b957e1756c2d83cad67c1cd1", "c": "fb6c7cbc8bb1cf12a00d3d2ba98fae633093a55630513056b8b74e7f39bcc442dfdde05ef776293983932b3a51b85d25e1bf0b1357cbdf24f740b667502e689bc2848566e00ecbdb6c12ef02c9ca7df72356a0528aa8fa4cbd98170f1b61822a3b099a669ac88a80d89ce9dcb861519c1eea"}, {"id": "0de8f8691631f9cdd8ce9b79775e6edc", "s": "ed1163ee357330d10866847ce9bcf016", "iv": "fed1ca22618d8b4afa8733f3", "c": "c3fe2aa8d441a74b0a0d3cdc804fac91bb0b2a373864a19435fd4667a61adf30ee268c0f45643ad2fdc0e33c3f4131d3b87e811599a505d670a4988bce4ba95271ed9c90d5d4d8b74ac16e5d7a84b15639808474226f3fe6a4c63f17c30ed1f548821c034f3d46c1a8473a04487ff541410a096fdb4616cb"}, {"id": "dbeb339dcc9cd6a21462e4949d414184", "s": "7cfc57d273547bc2872c5e1a18943d04", "iv": "d603e4e6ea607c101075fed2", "c": "27f9d1ca3834edcc55b82b13b0fe69d68d6793377de3344d211d34331aaba747d5678e2ae96b76d581b60c2373ef2e07f06d0daedc2fb10c99f51fe72151611e0befaf485195c8532cdbf6e963b54a24a8f9fa90051393316a78977af454096e36bfcd106ebbf643a9ce83eea442a54b60"}, {"id": "7f125c6a7382de37b83c79cd6e0623c9", "s": "714230fd405d49fd726025e99860dd0b", "iv": "5dfa57d9969809635508e258", "c": "9747249b0a66d9a7c46aa5272e00e92730742535cabf765bd7b9501a4a8751d85874b5b9949ba8764b45cf02c41c60101869e6e52450e2017256e7a2cb0c77afa6f7d5d671b7f43eafaddfd2276935b06f557be7507494a6634b7e9a1d5e137bae763dee91ef7eb29f763c1fb0d37b8c70"}, {"id": "2d3c6afa98154e88df8379166d51d7cc", "s": "39acde3d3221df2dd461bcc69371b881", "iv": "412562b925d3fa2faf9bc281", "c": "cc9df5abad189b2542f16710f46d21ee237826699ee792297e2546311b8159ded07dc400dcf766b291e6c0d390ad91126a3a127b3521204c7c5450d78bf885e82f2abfdde793fc2461aacea97bde3efd69188ea946aff188e7fb9a204cc7f954a4de0b605a1a263c357c670cc7d714a35e5c"}, {"id": "2e5998f91d3ccb12e129c4866442ee51", "s": "2d131e2326d1cbd33c85f1dbb4520414", "iv": "1bda1499356be2215203f99c", "c": "94a41c4bf58f2036b07f65d8454f2f390ca0c8cdb58e0ee73032004c6086022f2d6011ca2195e84e1e40d61655d901fda62211ee684177f8abbac9bcf6de8c19492445d09c4ad24f726b99e5957ed4b7c47760eee351ce7d4275f1f8e411fbf22bcfca298655841ace4d2beed58ab4d944"}, {"id": "d6abe0fb4e6c77c30c73dadcc806f9b6", "s": "dd60ae6650ba95f808bdb7b66554d65e", "iv": "d36d6be7b93cccf96184b9c9", "c": "dbf3c71128044618885c0ec1b137ee2241c1d06ee8cdca4c744004c1926cbc82c92243cc0671cea914fc3be3a77e4be611aa294a124ddd34a642791e0d50049ca998d595d34c75b02f68ab8533e92190c0037c1b124ff987caab6f211eb734bb4805b78c21600a6b3a6ef7494de28609ba"}, {"id": "3f4e3bb2ebd063d09d085c619daddfa3", "s": "050926dc5bba529355bfeddf77edfe12", "iv": "d51c950ab16b5d7c0e9b9a33", "c": "50ba04b6b0d83bef8a668835f6500e3726ca5cebc636222720079f73089045a9cf7f3e9c5de15497796f14148e1cb418ba48c7bcfb85cb1ed49290850375593ee403f4c1b7dcf7bac5a3d752573d3b726628419d635a8076a25344bcc2605b178b33ded2fd15c0648fd88202037f633ad2"}, {"id": "b65ae7349cc26d739c0e5147edd4c275", "s": "14a869e2c7c8b3411c3e315330f82dda", "iv": "271d1c61a2bb9f4b3d0e7f99", "c": "9725b69af35b522e064142c7ab0fad1980f09a1c20dbd48edecc79768c0e971f29ab7c3f1cfaf15098b94340d18d464fb21220e15c6a9cb97f07f5ca845af2ba0343ff70b4c659a8dcd9ca11f7e4855dc1d319415cd2dcf73e69450e6e78f5d2b6da1d6f34343c73740844a4de26d209ccda"}, {"id": "1f45d2e9405c3d8ac75b807b99445d08", "s": "fcccc62a1d23f0d7f2a72aae61af2b11", "iv": "e2a1d05e0589b2c9e57231ff", "c": "5346f89e898e490588ca465d2346c267d2381536591dcd035c6b257dd815efce6b075322a4dd1a3d6e541ad713bde13fbb5bf737c294b218e197ca3bef02df7ee7351386352a021e6bbf38f672ce94a8833476554096d22599bd3a8e53a385d0a268f00585a32e561061206021e17a2909"}, {"id": "93c5dab56ed227cbb551dcdb9ed266a3", "s": "074fa2b092138f5d8401d4f741a23b55", "iv": "afe5b2b94ae0d2b56dab7839", "c": "4448536ef46bae8a11936481f794dc74fdd154384d503d4540a20b05c93e61e755e41c22b3083f3924c871d811adbb3e99a94b1306b57bf12fc1553b91d1b8975dc539ac339cdd1764f294b7692a2d03968a4ab1129a416dd66a26f8217ac151f9d010a6d507fe1fbf75066eabf20c94fd35"}, {"id": "b502ee01bdd06b737b7f0bf83c184462", "s": "c65a83a85c31072966cc9ff4393f790d", "iv": "a40e6f951f6a810c96d31406", "c": "37d214c655cf0b2b91fe84f4f2dcd0898ae9d808be38c40b424d4b30310e70f73242861c49e6d53f81fe342d11b91f4aa0bf2f17a021885d547c31b711d0de988cdbf201a8c6459d9dfff63d6eeac3cb5190c26a0972b43eb3b4b00da13c19093b002548d21a53cebf5f4df51a607d0bab"}, {"id": "eea7800b60aa496987500a33e2ef9398", "s": "b6bbc4d836c4d2785bce614f026746fd", "iv": "cb076f700d15564a6daa1687", "c": "3fc68bfb481d5a10e4d6c4073416714c22ffab81fcfc4252be3a1953c79fcf07efd343b58bdb2ac2ab17c54b8e45ee1cadc553f797d5be8d5e235b96ff74cac047e7f85579215c9c434408340d9b67ab7156b9614d98a35eb292675f18eaf090f50bd447a0a40ccd526266b3c672a2824c9e"}, {"id": "2bb6304168389f49610a5f67c059f5ce", "s": "86eceef8752bd389057649ddae30403a", "iv": "07bbe8805f2c5fa831ec9fbe", "c": "379a2ef17f057287964c710d062e9d6dd13d5303e5b31d6605459bfe0ae5c1565f66485aa82e4e047edbf470b68ae4cf6e6ee2e65c80e2aadc4433946a55a01815c5681b2d0b871f8cc5bf0f4ddff12d019b7a64372c88244953c1be0fa47c18fb9a351d0381f5303c4f7f91e2d026cfad"}, {"id": "18ecd2a363d83680cf417bbf4684f6d5", "s": "ee06486a5f25e29a62e3756c471268d4", "iv": "c0ec68931c3971e4dd0721fa", "c": "33d364824a12606be9b2f063496f6e31d4f63103d0ad4e374e6563b155036df07b5e0fd9b1170d3484ca9483abd7e6cc8bfdad8060aab46d49af4de843f9c73844ec4f809b5e2f9d2afaf76abb42842d8a119a231192db37979b273ac5fa6353a45003474427fd98a094098bf779"}, {"id": "3a2facbbae7eb3de286bf2fa29d74835", "s": "8d537210e84efeb5752f466e2d5720f2", "iv": "113c186aa66933c701d7c26b", "c": "1770641fb3b5340a749a8b31500c7b2b20b02b620b47f4c298c54ee1a2356127b43919bb908cb91b2239c04a86b39f078e75d0edb2d5ea9fe3241a178f07cf0a98dd7a70b8125106084ba636c03ffab7aea2f252ac549a879a1e88d6a7cb8c5263e6b2879aa6be5c1619cf98eab674bcb3"}, {"id": "20001bd123529ef16cd3a636775ed983", "s": "c68c0b6475644ebe845c44525d39578d", "iv": "88e295aab5ff07deb0782be8", "c": "e62a6958b99f02bf946f14db5493d03b082d55fb937846fb815960939c776979efaede2430fce4812b7f1b73c7a4d76224c156bba217b18aefa07d3653344391c64d38e0654d92feae00f6a75659c816ae12dc0fdd43662388a00162121a3cd070379e16e6eff301757e8e052e5daf33e7"}, {"id": "37d027dc8fc2c7e77f98447f3ab9d8be", "s": "ca69e299ebcce746e525653e3229bcf3", "iv": "5ed7ba731ad167ce77a5a202", "c": "0ac67653ea46b3f1a83f162bdfe6e21b22a49e0f3951bec30ce87b319eb69bb6b669a19d595345fb0fae7e1e0143b90b91bf59fe5b467201bbbed34d07deee6286fc146731b4f8caf4c617bc8e1878d55c33ed50a502d4b20af476a3cba05ed0442bc22eb935440d32d8ea0e0f11b7a200"}, {"id": "85fd14d59bb45c9a916cc29adba6f969", "s": "0e3eca2403b25fb6d8104f846b1caab9", "iv": "17fdc10d0c706c96a6eb9242", "c": "4d17b60458beca1cb501c438190f397ca750e1f7afa4028b86889b76898e93d1378ca7686e3c8e903a94c4816c1871424943b7e0129039143e7481e83d556d0f76e7d24f0d3216ff5665effa048352010010eee988a980ae52bec7132b3037907ad780feae6163c8b09a4b6f3d98cd5128"}, {"id": "abf28f63429603bf567442bb6a7ea8be", "s": "1461eec5395666f70221397d11437ad9", "iv": "f8c44a0c9019b12bb2dae1d2", "c": "60c95acbc48a5b8bf156b582cdf7114e0b2474c61662f7f34bf6413e95b915951420de19d2c6aad66fb412742c1c879777e46e4f94a14ad345a4eb42b2afcd00a7638c2b4c5dea0ee8f5b7e6029a5c59f1fc579938e4ff35af58656e434fbb21a6c580a067f0a795e17822bd2227512dad93"}, {"id": "55ec95245b08e75fdb20bc051b208c82", "s": "047fcc6f82ed003db34154e8d0a01a19", "iv": "b2bda73fe4d7355c39a2d30d", "c": "c5820918aec6983fcb4fabfccce9967a96f39e511a9d88a0d01e448bd831d5d18f21655e2c3caf2bb52c08b93c2e27ddd440e9715509133c660e4b168e23f4b939b5d350033a20b7cd1ae75b10b46ccec8ddf62523c27bc72f0a191d3e08e82dfce6aa6a32e72b6f37996d4528bd547ba0"}, {"id": "117379dde85c6f2857b6e13bd7827ee3", "s": "f88cf400965242f0181bdb677e76beb2", "iv": "e23047bf923e5359b5f3bd33", "c": "f046f0b624dd0e867b02862e447020ab2e153e6879e11832b2b4341386f9010261e78da4a7432980b34bbb4c066a0a0906eea92410d5abf51229e0f799bb884401c51a604bff59b98f55d590a9fce7126c061aa20d6885ae5c604978cb8a774fc860ed07e07ab6e857e9f891dc204b3fea68"}, {"id": "2e250dbbbc94a02677972f5b07349140", "s": "da530d3402080c2757de660ffdce17a5", "iv": "d33740c38fdbee6c66281775", "c": "2f5c993a51fd80d5c5a03b258ca7f2ac2fe33a833af208f41b0a22fbfb42ef1a67bbdf00950cdfac19c4914e2b98c157a986cb4898cd5112578d78edda462e4f128096c20a939c2e51fe2223f3b0feec06e3d7452935c4ae3424d5b8a3bad5025a7e15c2f2677349b55025580e38aecfdeb1"}, {"id": "4cf1439ae5136511336c0df4aef8f1d7", "s": "6d8bb9a77aab541e9bb5dd4303d8c441", "iv": "eb3ffce507f49aa3627ea206", "c": "5be551f1bf5ea9848085c394a8d8d2b65702ce71a47549b071127ed738b7d812ab9d77df09991b54b16701942d5ab8d9d25095c214b4e3661424b5e87ee3e9d6f5fe6f469c0c94c6e9610f5f162dbcc3a3c30673a3cb9501e3608ae8d4cfedb56c59730ec6fbeccd5264f904e91dfbc1b3"}, {"id": "b431760eba12b86fcfcd1a0cf8b10f66", "s": "5ed376473b6125efb661cd4cbb6d1446", "iv": "06b28d007533f1487c7f97e3", "c": "ad4707d2b93d532d035db2f90b04da825e843c674245fa9e680a04c42134a183dc9ff5499fc65a14d7fb3e7eae8ed4dfd3600f98bd53b75d933c4e6054778c5b2e8b7219c7281f0e786a54519a49a9dcabe5b737ef62a5fedf40afc74368446387385f9f68789439177d79d8f66d90af4a"}, {"id": "c3b4d16a4eb6ea23e5038796a5ca9be3", "s": "c14bd56d2807386210fe7296af3e74fd", "iv": "c16c03c83e9f8d827a378d55", "c": "6cd76e62bcf1c015e3edb453c5e221bb23c2fe189d49320d5ddb24a687a60c7ad6cd890ca4c17e0537e66d6b0a505fd50592d42486aed5813fb920930e0c99e3b06f4586c47d643c63bcae3c97fd4d9f5bcd654c2ed172ef450bbd0c2ade943c34834f4fe9fe739305f93e37fcb308abda31"}, {"id": "f78bc502bfd9360c89f854605c8ddf76", "s": "b9c1785d754cc3406f1043cbfce31bae", "iv": "03795f2ca131aeb8cd9336de", "c": "2604ae59a6377d8b7772d52e7d2166a45b47481880b54927883d98676c58d6afb7a5e9ad3393f98032789082b3c18889a84f41247c5f9cbcd3ed1cf04849b295631bbae6f64540216ee61e69e0bc6e0ff75c11c9c66fa2fa61165ba399134260f7761d98283d979e4035d8a85a2b1907ae2c"}, {"id": "0045c719dc8db583bf3d72634f736f1a", "s": "99b67cca7f84b385487cfd0a747127b2", "iv": "144cf7aef36355b62a7258da", "c": "fd008871ab60f3b684307f72392b3c70e69dcf7725bed8508aa8be7d18b15e807796ee52a752e79ea6461b80682c9601c3fb25da76efef1bf48ba0d4f25bfcfc37440e5eb599eb77faac784e376e279fe9695d0e9603cbb485e875ed71fb2bf97b1dea1fc5cf9ec6b99bae48851db81ca6"}, {"id": "d9b73d5f6121ec2ae8a806162edef630", "s": "24d1176fa151fd660f29454a56f9332d", "iv": "dcf464cbd6477640227bbafa", "c": "f04c283382acaefc7536f9fc8a15f9277886183fdab4c76154e060806ebe2abd1fa055e8477082ed928403f0d84aa35c95f652bb0ef236f8162e8bff09ffe4ae0458e5ac6d9221580ea50bec9daa6e486cead8ec3d019c1ec36493f98ad57023527083d7d6545df2c432da56abfdbb3c92"}, {"id": "a3d593bfe1b582b41026ff259d34dac4", "s": "c0198486e39c8d3762136ef7964a191e", "iv": "7d58a917a37db4f546378074", "c": "867b9c170676108befe01e86fef38da9345ed3032ce91b6577556d6efe15d4abaa0c3f5fd517842d6a1e702cbe8b63d4cb1cee7852851cbb40d1c79f27a6277cc2687fa8c93ae9fabf86fb946a7d0ae78775c1956fc16ff7dc1a729c04f059595cd24010ce8d6ffcde1dc1a1cf984c76"}, {"id": "e8f99b5d72e8c64735bd1c4a524cadc1", "s": "f77ca0870cd2efc13746c1d0ff96c783", "iv": "8d51085a8291b5665e897aee", "c": "848cc6053dc11ecf21df94073a21668e1402ddc0ff1bd138cefe26a3ad3c620afa2dc453c69f58007268df9c263dd3b018cfb019aff02031b676ef83ad4e53d4d234c09ba5e11fb2a1bb072a9bc3647777b776c2ed1860229540aedb5c9fef23974e1aefa8387df2f1268e34eeb04d0fb542"}, {"id": "314d4a9d30a90881e53ee4496dd7b04f", "s": "b2bb4b41b46cb3853fcd5358633336ec", "iv": "3cb4947424891a2f6a4e526e", "c": "e2756f2aad788951fbccfc94c06d70b2d00d01d669c7eb504a8270f293bf41ca247b613545af6b04d6b704164489483e7f7c1010ebb7c8049edb83eb4b09b8372bd524dc59206b2cfb43d67757a78c12adcafe1adb78e5a2394b758914c5743218a71a9bc21180e496320572fe664e72"}, {"id": "363b22b21e9e7bac6336744c7e741cf3", "s": "789b4b472e4ea05b136a7f921c692c8d", "iv": "fe4f810f2e878aee2a22bf8b", "c": "78e7df1a4ef84ad89c5d5c0043ecd9e172e5b9e08ffd9a0a2d7d48a4a124335888cd88fb8277e1f92fbe363304b919b707aa8e2657529a1fcb477e022a581b6e02bb4eef8c1e5bc96dcc683081acaace4d05ef63323861143f3db887098c25df9b62331b3dc5f3d32b579f4ae816606100"}]};
+  const PARTS = [
+    { label: "1번 파트", desc: "1~12번 · 42점", max: 42 },
+    { label: "2번 파트", desc: "13~17번 · 30점", max: 30 },
+    { label: "3번 파트", desc: "18~19번 · 10점", max: 10 },
+    { label: "4번 파트", desc: "20~22번 · 18점", max: 18 },
+  ];
+  const byId = new Map(DATA.records.map(r => [r.id, r]));
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const hex = h => new Uint8Array(h.match(/../g).map(b => parseInt(b, 16)));
+  const toHex = buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  const normName = s => s.normalize("NFC").replace(/\s+/g, "").toUpperCase();
+
+  const $ = id => document.getElementById(id);
+  const form = $("f"), msg = $("msg"), res = $("res"), go = $("go");
+
+  function show(el, on) { el.hidden = !on; }
+  function fail(text) { msg.textContent = text; show(msg, true); show(res, false); }
+
+  async function lookup(sid, name) {
+    const pw = sid + "|" + name;
+    const idBuf = await crypto.subtle.digest("SHA-256", enc.encode(DATA.prefix + pw));
+    const rec = byId.get(toHex(idBuf).slice(0, 32));
+    if (!rec) return null;
+    const base = await crypto.subtle.importKey("raw", enc.encode(pw), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", hash: "SHA-256", salt: hex(rec.s), iterations: DATA.iter },
+      base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: hex(rec.iv) }, key, hex(rec.c));
+    return JSON.parse(dec.decode(pt));
+  }
+
+  function render(d) {
+    $("r-name").textContent = d.name;
+    $("r-sid").textContent = d.sid;
+    $("r-total").textContent = d.total;
+    $("r-parts").innerHTML = PARTS.map((p, i) => {
+      const v = d.parts[i], pct = Math.round(v / p.max * 100);
+      return `<tr><td>${p.label}</td><td>${p.desc}</td><td class="n">${v} / ${p.max}</td>` +
+             `<td class="bar"><div class="track"><div class="fill" style="width:${pct}%"></div></div></td></tr>`;
+    }).join("");
+    show(msg, false); show(res, true);
+    res.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const sid = $("sid").value.replace(/\D/g, "");
+    const name = normName($("name").value);
+    if (sid.length !== 9) return fail("학번은 숫자 9자리입니다. 다시 확인해 주세요.");
+    if (!name) return fail("이름을 입력해 주세요.");
+    go.disabled = true; go.textContent = "확인 중…";
+    try {
+      const d = await lookup(sid, name);
+      if (!d) fail("일치하는 학생이 없습니다. 학번과 학적부상 이름을 다시 확인해 주세요.");
+      else render(d);
+    } catch (err) {
+      fail("조회 중 오류가 났습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.");
+    } finally {
+      go.disabled = false; go.textContent = "점수 조회";
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
